@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { PortableText } from '@portabletext/react'
 
-import { client, urlFor, projectId } from '@/lib/sanity'
+import { client, urlFor } from '@/lib/sanity'
 import {
   ARTICLE_BY_SLUG_QUERY,
   ALL_ARTICLE_SLUGS_QUERY,
@@ -22,7 +22,6 @@ export const revalidate = 60
 
 // ── Static Params ──
 export async function generateStaticParams() {
-  if (projectId === 'yourprojectid') return []
   try {
     const slugs: string[] = await client.fetch(ALL_ARTICLE_SLUGS_QUERY)
     return (slugs || []).map((slug) => ({ slug }))
@@ -74,7 +73,6 @@ export async function generateMetadata({
 
 // ── Data Fetching ──
 async function fetchArticle(slug: string) {
-  if (projectId === 'yourprojectid') return null
   try {
     return await client.fetch(ARTICLE_BY_SLUG_QUERY, { slug })
   } catch {
@@ -83,7 +81,6 @@ async function fetchArticle(slug: string) {
 }
 
 async function fetchRelated(catId: string, currentId: string) {
-  if (projectId === 'yourprojectid') return []
   try {
     return (await client.fetch(RELATED_ARTICLES_BY_CATEGORY_QUERY, { catId, currentId })) || []
   } catch {

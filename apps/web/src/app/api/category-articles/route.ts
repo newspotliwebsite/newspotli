@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { client, projectId } from '@/lib/sanity'
+import { client } from '@/lib/sanity'
 import { CATEGORY_ARTICLES_QUERY } from '@/lib/queries'
 
 export async function GET(request: Request) {
@@ -10,10 +10,6 @@ export async function GET(request: Request) {
 
   if (!slug) {
     return NextResponse.json({ error: 'Missing slug parameter' }, { status: 400 })
-  }
-
-  if (projectId === 'yourprojectid') {
-    return NextResponse.json({ articles: [] })
   }
 
   try {

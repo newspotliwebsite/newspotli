@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { client, projectId } from '@/lib/sanity'
+import { client } from '@/lib/sanity'
 import {
   CATEGORY_BY_SLUG_QUERY,
   CATEGORY_ARTICLES_QUERY,
@@ -15,7 +15,6 @@ export const revalidate = 60
 
 // ── Static Params ──
 export async function generateStaticParams() {
-  if (projectId === 'yourprojectid') return []
   try {
     const slugs: string[] = await client.fetch(ALL_CATEGORY_SLUGS_QUERY)
     return (slugs || []).map((slug) => ({ slug }))
@@ -42,7 +41,6 @@ export async function generateMetadata({
 
 // ── Data Fetching ──
 async function fetchCategory(slug: string) {
-  if (projectId === 'yourprojectid') return null
   try {
     return await client.fetch(CATEGORY_BY_SLUG_QUERY, { slug })
   } catch {
@@ -51,7 +49,6 @@ async function fetchCategory(slug: string) {
 }
 
 async function fetchArticles(slug: string, start: number, end: number) {
-  if (projectId === 'yourprojectid') return []
   try {
     return (await client.fetch(CATEGORY_ARTICLES_QUERY, { slug, start, end })) || []
   } catch {

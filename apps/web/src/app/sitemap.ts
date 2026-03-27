@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { client, projectId } from '@/lib/sanity'
+import { client } from '@/lib/sanity'
 import { ALL_CATEGORY_SLUGS_QUERY } from '@/lib/queries'
 import { groq } from 'next-sanity'
 
@@ -21,8 +21,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1.0,
     },
   ]
-
-  if (projectId === 'yourprojectid') return entries
 
   try {
     const [articles, categorySlugs] = await Promise.all([

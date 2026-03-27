@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { client, projectId } from '@/lib/sanity'
+import { client } from '@/lib/sanity'
 import { BREAKING_NEWS_QUERY } from '@/lib/queries'
 
 interface BreakingNewsItem {
@@ -21,13 +21,11 @@ const LiveRadioIcon = () => (
 export default async function BreakingTicker() {
   let breakingNews: BreakingNewsItem[] = []
 
-  if (projectId !== 'yourprojectid') {
-    try {
-      breakingNews = await client.fetch(BREAKING_NEWS_QUERY) || []
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error)
-      console.error('Failed to fetch breaking news:', errorMessage)
-    }
+  try {
+    breakingNews = await client.fetch(BREAKING_NEWS_QUERY) || []
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    console.error('Failed to fetch breaking news:', errorMessage)
   }
 
   if (!breakingNews || breakingNews.length === 0) return null

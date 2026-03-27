@@ -14,7 +14,7 @@ const TOPICS = [
 const PLATFORM_LINKS = [
   { title: 'About Us', href: '/about' },
   { title: 'Contact', href: '/contact' },
-  { title: 'Careers', href: '/careers' },
+  { title: 'Partners', href: '/partners' },
   { title: 'Privacy Policy', href: '/privacy' },
   { title: 'Terms of Service', href: '/terms' },
 ]
