@@ -131,7 +131,6 @@ function RegularCard({ article }: { article: ArticleType }) {
             target="_blank"
             rel="noopener noreferrer"
             className="text-green hover:text-green-mid transition-colors p-1"
-            onClick={(e) => e.stopPropagation()}
           >
             <WhatsAppSmall />
           </a>

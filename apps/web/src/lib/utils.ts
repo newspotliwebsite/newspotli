@@ -78,3 +78,17 @@ export function timeAgo(dateString: string): string {
   if (diffMonth < 12) return `${diffMonth} महीने पहले`
   return new Date(dateString).toLocaleDateString('hi-IN', { day: 'numeric', month: 'long', year: 'numeric' })
 }
+
+/**
+ * Format number in Indian style: 266000 → "2,66,000"
+ */
+export function formatHindiNumber(n: number): string {
+  return n.toLocaleString('en-IN')
+}
+
+/**
+ * Returns Hindi read time text: 5 → "5 मिनट में पढ़ें"
+ */
+export function readTimeText(mins: number): string {
+  return `${mins} मिनट में पढ़ें`
+}

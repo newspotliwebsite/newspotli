@@ -44,7 +44,7 @@ const TABS = [
 
 export default function CategoryClient({ slug, category, initialArticles }: CategoryClientProps) {
   const [activeTab, setActiveTab] = useState('all')
-  const [articles, setArticles] = useState<any[]>(initialArticles.length > 0 ? initialArticles : MOCK_ARTICLES)
+  const [articles, setArticles] = useState<any[]>(initialArticles)
   const [loading, setLoading] = useState(false)
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(initialArticles.length >= 12)
@@ -238,42 +238,3 @@ export default function CategoryClient({ slug, category, initialArticles }: Cate
   )
 }
 
-// ── Mock articles (when Sanity is not connected) ──
-const MOCK_ARTICLES = [
-  {
-    _id: 'm1', title: 'गेहूं की नई किस्म HD-3386 से किसानों को बम्पर पैदावार', slug: { current: 'gehun-hd-3386' },
-    excerpt: 'ICAR ने विकसित की गेहूं की नई किस्म जो सूखे में भी देती है अच्छी उपज।', publishedAt: new Date(Date.now() - 86400000).toISOString(),
-    readTime: 5, category: { title: 'खेती किसानी', slug: { current: 'kheti-kisani' }, color: '#2D5016' },
-    author: { name: 'राहुल शर्मा' }, heroImage: null,
-  },
-  {
-    _id: 'm2', title: 'प्रधानमंत्री फसल बीमा योजना: नई गाइडलाइन 2026', slug: { current: 'pmfby-2026-guidelines' },
-    excerpt: 'सरकार ने फसल बीमा योजना में किए बड़े बदलाव, किसानों को मिलेगा ज़्यादा मुआवजा।', publishedAt: new Date(Date.now() - 86400000 * 2).toISOString(),
-    readTime: 8, category: { title: 'सरकारी योजना', slug: { current: 'sarkari-yojana' }, color: '#8B1A1A' },
-    author: { name: 'अनीता देवी' }, heroImage: null,
-  },
-  {
-    _id: 'm3', title: 'मार्च 2026: मौसम विभाग का अलर्ट — भारी बारिश की संभावना', slug: { current: 'march-2026-weather-alert' },
-    excerpt: 'उत्तर भारत के कई राज्यों में अगले 48 घंटों में भारी बारिश और ओलावृष्टि की चेतावनी।', publishedAt: new Date(Date.now() - 86400000 * 3).toISOString(),
-    readTime: 4, category: { title: 'मौसम-बेमौसम', slug: { current: 'mausam-bemausam' }, color: '#0369a1' },
-    author: { name: 'विकास सिंह' }, heroImage: null,
-  },
-  {
-    _id: 'm4', title: 'ड्रोन से खेती: कैसे बदल रही है भारतीय कृषि', slug: { current: 'drone-farming-india' },
-    excerpt: 'आधुनिक ड्रोन तकनीक से कीटनाशक छिड़काव हो रहा सस्ता और प्रभावी।', publishedAt: new Date(Date.now() - 86400000 * 4).toISOString(),
-    readTime: 10, category: { title: 'तकनीक से तरक्की', slug: { current: 'takneek-se-tarakki' }, color: '#0d9488' },
-    author: { name: 'राहुल शर्मा' }, heroImage: null,
-  },
-  {
-    _id: 'm5', title: 'दूध के दाम में 15% की बढ़ोतरी: किसानों के लिए क्या बदलेगा?', slug: { current: 'milk-price-hike-2026' },
-    excerpt: 'अमूल और मदर डेयरी ने बढ़ाए दूध के दाम। क्या पशुपालकों को मिलेगा फ़ायदा?', publishedAt: new Date(Date.now() - 86400000 * 5).toISOString(),
-    readTime: 6, category: { title: 'पशु पालन', slug: { current: 'pashu-palan' }, color: '#b45309' },
-    author: { name: 'अनीता देवी' }, heroImage: null,
-  },
-  {
-    _id: 'm6', title: 'मंडी भाव: आज सरसों ₹7200/क्विंटल पर पहुंची', slug: { current: 'mandi-bhav-sarson-march' },
-    excerpt: 'राजस्थान की मंडियों में सरसों के भाव ने तोड़ा पिछले 5 साल का रिकॉर्ड।', publishedAt: new Date(Date.now() - 86400000 * 6).toISOString(),
-    readTime: 3, category: { title: 'बाजार', slug: { current: 'bazaar' }, color: '#6d28d9' },
-    author: { name: 'विकास सिंह' }, heroImage: null,
-  },
-]

@@ -126,9 +126,12 @@ export default async function ArticlePage({
 }) {
   const article = await fetchArticle(params.slug)
 
-  // If no Sanity config or article not found, show mock
-  const isMock = !article
-  const data = article || MOCK_ARTICLE
+  if (!article) {
+    const { notFound } = await import('next/navigation')
+    notFound()
+  }
+
+  const data = article
 
   const relatedArticles = article?.category?._id
     ? await fetchRelated(article.category._id, article._id)
@@ -316,10 +319,8 @@ export default async function ArticlePage({
           )}
 
           {/* Portable Text body */}
-          {data.body ? (
+          {data.body && (
             <PortableText value={data.body} components={articleComponents} />
-          ) : (
-            isMock && <MockArticleBody />
           )}
         </article>
 
@@ -401,75 +402,3 @@ export default async function ArticlePage({
   )
 }
 
-// ── Mock Data (when Sanity is not connected) ──
-const MOCK_ARTICLE = {
-  _id: 'mock-1',
-  title: 'मराठवाड़ा के किसानों की अनकही कहानी: तीन साल का सूखा और एक परिवार का संघर्ष',
-  slug: { current: 'marathwada-drought-story' },
-  excerpt: 'पानी के लिए तरसते मराठवाड़ा के गाँवों में हमने तीन साल बिताए। यह है उन किसानों की कहानी जिन्होंने सब कुछ खोकर भी उम्मीद नहीं छोड़ी।',
-  body: null,
-  heroImage: null,
-  category: { _id: 'cat-1', title: 'खेती किसानी', slug: { current: 'kheti-kisani' }, color: '#8B1A1A' },
-  author: {
-    _id: 'a-1',
-    name: 'राहुल शर्मा',
-    slug: { current: 'rahul-sharma' },
-    bio: 'ग्रामीण भारत के वरिष्ठ संवाददाता। 15 वर्षों से किसानों और गाँवों की कहानियाँ दुनिया तक पहुँचा रहे हैं।',
-    role: 'Senior Correspondent',
-    photo: null,
-  },
-  tags: ['Drought', 'Marathwada', 'Farmer'],
-  publishedAt: new Date(Date.now() - 86400000 * 2).toISOString(),
-  readTime: 12,
-  seoTitle: 'Marathwada Drought Report 2026',
-  seoDescription: 'An in-depth investigation into the three-year drought in Marathwada and its devastating impact on farming families.',
-  youtubeId: null,
-  featured: false,
-  deepStory: true,
-}
-
-// Mock body content when Sanity is not connected
-function MockArticleBody() {
-  return (
-    <div>
-      <p className="font-noto text-[17px] leading-[1.9] text-charcoal/85 mb-6">
-        मराठवाड़ा, महाराष्ट्र — जब तक आप इन सूखी ज़मीनों पर खड़े नहीं होते, तब तक आपको अंदाज़ा नहीं हो सकता कि पानी का मतलब क्या है। यहाँ के किसान तीन साल से बारिश की राह देख रहे हैं। उनके खेत सूखे पड़े हैं, कुएँ खाली हो चुके हैं, और उम्मीदें भी धीरे-धीरे सिकुड़ती जा रही हैं।
-      </p>
-
-      <h2 className="font-playfair text-2xl md:text-3xl font-black italic text-charcoal mt-12 mb-4 leading-snug border-l-4 border-gold pl-5">
-        तीन साल का इंतज़ार
-      </h2>
-
-      <p className="font-noto text-[17px] leading-[1.9] text-charcoal/85 mb-6">
-        2023 से 2026 तक, लातूर ज़िले के गाँवों में हमने पाया कि 70% से ज़्यादा किसान परिवार क़र्ज़ में डूबे हुए हैं। सरकारी राहत पैकेज पहुँचने में महीनों लग रहे हैं, और जब तक ये पहुँचते हैं, कई परिवार पलायन कर चुके होते हैं।
-      </p>
-
-      <blockquote className="relative my-10 py-6 px-8 border-l-4 border-maroon bg-maroon/[0.04] italic">
-        <span className="absolute -top-3 left-4 font-playfair text-5xl text-maroon/20 select-none leading-none">&ldquo;</span>
-        <div className="font-noto text-lg leading-relaxed text-charcoal/80">
-          हमने अपने बैल बेच दिए, ज़मीन गिरवी रख दी, फिर भी बच्चों की फीस नहीं भर पाए। अब क्या बचा है बेचने को?
-        </div>
-      </blockquote>
-
-      <p className="font-noto text-[17px] leading-[1.9] text-charcoal/85 mb-6">
-        यह बात कहते हुए 56 वर्षीय रामदास पाटिल की आँखें भर आती हैं। उनके परिवार की पाँच पीढ़ियाँ इसी ज़मीन पर खेती करती आई हैं, लेकिन आज वो ज़मीन उन्हें खिला नहीं पा रही।
-      </p>
-
-      <h2 className="font-playfair text-2xl md:text-3xl font-black italic text-charcoal mt-12 mb-4 leading-snug border-l-4 border-gold pl-5">
-        सरकारी योजनाओं का सच
-      </h2>
-
-      <p className="font-noto text-[17px] leading-[1.9] text-charcoal/85 mb-6">
-        प्रधानमंत्री फसल बीमा योजना और किसान सम्मान निधि जैसी योजनाएँ कागज़ पर तो अच्छी लगती हैं, लेकिन ज़मीनी हालात कुछ और ही बयां करते हैं। हाई-टेक प्रक्रियाओं से अनजान किसान इन योजनाओं का लाभ उठाने में असमर्थ हैं।
-      </p>
-
-      <h3 className="font-noto text-xl md:text-2xl font-bold text-charcoal mt-10 mb-3 leading-snug">
-        आगे की राह
-      </h3>
-
-      <p className="font-noto text-[17px] leading-[1.9] text-charcoal/85 mb-6">
-        विशेषज्ञों का मानना है कि ड्रिप इरिगेशन, वाटरशेड मैनेजमेंट, और रेनवाटर हार्वेस्टिंग जैसी तकनीकें मराठवाड़ा जैसे सूखा-प्रभावित क्षेत्रों के लिए जीवनदायी साबित हो सकती हैं। लेकिन इसके लिए सरकार और समुदाय दोनों को मिलकर काम करना होगा।
-      </p>
-    </div>
-  )
-}
