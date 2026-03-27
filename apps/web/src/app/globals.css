@@ -1,0 +1,274 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base Layer ─────────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #f4f0e8;
+    color: #1a1a1a;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+
+  /* Gold text selection */
+  ::selection {
+    background-color: #c8860a;
+    color: #fff;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f4f0e8;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #8b1a1a;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c8860a;
+  }
+}
+
+/* ─── Keyframe Animations ─────────────────────────────────────── */
+
+/* Fade + slide up reveal */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide in from left */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Slide in from right */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Gold shimmer sweep (for buttons / hover effects) */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Pulsing live dot */
+@keyframes livePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.6);
+    opacity: 0.5;
+  }
+}
+
+/* Ticker scroll */
+@keyframes ticker {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Underline draw (left to right) */
+@keyframes drawLine {
+  from {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  to {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/* Float up-down (decorative elements) */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Potli bag gentle sway */
+@keyframes potliSway {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+/* Icon bounce on hover */
+@keyframes iconBounce {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-6px); }
+  60% { transform: translateY(-3px); }
+}
+
+/* Rotate (loading / radio wave) */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Utility Classes ─────────────────────────────────────────── */
+@layer utilities {
+  /* Animation utilities */
+  .animate-fadeUp {
+    animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .animate-slideInLeft {
+    animation: slideInLeft 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .animate-slideInRight {
+    animation: slideInRight 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .animate-ticker {
+    animation: ticker 35s linear infinite;
+    white-space: nowrap;
+  }
+
+  .animate-marquee {
+    animation: ticker 35s linear infinite;
+    white-space: nowrap;
+  }
+
+  .animate-live-pulse {
+    animation: livePulse 1.4s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .animate-potli-sway {
+    animation: potliSway 4s ease-in-out infinite;
+    transform-origin: center top;
+  }
+
+  .animate-icon-bounce {
+    animation: iconBounce 0.5s ease;
+  }
+
+  /* Staggered animation delays */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+
+  /* Gold shimmer CTA button */
+  .btn-gold-shimmer {
+    background: linear-gradient(
+      110deg,
+      #c8860a 0%,
+      #c8860a 35%,
+      #e8b84b 50%,
+      #c8860a 65%,
+      #c8860a 100%
+    );
+    background-size: 200% auto;
+    transition: background-position 0.5s ease, transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-gold-shimmer:hover {
+    background-position: right center;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(200, 134, 10, 0.45);
+  }
+
+  /* Glassmorphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  /* Editorial category stamp */
+  .category-stamp {
+    @apply text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1;
+    letter-spacing: 0.15em;
+  }
+
+  /* Text balance for headlines */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Ink border left (article list accent) */
+  .border-ink {
+    border-left: 3px solid #c8860a;
+  }
+
+  /* Section reveal — start hidden, JS/CSS triggers fadeUp when in view */
+  .reveal {
+    opacity: 0;
+  }
+  .reveal.in-view {
+    animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  /* Cinematic image overlay */
+  .cinematic-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(26, 26, 26, 0.98) 0%,
+      rgba(26, 26, 26, 0.7) 40%,
+      rgba(26, 26, 26, 0.2) 70%,
+      transparent 100%
+    );
+  }
+
+  /* Noise texture overlay */
+  .noise-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.04;
+    z-index: 1;
+  }
+}
