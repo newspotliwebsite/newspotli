@@ -1,31 +1,50 @@
 /**
- * Shared Framer Motion animation presets for News Potli.
+ * Shared animation presets for News Potli.
  *
- * Tuned for 3G / budget-phone performance:
- * - Short durations (max 0.4s)
+ * Based on Emil Kowalski's design engineering philosophy:
+ * - Custom strong easing curves (not default CSS easings)
+ * - Asymmetric timing: enter deliberate, exit snappy
  * - GPU-only properties (opacity + transform)
- * - `once: true` on all viewport triggers (observe → fire → disconnect)
- * - No spring physics (too CPU-heavy on low-end)
+ * - once: true on viewport triggers (observe → fire → disconnect)
+ * - prefers-reduced-motion respected
+ *
+ * Performance tuned for 3G / budget Android phones:
+ * - UI animations under 300ms
+ * - No spring physics on scroll-triggered (CPU-heavy on low-end)
+ * - Springs only for interactive gestures (drag, press)
  */
 
 import type { Variants } from 'motion/react'
 
-// ── Easing ──
-export const EASE_OUT = [0, 0, 0.2, 1] as const
+// ── Easing (Emil's custom curves — stronger than CSS defaults) ──
+// "Built-in CSS easings are too weak. They lack the punch
+//  that makes animations feel intentional."
+
+/** Strong ease-out: starts fast, decelerates hard. Use for ENTERING elements. */
+export const EASE_OUT = [0.23, 1, 0.32, 1] as const
+
+/** Strong ease-in-out: for on-screen movement/morphing */
+export const EASE_IN_OUT = [0.77, 0, 0.175, 1] as const
+
+/** iOS-like drawer curve */
+export const EASE_DRAWER = [0.32, 0.72, 0, 1] as const
 
 // ── Durations ──
-export const DURATION_FAST = 0.25
-export const DURATION_NORMAL = 0.4
-export const DURATION_SLOW = 0.6
+// "UI animations should stay under 300ms."
+export const DURATION_PRESS = 0.15    // button press feedback
+export const DURATION_TOOLTIP = 0.15  // tooltips, small popovers
+export const DURATION_FAST = 0.2      // dropdowns, selects
+export const DURATION_NORMAL = 0.3    // modals, drawers, section reveals
+export const DURATION_EXIT = 0.15     // exits are FASTER than enters
 
 // ── Viewport trigger config — fire once, early ──
 export const VIEWPORT_ONCE = { once: true, amount: 0.15 } as const
 
 // ── Variant Presets ──
 
-/** Fade up from 24px below */
+/** Fade up from 20px below — the workhorse entrance */
 export const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
@@ -33,7 +52,7 @@ export const fadeInUp: Variants = {
   },
 }
 
-/** Fade in (opacity only — lightest animation) */
+/** Fade in (opacity only — lightest possible animation) */
 export const fadeIn: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -42,9 +61,9 @@ export const fadeIn: Variants = {
   },
 }
 
-/** Scale in from 0.95 + fade */
+/** Scale in from 0.96 + fade — never from scale(0) */
 export const scaleIn: Variants = {
-  hidden: { opacity: 0, scale: 0.95 },
+  hidden: { opacity: 0, scale: 0.96 },
   visible: {
     opacity: 1,
     scale: 1,
@@ -54,7 +73,7 @@ export const scaleIn: Variants = {
 
 /** Slide in from left */
 export const slideInLeft: Variants = {
-  hidden: { opacity: 0, x: -32 },
+  hidden: { opacity: 0, x: -24 },
   visible: {
     opacity: 1,
     x: 0,
@@ -64,7 +83,7 @@ export const slideInLeft: Variants = {
 
 /** Slide in from right */
 export const slideInRight: Variants = {
-  hidden: { opacity: 0, x: 32 },
+  hidden: { opacity: 0, x: 24 },
   visible: {
     opacity: 1,
     x: 0,
@@ -72,18 +91,18 @@ export const slideInRight: Variants = {
   },
 }
 
-/** Stagger container — wraps children that each have their own variants */
+/** Stagger container — 60ms between children (sweet spot per Emil: 30-80ms) */
 export const staggerContainer: Variants = {
   hidden: {},
   visible: {
     transition: {
       staggerChildren: 0.06,
-      delayChildren: 0.1,
+      delayChildren: 0.08,
     },
   },
 }
 
-/** Stagger container — faster, for grids with many items */
+/** Fast stagger — for grids with many items (40ms gap) */
 export const staggerContainerFast: Variants = {
   hidden: {},
   visible: {
@@ -92,3 +111,16 @@ export const staggerContainerFast: Variants = {
     },
   },
 }
+
+// ── Interactive presets (for whileHover / whileTap) ──
+
+/** Button/card press feedback — 0.97 scale, fast */
+export const pressFeedback = {
+  whileHover: { scale: 1.02, transition: { duration: DURATION_PRESS, ease: EASE_OUT } },
+  whileTap: { scale: 0.97, transition: { duration: DURATION_PRESS, ease: EASE_OUT } },
+} as const
+
+/** Subtle card hover lift */
+export const hoverLift = {
+  whileHover: { y: -6, transition: { duration: DURATION_FAST, ease: EASE_OUT } },
+} as const

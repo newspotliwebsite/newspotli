@@ -27,6 +27,43 @@
     font-size: var(--article-font-size);
   }
 
+  /* ── Emil Kowalski: Custom easing CSS variables ── */
+  :root {
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  /* ── Emil: prefers-reduced-motion ── */
+  /* "Reduced motion means fewer and gentler animations, not zero.
+      Keep opacity and color. Remove movement and position." */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.15s !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* ── Emil: Button press feedback ── */
+  /* "Add transform: scale(0.97) on :active. This gives instant feedback." */
+  button, a, [role="button"] {
+    transition: transform 0.15s var(--ease-out);
+  }
+  button:active, a:active, [role="button"]:active {
+    transform: scale(0.97);
+  }
+
+  /* ── Emil: Touch hover guard ── */
+  /* "Touch devices trigger hover on tap, causing false positives.
+      Gate hover animations behind this media query." */
+  @media not all and (hover: hover) and (pointer: fine) {
+    .hover-effect {
+      transform: none !important;
+    }
+  }
+
   /* Gold text selection */
   ::selection {
     background-color: #c8860a;
@@ -233,12 +270,16 @@
       #c8860a 100%
     );
     background-size: 200% auto;
-    transition: background-position 0.5s ease, transform 0.2s, box-shadow 0.2s;
+    transition: background-position 0.4s var(--ease-out), transform 0.15s var(--ease-out), box-shadow 0.2s var(--ease-out);
   }
   .btn-gold-shimmer:hover {
     background-position: right center;
     transform: translateY(-2px);
     box-shadow: 0 8px 28px rgba(200, 134, 10, 0.45);
+  }
+  .btn-gold-shimmer:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 8px rgba(200, 134, 10, 0.3);
   }
 
   /* Glassmorphism */

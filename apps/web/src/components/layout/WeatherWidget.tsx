@@ -36,9 +36,9 @@ function getWeatherEmoji(icon: string): string {
 // ── Refresh interval ──
 const REFRESH_MS = 30 * 60 * 1000 // 30 minutes
 
-// ── Animation variants ──
+// ── Animation variants (Emil: origin-aware, asymmetric exit) ──
 const dropdownVariants = {
-  hidden: { opacity: 0, y: -8, scale: 0.96 },
+  hidden: { opacity: 0, y: -6, scale: 0.97 },
   visible: {
     opacity: 1,
     y: 0,
@@ -47,9 +47,9 @@ const dropdownVariants = {
   },
   exit: {
     opacity: 0,
-    y: -8,
-    scale: 0.96,
-    transition: { duration: 0.15 },
+    y: -4,
+    scale: 0.98,
+    transition: { duration: 0.1, ease: EASE_OUT }, // exit faster than enter
   },
 }
 
@@ -152,7 +152,7 @@ export default function WeatherWidget() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="absolute top-full left-0 mt-2 w-72 bg-white shadow-xl rounded-sm border border-charcoal-100 z-50 overflow-hidden"
+            className="absolute top-full left-0 mt-2 w-72 bg-white shadow-xl rounded-sm border border-charcoal-100 z-50 overflow-hidden origin-top-left"
           >
             {/* Current weather */}
             <div className="p-4 bg-cream">

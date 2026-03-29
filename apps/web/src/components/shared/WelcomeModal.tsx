@@ -82,17 +82,19 @@ export default function WelcomeModal() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
             className="absolute inset-0 bg-charcoal/70 backdrop-blur-sm"
             onClick={handleDismiss}
           />
 
           {/* Modal — bottom sheet on mobile, centered on desktop */}
+          {/* Emil: drawer curve for mobile sheet, ease-out for desktop modal */}
+          {/* Emil: exit FASTER than enter (asymmetric timing) */}
           <motion.div
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 100 }}
-            transition={{ duration: 0.4, ease: [0, 0, 0.2, 1] }}
+            initial={{ opacity: 0, y: 80, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 60, scale: 0.97, transition: { duration: 0.15, ease: [0.23, 1, 0.32, 1] } }}
+            transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
             className="relative w-full md:max-w-lg mx-auto bg-white rounded-t-2xl md:rounded-xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
           >
             {/* Close button */}
