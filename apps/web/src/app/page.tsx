@@ -36,6 +36,7 @@ import CategoriesGrid from '@/components/home/CategoriesGrid'
 import NewsletterBanner from '@/components/home/NewsletterBanner'
 import DeepStories from '@/components/home/DeepStories'
 import MandiPriceTicker from '@/components/home/MandiPriceTicker'
+import WelcomeModal from '@/components/shared/WelcomeModal'
 
 export const revalidate = 60
 
@@ -133,6 +134,7 @@ export default async function HomePage() {
       </main>
 
       <Footer />
+      <WelcomeModal />
     </div>
   )
 }
