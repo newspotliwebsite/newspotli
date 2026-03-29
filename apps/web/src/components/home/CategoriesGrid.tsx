@@ -1,4 +1,8 @@
+'use client'
+
 import Link from 'next/link'
+import { motion } from 'motion/react'
+import { fadeInUp, staggerContainerFast, VIEWPORT_ONCE } from '@/lib/motion'
 
 interface CategoryData {
   _id: string
@@ -12,7 +16,6 @@ interface CategoryData {
   latestArticle?: { title: string }
 }
 
-// Fallback English titles for categories
 const ENGLISH_MAP: Record<string, string> = {
   'kheti-kisani': 'Farming',
   'pashu-palan': 'Livestock',
@@ -24,7 +27,6 @@ const ENGLISH_MAP: Record<string, string> = {
   'bazar': 'Market',
 }
 
-// Fallback icons
 const ICON_MAP: Record<string, string> = {
   'kheti-kisani': '🌾',
   'pashu-palan': '🐄',
@@ -36,7 +38,6 @@ const ICON_MAP: Record<string, string> = {
   'bazar': '📊',
 }
 
-// Fallback colors
 const COLOR_MAP: Record<string, string> = {
   'kheti-kisani': '#2D5016',
   'pashu-palan': '#5C2D00',
@@ -52,11 +53,17 @@ export default function CategoriesGrid({ categories }: { categories: CategoryDat
   if (!categories || categories.length === 0) return null
 
   return (
-    <section className="bg-[#faf7f0] py-16 px-4 md:px-10 lg:px-20">
+    <section className="bg-cream py-16 px-4 md:px-10 lg:px-20">
       <div className="max-w-7xl mx-auto">
 
         {/* Section Header */}
-        <div className="flex justify-between items-end border-b border-charcoal/10 pb-5 mb-10">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={VIEWPORT_ONCE}
+          variants={fadeInUp}
+          className="flex justify-between items-end border-b border-charcoal/10 pb-5 mb-10"
+        >
           <div>
             <span className="font-source text-[11px] font-black tracking-[0.2em] text-maroon uppercase block mb-1.5">Browse By Topic</span>
             <h2 className="font-playfair text-3xl md:text-4xl font-black italic text-charcoal">
@@ -66,14 +73,19 @@ export default function CategoriesGrid({ categories }: { categories: CategoryDat
           <Link href="/categories" className="hidden sm:flex items-center gap-2 text-sm font-bold text-maroon hover:text-gold transition-colors group font-source">
             All Topics
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 transition-transform group-hover:translate-x-1">
-              <line x1="5" y1="12" x2="19" y2="12"/>
-              <polyline points="12 5 19 12 12 19"/>
+              <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
             </svg>
           </Link>
-        </div>
+        </motion.div>
 
         {/* Category Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={VIEWPORT_ONCE}
+          variants={staggerContainerFast}
+          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5"
+        >
           {categories.map((category) => {
             const slug = category.slug.current
             const baseColor = category.color || COLOR_MAP[slug] || '#374151'
@@ -81,54 +93,61 @@ export default function CategoriesGrid({ categories }: { categories: CategoryDat
             const titleEn = category.titleEn || ENGLISH_MAP[slug] || ''
 
             return (
-              <Link
-                href={`/category/${slug}`}
+              <motion.div
                 key={category._id}
-                className="group relative overflow-hidden text-white shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 block rounded-sm"
-                style={{
-                  background: `linear-gradient(135deg, ${baseColor} 0%, ${baseColor}dd 50%, ${baseColor}99 100%)`,
-                }}
+                variants={fadeInUp}
+                whileHover={{ y: -8, transition: { duration: 0.2 } }}
               >
-                {/* Decorative radial highlight */}
-                <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                <Link
+                  href={`/category/${slug}`}
+                  className="group relative overflow-hidden text-white shadow-md hover:shadow-xl transition-shadow duration-300 block rounded-sm"
+                  style={{
+                    background: `linear-gradient(135deg, ${baseColor} 0%, ${baseColor}dd 50%, ${baseColor}99 100%)`,
+                  }}
+                >
+                  {/* Decorative radial highlight */}
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
-                <div className="relative p-5 md:p-6 flex flex-col min-h-[180px] md:min-h-[200px]">
-                  {/* Emoji Icon */}
-                  <span className="text-4xl mb-3 transition-transform duration-300 group-hover:-translate-y-1 block">
-                    {icon}
-                  </span>
+                  <div className="relative p-5 md:p-6 flex flex-col min-h-[180px] md:min-h-[200px]">
+                    {/* Emoji Icon */}
+                    <motion.span
+                      className="text-4xl mb-3 block"
+                      whileHover={{ y: [0, -8, 0], transition: { duration: 0.4 } }}
+                    >
+                      {icon}
+                    </motion.span>
 
-                  {/* Hindi Title */}
-                  <h3 className="font-noto font-bold text-lg md:text-xl leading-tight mb-0.5 group-hover:text-gold transition-colors duration-200">
-                    {category.title}
-                  </h3>
+                    {/* Hindi Title */}
+                    <h3 className="font-noto font-bold text-lg md:text-xl leading-tight mb-0.5 group-hover:text-gold transition-colors duration-200">
+                      {category.title}
+                    </h3>
 
-                  {/* English subtitle */}
-                  {titleEn && (
-                    <span className="font-source text-xs text-white/60 mb-auto">
-                      {titleEn}
-                    </span>
-                  )}
+                    {/* English subtitle */}
+                    {titleEn && (
+                      <span className="font-source text-xs text-white/60 mb-auto">
+                        {titleEn}
+                      </span>
+                    )}
 
-                  {/* Story Count Pill */}
-                  <div className="mt-4 flex items-center gap-2">
-                    <span className="bg-white/20 text-white text-xs px-2 py-0.5 rounded-full font-source font-bold">
-                      {category.storyCount} Stories
-                    </span>
+                    {/* Story Count Pill */}
+                    <div className="mt-4 flex items-center gap-2">
+                      <span className="bg-white/20 text-white text-xs px-2 py-0.5 rounded-full font-source font-bold">
+                        {category.storyCount} Stories
+                      </span>
+                    </div>
+
+                    {/* Arrow indicator */}
+                    <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-x-2 group-hover:translate-x-0">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-gold">
+                        <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+                      </svg>
+                    </div>
                   </div>
-
-                  {/* Arrow indicator */}
-                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-gold">
-                      <line x1="5" y1="12" x2="19" y2="12"/>
-                      <polyline points="12 5 19 12 12 19"/>
-                    </svg>
-                  </div>
-                </div>
-              </Link>
+                </Link>
+              </motion.div>
             )
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

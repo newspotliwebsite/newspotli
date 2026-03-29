@@ -153,11 +153,11 @@ public/images/
 ✅ DONE: newsletter audienceId wired to RESEND_AUDIENCE_ID
 ✅ DONE: @sanity/image-url → createImageUrlBuilder
 ✅ DONE: react-instantsearch removed
-🟡 app/author/[slug]/page.tsx — author profile
-🟡 scripts/migrate.ts — bulk content migration
-🟡 app/not-found.tsx — custom 404
-🟡 app/loading.tsx — global skeleton
-🟡 lib/utils.ts — getArticleImage() fallback utility
+✅ DONE: app/author/[slug]/page.tsx — author profile with SEO, JSON-LD, stats
+✅ DONE: scripts/migrate.ts — bulk migration with idempotency + --force flag
+✅ DONE: app/not-found.tsx — custom 404 (Tailwind only, no inline styles)
+✅ DONE: app/loading.tsx — global skeleton with Tailwind shimmer animation
+✅ DONE: lib/utils.ts — getArticleImage() + timeAgo + formatHindiNumber + readTimeText
 
 ## ═══ ENVIRONMENT VARIABLES ═══
 NEXT_PUBLIC_SANITY_PROJECT_ID = a86sthtc

@@ -1,8 +1,16 @@
 'use client'
 
 import { useState } from 'react'
+import { motion } from 'motion/react'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import {
+  fadeInUp,
+  staggerContainer,
+  scaleIn,
+  slideInRight,
+  VIEWPORT_ONCE,
+} from '@/lib/motion'
 
 // ── Social icons ───────────────────────────────────────────────────
 const YouTubeIcon = () => (
@@ -54,20 +62,47 @@ const SUBJECTS = ['Story Tip', 'Partnership', 'Press / Media', 'Career Enquiry',
 
 // ── Contact Form ───────────────────────────────────────────────────
 function ContactForm() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [subject, setSubject] = useState('')
+  const [message, setMessage] = useState('')
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
-    await new Promise(r => setTimeout(r, 1200))
-    setLoading(false)
-    setSent(true)
+    setError('')
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, subject, message }),
+      })
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null)
+        throw new Error(data?.error || 'Something went wrong. Please try again.')
+      }
+
+      setSent(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   if (sent) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 text-center">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4 }}
+        className="flex flex-col items-center justify-center py-20 text-center"
+      >
         <div className="w-16 h-16 bg-green/10 border border-green/20 rounded-full flex items-center justify-center mb-5">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-7 h-7 text-green">
             <polyline points="20 6 9 17 4 12"/>
@@ -75,28 +110,41 @@ function ContactForm() {
         </div>
         <h3 className="font-playfair text-2xl font-black italic text-charcoal mb-2">संदेश मिल गया!</h3>
         <p className="font-noto text-charcoal/55">हम 2 कार्य दिवसों में जवाब देंगे।</p>
-      </div>
+      </motion.div>
     )
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
+      {error && (
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-red-50 border border-red-200 text-red-700 font-source text-sm px-4 py-3 rounded-sm"
+        >
+          {error}
+        </motion.div>
+      )}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
           <label className="font-source text-[11px] font-black tracking-wider text-charcoal/45 uppercase block mb-1.5">Name *</label>
           <input required type="text" placeholder="नाम / Your name"
+            value={name} onChange={(e) => setName(e.target.value)}
             className="w-full bg-white border border-charcoal/12 focus:border-maroon text-charcoal placeholder:text-charcoal/25 font-noto px-4 py-3 rounded-sm outline-none transition-all text-sm shadow-sm" />
         </div>
         <div>
           <label className="font-source text-[11px] font-black tracking-wider text-charcoal/45 uppercase block mb-1.5">Email *</label>
           <input required type="email" placeholder="email@address.com"
+            value={email} onChange={(e) => setEmail(e.target.value)}
             className="w-full bg-white border border-charcoal/12 focus:border-maroon text-charcoal placeholder:text-charcoal/25 font-source px-4 py-3 rounded-sm outline-none transition-all text-sm shadow-sm" />
         </div>
       </div>
 
       <div>
         <label className="font-source text-[11px] font-black tracking-wider text-charcoal/45 uppercase block mb-1.5">Subject *</label>
-        <select required className="w-full bg-white border border-charcoal/12 focus:border-maroon text-charcoal font-source px-4 py-3 rounded-sm outline-none transition-all text-sm shadow-sm appearance-none cursor-pointer">
+        <select required value={subject} onChange={(e) => setSubject(e.target.value)}
+          className="w-full bg-white border border-charcoal/12 focus:border-maroon text-charcoal font-source px-4 py-3 rounded-sm outline-none transition-all text-sm shadow-sm appearance-none cursor-pointer">
           <option value="">Select a subject</option>
           {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
         </select>
@@ -105,17 +153,20 @@ function ContactForm() {
       <div>
         <label className="font-source text-[11px] font-black tracking-wider text-charcoal/45 uppercase block mb-1.5">Message *</label>
         <textarea required rows={6} placeholder="अपनी बात लिखें..."
+          value={message} onChange={(e) => setMessage(e.target.value)}
           className="w-full bg-white border border-charcoal/12 focus:border-maroon text-charcoal placeholder:text-charcoal/25 font-noto px-4 py-3 rounded-sm outline-none transition-all text-sm shadow-sm resize-none" />
       </div>
 
-      <button type="submit" disabled={loading}
+      <motion.button type="submit" disabled={loading}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
         className="w-full bg-maroon hover:bg-maroon-dark text-white font-source font-black py-3.5 rounded-sm transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2 shadow-md disabled:opacity-70 text-base">
         {loading ? (
           <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Sending...</>
         ) : (
           <>संदेश भेजें → Send Message</>
         )}
-      </button>
+      </motion.button>
     </form>
   )
 }
@@ -128,7 +179,13 @@ export default function ContactPage() {
 
         {/* ── Page Header ── */}
         <section className="bg-white border-b border-charcoal/8 py-14 md:py-18 px-4 md:px-12 lg:px-24">
-          <div className="max-w-5xl mx-auto">
+          <motion.div
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={VIEWPORT_ONCE}
+            className="max-w-5xl mx-auto"
+          >
             <span className="font-source text-[11px] font-black tracking-[0.25em] uppercase text-charcoal/35 block mb-3">Get In Touch</span>
             <h1 className="font-playfair text-5xl md:text-6xl font-black italic text-charcoal">
               संपर्क करें<span className="text-gold">.</span>
@@ -136,7 +193,7 @@ export default function ContactPage() {
             <p className="font-noto text-charcoal/50 text-lg leading-relaxed max-w-xl mt-4">
               कहानियाँ, सुझाव, साझेदारी — हम हर संदेश पढ़ते हैं।
             </p>
-          </div>
+          </motion.div>
         </section>
 
         {/* ── Two Column Layout ── */}
@@ -144,19 +201,25 @@ export default function ContactPage() {
           <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
 
             {/* ── Left: Contact Info ── */}
-            <div className="lg:col-span-2 space-y-8">
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={VIEWPORT_ONCE}
+              className="lg:col-span-2 space-y-8"
+            >
 
               {/* Email */}
-              <div>
+              <motion.div variants={fadeInUp}>
                 <p className="font-source text-[11px] font-black tracking-[0.2em] uppercase text-charcoal/35 mb-2">Email</p>
                 <a href="mailto:hello@newspotli.com"
                   className="font-source font-bold text-maroon hover:text-gold transition-colors text-lg">
                   hello@newspotli.com
                 </a>
-              </div>
+              </motion.div>
 
               {/* WhatsApp — big green button */}
-              <div>
+              <motion.div variants={fadeInUp}>
                 <p className="font-source text-[11px] font-black tracking-[0.2em] uppercase text-charcoal/35 mb-3">WhatsApp</p>
                 <a href="https://wa.me/919161682122" target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#1ebe5a] text-white font-source font-black px-6 py-3.5 rounded-sm transition-all hover:-translate-y-0.5 shadow-lg shadow-[#25D366]/20">
@@ -166,50 +229,68 @@ export default function ContactPage() {
                 <p className="font-noto text-charcoal/40 text-xs mt-2 leading-relaxed">
                   Story tips, corrections, urgent queries
                 </p>
-              </div>
+              </motion.div>
 
               {/* Address */}
-              <div>
+              <motion.div variants={fadeInUp}>
                 <p className="font-source text-[11px] font-black tracking-[0.2em] uppercase text-charcoal/35 mb-2">Office</p>
                 <address className="font-noto not-italic text-charcoal/65 text-sm leading-relaxed">
                   News Potli Media Pvt. Ltd.<br />
                   Lucknow, Uttar Pradesh<br />
                   India — 226 001
                 </address>
-              </div>
+              </motion.div>
 
               {/* Social Links */}
-              <div>
+              <motion.div variants={fadeInUp}>
                 <p className="font-source text-[11px] font-black tracking-[0.2em] uppercase text-charcoal/35 mb-4">Follow Us</p>
-                <div className="grid grid-cols-3 gap-3">
+                <motion.div
+                  variants={staggerContainer}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={VIEWPORT_ONCE}
+                  className="grid grid-cols-3 gap-3"
+                >
                   {SOCIALS.map((s) => (
-                    <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer"
-                      className={`flex flex-col items-center gap-1.5 p-3 bg-white border border-charcoal/10 rounded-sm text-charcoal/50 ${s.color} hover:text-white hover:border-transparent transition-all`}>
+                    <motion.a
+                      key={s.name}
+                      variants={scaleIn}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`flex flex-col items-center gap-1.5 p-3 bg-white border border-charcoal/10 rounded-sm text-charcoal/50 ${s.color} hover:text-white hover:border-transparent transition-all`}
+                    >
                       {s.icon}
                       <span className="font-source text-[9px] font-bold tracking-wide">{s.name}</span>
-                    </a>
+                    </motion.a>
                   ))}
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
 
               {/* Working hours */}
-              <div className="bg-charcoal/4 border border-charcoal/8 rounded-sm p-4">
+              <motion.div variants={fadeInUp} className="bg-charcoal/4 border border-charcoal/8 rounded-sm p-4">
                 <p className="font-source text-[11px] font-black tracking-[0.2em] uppercase text-charcoal/35 mb-2">Response Time</p>
                 <p className="font-noto text-charcoal/65 text-sm leading-relaxed">
-                  Mon–Fri: 9am–6pm IST<br />
+                  Mon-Fri: 9am-6pm IST<br />
                   Weekends: Story tips only<br />
                   <span className="text-maroon font-bold">We reply within 48 hours.</span>
                 </p>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             {/* ── Right: Form ── */}
-            <div className="lg:col-span-3 bg-white border border-charcoal/8 rounded-sm p-6 md:p-8 shadow-sm">
+            <motion.div
+              variants={slideInRight}
+              initial="hidden"
+              whileInView="visible"
+              viewport={VIEWPORT_ONCE}
+              className="lg:col-span-3 bg-white border border-charcoal/8 rounded-sm p-6 md:p-8 shadow-sm"
+            >
               <h2 className="font-playfair text-2xl font-black italic text-charcoal mb-6">
                 Send a Message<span className="text-gold">.</span>
               </h2>
               <ContactForm />
-            </div>
+            </motion.div>
           </div>
         </section>
 

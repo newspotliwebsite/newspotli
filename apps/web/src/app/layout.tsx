@@ -25,8 +25,14 @@ const source = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  title: "News Potli",
+  metadataBase: new URL('https://newspotli.com'),
+  title: { default: 'News Potli', template: '%s — News Potli' },
   description: "India's leading rural agricultural journalism platform.",
+  manifest: '/manifest.json',
+  openGraph: {
+    siteName: 'News Potli',
+    locale: 'hi_IN',
+  },
 };
 
 export default function RootLayout({
@@ -54,6 +60,11 @@ gtag('config', '${gaId}');`}
         className={`${playfair.variable} ${noto.variable} ${source.variable} font-source antialiased bg-cream text-foreground`}
       >
         {children}
+        <Script id="sw-register" strategy="afterInteractive">
+          {`if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(function() {});
+}`}
+        </Script>
       </body>
     </html>
   );

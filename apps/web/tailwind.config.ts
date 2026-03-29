@@ -21,6 +21,15 @@ const config: Config = {
         noto: ['var(--font-noto)', 'sans-serif'],
         source: ['var(--font-source)', 'sans-serif'],
       },
+      keyframes: {
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
+      },
+      animation: {
+        shimmer: 'shimmer 1.6s ease-in-out infinite',
+      },
     },
   },
   plugins: [],

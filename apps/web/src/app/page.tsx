@@ -1,6 +1,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Metadata } from 'next'
 import { client } from '@/lib/sanity'
 import { groq } from 'next-sanity'
+
+// ── SEO Metadata ──
+export const metadata: Metadata = {
+  title: 'News Potli — भारत के गाँवों की आवाज़ | Rural Agricultural Journalism',
+  description: 'ग्रामीण भारत की सबसे भरोसेमंद खबरें — खेती, मौसम, मंडी भाव, सरकारी योजना। 266K+ YouTube subscribers, Pulitzer Grantee journalism.',
+  openGraph: {
+    title: 'News Potli — भारत के गाँवों की आवाज़',
+    description: 'India\'s #1 rural agricultural journalism platform. 266K+ YouTube subscribers.',
+    siteName: 'News Potli',
+    locale: 'hi_IN',
+    type: 'website',
+    url: 'https://newspotli.com',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'News Potli — भारत के गाँवों की आवाज़',
+    description: 'India\'s #1 rural agricultural journalism platform.',
+  },
+  alternates: {
+    canonical: 'https://newspotli.com',
+  },
+}
 
 import Header from '@/components/layout/Header'
 import BreakingTicker from '@/components/layout/BreakingTicker'
@@ -12,6 +35,7 @@ import FeaturedVideos from '@/components/home/FeaturedVideos'
 import CategoriesGrid from '@/components/home/CategoriesGrid'
 import NewsletterBanner from '@/components/home/NewsletterBanner'
 import DeepStories from '@/components/home/DeepStories'
+import MandiPriceTicker from '@/components/home/MandiPriceTicker'
 
 export const revalidate = 60
 
@@ -66,10 +90,34 @@ export default async function HomePage() {
     ? latestArticles.filter((a: any) => a._id !== featuredArticle._id)
     : latestArticles
 
+  // Organization JSON-LD
+  const orgJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'NewsMediaOrganization',
+    name: 'News Potli',
+    alternateName: 'न्यूज़ पोटली',
+    url: 'https://newspotli.com',
+    logo: { '@type': 'ImageObject', url: 'https://newspotli.com/logo.png' },
+    sameAs: [
+      'https://youtube.com/@newspotli',
+      'https://instagram.com/newspotli',
+      'https://twitter.com/newspotli',
+      'https://facebook.com/newspotli',
+    ],
+    founder: { '@type': 'Person', name: 'Arvind Shukla' },
+    foundingDate: '2008',
+    description: 'India\'s #1 rural agricultural journalism platform',
+  }
+
   return (
     <div className="min-h-screen flex flex-col font-source bg-cream">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+      />
       <Header />
       <BreakingTicker />
+      <MandiPriceTicker />
 
       <main className="flex-1">
         <HeroSection

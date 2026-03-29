@@ -158,3 +158,40 @@ export const CATEGORY_ARTICLES_QUERY = groq`
 export const ALL_CATEGORY_SLUGS_QUERY = groq`
   *[_type == "category" && defined(slug.current)].slug.current
 `
+
+// ── Author Profile Page ──
+export const AUTHOR_BY_SLUG_QUERY = groq`
+  *[_type == "author" && slug.current == $slug][0] {
+    _id,
+    name,
+    slug,
+    bio,
+    role,
+    email,
+    photo { asset },
+    "articleCount": count(*[_type == "article" && references(^._id)]),
+    "categories": *[_type == "article" && references(^._id)].category->{
+      _id, title, slug, color
+    }
+  }
+`
+
+export const ARTICLES_BY_AUTHOR_QUERY = groq`
+  *[_type == "article" && author->slug.current == $slug] | order(publishedAt desc) {
+    _id,
+    title,
+    slug,
+    excerpt,
+    heroImage { alt, asset },
+    category-> { _id, title, slug, color },
+    author-> { _id, name, slug },
+    publishedAt,
+    readTime,
+    youtubeId,
+    tags
+  }
+`
+
+export const ALL_AUTHOR_SLUGS_QUERY = groq`
+  *[_type == "author" && defined(slug.current)].slug.current
+`

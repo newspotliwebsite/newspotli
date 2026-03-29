@@ -9,6 +9,7 @@
  *   npx tsx scripts/migrate.ts --dry-run
  *   npx tsx scripts/migrate.ts --limit=50
  *   npx tsx scripts/migrate.ts --dry-run --limit=10
+ *   npx tsx scripts/migrate.ts --force         # overwrite existing articles
  *
  * Requires env vars (from apps/web/.env.local):
  *   NEXT_PUBLIC_SANITY_PROJECT_ID
@@ -53,6 +54,7 @@ interface MigrationResult {
 
 const args = process.argv.slice(2)
 const dryRun = args.includes('--dry-run')
+const force = args.includes('--force')
 const limitFlag = args.find((a) => a.startsWith('--limit='))
 const limit = limitFlag ? parseInt(limitFlag.split('=')[1], 10) : Infinity
 
@@ -240,6 +242,7 @@ async function migrate() {
   console.log(`  News Potli Migration`)
   console.log(`  Articles: ${total} of ${articles.length}`)
   console.log(`  Mode: ${dryRun ? '🏜️  DRY RUN (no writes)' : '🔴 LIVE'}`)
+  console.log(`  Force: ${force ? 'YES (overwrite existing)' : 'NO (skip duplicates)'}`)
   console.log(`  Project: ${projectId} / ${dataset}`)
   console.log('═══════════════════════════════════════════')
   console.log('')
@@ -271,6 +274,20 @@ async function migrate() {
     }
 
     try {
+      // Check for existing article (idempotency)
+      const slug = slugify(article.title)
+      if (!force) {
+        const existing = await writeClient.fetch<{ _id: string } | null>(
+          `*[_type == "article" && slug.current == $slug][0]{ _id }`,
+          { slug }
+        )
+        if (existing) {
+          console.log(`⏭️  ${num}/${total} — already exists: ${article.title}`)
+          results.push({ index: i, title: article.title, status: 'skipped', reason: 'Already exists' })
+          continue
+        }
+      }
+
       // Resolve category
       let categoryId = categoryCache.get(article.category)
       if (!categoryId) {
@@ -298,7 +315,6 @@ async function migrate() {
       }
 
       // Build document
-      const slug = slugify(article.title)
       const doc = {
         _type: 'article',
         title: article.title,

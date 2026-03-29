@@ -13,8 +13,11 @@ const TOPICS = [
 
 const PLATFORM_LINKS = [
   { title: 'About Us', href: '/about' },
+  { title: 'Our Team', href: '/team' },
   { title: 'Contact', href: '/contact' },
-  { title: 'Partners', href: '/partners' },
+  { title: 'सहयोग करें', href: '/sahyog' },
+  { title: 'Videos', href: '/videos' },
+  { title: 'Newsletter', href: '/newsletter' },
   { title: 'Privacy Policy', href: '/privacy' },
   { title: 'Terms of Service', href: '/terms' },
 ]

@@ -34,18 +34,11 @@ export default function NotFound() {
           </span>
         </div>
 
-        {/* Decorative wave behind 404 */}
+        {/* Decorative 404 */}
         <div className="relative mb-2 select-none pointer-events-none">
-          <span className="font-playfair text-[clamp(120px,20vw,200px)] font-black italic leading-none"
-            style={{
-              WebkitTextStroke: '2px',
-              WebkitTextStrokeColor: 'rgba(139,26,26,0.12)',
-              color: 'transparent',
-              display: 'block',
-            }}>
+          <span className="block font-playfair text-[clamp(120px,20vw,200px)] font-black italic leading-none text-maroon/10">
             404
           </span>
-          {/* Solid number on top */}
           <span className="absolute inset-0 flex items-center justify-center font-playfair text-[clamp(120px,20vw,200px)] font-black italic leading-none text-maroon/90">
             404
           </span>

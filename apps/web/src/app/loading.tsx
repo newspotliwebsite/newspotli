@@ -1,4 +1,4 @@
-// Global loading skeleton — mimics homepage layout with shimmer animation
+// Global loading skeleton — mimics homepage layout with bg-gradient-to-r from-transparent via-white/45 to-transparent bg-[length:200%_100%] animate-shimmer animation
 // Next.js automatically shows this while server components on / are loading
 
 export default function Loading() {
@@ -11,18 +11,18 @@ export default function Loading() {
 
       {/* ── Hero Skeleton ── */}
       <div className="bg-maroon/10 relative overflow-hidden">
-        {/* shimmer sweep */}
-        <div className="absolute inset-0 shimmer" />
+        {/* bg-gradient-to-r from-transparent via-white/45 to-transparent bg-[length:200%_100%] animate-shimmer sweep */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/45 to-transparent bg-[length:200%_100%] animate-shimmer" />
         <div className="max-w-7xl mx-auto px-4 md:px-12 lg:px-24 py-10 md:py-14 grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main hero card */}
           <div className="lg:col-span-2 bg-charcoal/8 rounded-sm h-[340px] md:h-[420px] relative overflow-hidden">
-            <div className="absolute inset-0 shimmer" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/45 to-transparent bg-[length:200%_100%] animate-shimmer" />
           </div>
           {/* Side stories */}
           <div className="flex flex-col gap-4">
             {[1, 2, 3].map((i) => (
               <div key={i} className="flex gap-3 bg-charcoal/6 rounded-sm p-3 relative overflow-hidden">
-                <div className="absolute inset-0 shimmer" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/45 to-transparent bg-[length:200%_100%] animate-shimmer" />
                 <div className="w-20 h-16 bg-charcoal/12 rounded-sm flex-shrink-0" />
                 <div className="flex-1 space-y-2 py-1">
                   <div className="h-2.5 bg-charcoal/10 rounded-full w-3/4" />
@@ -48,7 +48,7 @@ export default function Loading() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {[1, 2, 3, 4, 5, 6].map((i) => (
             <div key={i} className="bg-white border border-charcoal/8 rounded-sm overflow-hidden relative">
-              <div className="absolute inset-0 shimmer" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/45 to-transparent bg-[length:200%_100%] animate-shimmer" />
               {/* Thumbnail */}
               <div className="aspect-video bg-charcoal/8" />
               {/* Content */}
@@ -69,23 +69,6 @@ export default function Loading() {
         </div>
       </div>
 
-      {/* Shimmer keyframe inlined via style tag */}
-      <style>{`
-        .shimmer {
-          background: linear-gradient(
-            90deg,
-            transparent 0%,
-            rgba(255,255,255,0.45) 50%,
-            transparent 100%
-          );
-          background-size: 200% 100%;
-          animation: shimmer 1.6s ease-in-out infinite;
-        }
-        @keyframes shimmer {
-          0%   { background-position: -200% 0; }
-          100% { background-position:  200% 0; }
-        }
-      `}</style>
     </div>
   )
 }
