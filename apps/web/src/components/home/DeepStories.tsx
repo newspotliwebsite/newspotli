@@ -120,13 +120,8 @@ export default function DeepStories({ stories }: { stories: DeepStory[] }) {
               <Link
                 key={story._id}
                 href={`/article/${story.slug.current}`}
-                className="group flex items-start gap-5 py-6 first:pt-0 last:pb-0 hover:bg-maroon/[0.03] transition-colors -mx-4 px-4 rounded"
+                className="group flex items-start gap-4 py-6 first:pt-0 last:pb-0 hover:bg-maroon/[0.03] transition-colors -mx-4 px-4 rounded"
               >
-                {/* Giant number */}
-                <span className="font-playfair text-6xl font-black text-charcoal/8 leading-none flex-shrink-0 w-12 text-right group-hover:text-gold/20 transition-colors duration-300 select-none">
-                  {String(i + 2).padStart(2, '0')}
-                </span>
-
                 <div className="flex-1 min-w-0">
                   {story.category && (
                     <span className="font-source text-[10px] font-bold tracking-[0.15em] uppercase text-gold bg-gold/10 px-2 py-0.5 inline-block mb-2">

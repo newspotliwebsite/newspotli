@@ -155,10 +155,10 @@ export default function LatestNewsGrid({ articles }: { articles: ArticleType[] }
         <div className="flex justify-between items-end mb-8 border-b border-charcoal/10 pb-5">
           <div>
             <span className="font-source text-[11px] font-black tracking-[0.2em] text-maroon uppercase block mb-1.5">
-              Breaking Coverage
+              Special Reports
             </span>
             <h2 className="font-playfair text-3xl md:text-4xl font-black text-charcoal">
-              ताज़ा <span className="text-maroon">खबरें.</span>
+              स्पेशल रिपोर्ट्स / <span className="text-maroon">ग्राउंड रिपोर्ट्स.</span>
             </h2>
           </div>
           <Link

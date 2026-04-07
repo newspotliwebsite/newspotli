@@ -212,11 +212,6 @@ export default function HeroSection({ featuredArticle, sidebarArticles }: HeroSe
                     transitionDelay: mounted ? `${(index + 1) * 100}ms` : '0ms',
                   }}
                 >
-                  {/* Large number */}
-                  <span className="font-playfair font-black text-4xl text-maroon/20 leading-none select-none flex-shrink-0 w-8 group-hover:text-maroon/40 transition-colors duration-300">
-                    {index + 1}
-                  </span>
-
                   <div className="flex-1 min-w-0">
                     {article.category && (
                       <div className="flex items-center gap-1.5 mb-1">
