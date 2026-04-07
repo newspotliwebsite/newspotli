@@ -29,13 +29,6 @@ const GridIcon = () => (
   </svg>
 )
 
-const EnvelopeIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-    <polyline points="22,6 12,13 2,6"/>
-  </svg>
-)
-
 const TABS = [
   { id: 'all', label: 'All', icon: <GridIcon /> },
   { id: 'latest', label: 'Latest', icon: <ClockIcon /> },
@@ -48,7 +41,6 @@ export default function CategoryClient({ slug, category, initialArticles }: Cate
   const [loading, setLoading] = useState(false)
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(initialArticles.length >= 12)
-  const [email, setEmail] = useState('')
 
   // Client-side filter
   const filteredArticles = (() => {
@@ -204,32 +196,29 @@ export default function CategoryClient({ slug, category, initialArticles }: Cate
               </ol>
             </div>
 
-            {/* Newsletter CTA */}
-            <div className="bg-gradient-to-br from-maroon to-maroon-dark text-white p-6 rounded-sm shadow-lg">
-              <div className="flex items-center gap-2 mb-3">
-                <EnvelopeIcon />
-                <h3 className="font-source text-[11px] font-black tracking-[0.2em] uppercase text-gold">
-                  Newsletter
-                </h3>
-              </div>
-              <p className="font-noto text-white/80 text-sm mb-4">
-                रोज़ की ज़रूरी खबरें, सीधे inbox में।
-              </p>
-              <form className="space-y-3" onSubmit={(e) => { e.preventDefault(); setEmail('') }}>
-                <input
-                  type="email"
-                  placeholder="Email पता..."
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-white/10 border border-white/15 focus:border-gold rounded-sm px-4 py-2.5 text-white text-sm placeholder:text-white/30 font-noto outline-none transition-all"
-                />
-                <button
-                  type="submit"
-                  className="w-full bg-gold hover:bg-gold-light text-white font-noto font-bold py-2.5 text-sm transition-all hover:-translate-y-0.5 rounded-sm"
-                >
-                  सब्सक्राइब करें
-                </button>
-              </form>
+            {/* More Headlines */}
+            <div className="bg-white border border-charcoal/8 p-6 rounded-sm shadow-sm">
+              <h3 className="font-source text-[11px] font-black tracking-[0.2em] text-maroon uppercase mb-4 pb-3 border-b border-maroon/15">
+                और खबरें
+              </h3>
+              <ul className="space-y-3">
+                {filteredArticles.slice(5, 15).map((article: any) => (
+                  <li key={article._id}>
+                    <a
+                      href={`/article/${article.slug?.current || article.slug}`}
+                      className="group flex items-start gap-2"
+                    >
+                      <span
+                        className="w-2 h-2 rounded-full flex-shrink-0 mt-1.5"
+                        style={{ backgroundColor: article.category?.color || '#8B1A1A' }}
+                      />
+                      <h4 className="font-noto font-bold text-sm text-charcoal leading-snug group-hover:text-maroon transition-colors line-clamp-2">
+                        {article.title}
+                      </h4>
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </aside>
