@@ -91,7 +91,7 @@ export default function NewsletterBanner() {
           </div>
 
           {/* Headline */}
-          <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-black italic text-white leading-[1.1] mb-4 text-balance">
+          <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] mb-4 text-balance">
             किसानों की आवाज़, <br className="hidden md:block"/>
             सीधे आपके <span className="text-gold">inbox</span> में
           </h2>

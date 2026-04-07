@@ -10,7 +10,7 @@ export default function MissionStatement() {
 
         {/* Large quote with maroon left border */}
         <div className="border-l-4 border-maroon pl-8 md:pl-12">
-          <blockquote className="font-playfair text-2xl sm:text-3xl md:text-4xl font-black italic text-cream leading-[1.35]">
+          <blockquote className="font-playfair text-2xl sm:text-3xl md:text-4xl font-black text-cream leading-[1.35]">
             &ldquo;भारत के हर किसान, हर ग्रामीण परिवार तक सटीक, सरल, और सशक्त पत्रकारिता पहुँचाना — यही हमारा मिशन है।&rdquo;
           </blockquote>
 
@@ -43,7 +43,7 @@ export default function MissionStatement() {
             },
           ].map((pillar) => (
             <div key={pillar.num}>
-              <span className="font-playfair text-4xl font-black italic text-white/10 block mb-3">
+              <span className="font-playfair text-4xl font-black text-white/10 block mb-3">
                 {pillar.num}
               </span>
               <div className="flex items-baseline gap-2 mb-2">

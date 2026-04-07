@@ -35,7 +35,7 @@ export default function JourneyTimeline() {
             <span className="font-source text-[11px] font-black tracking-[0.25em] uppercase text-charcoal/40 block mb-2">
               Our Journey
             </span>
-            <h2 className="font-playfair text-4xl md:text-5xl font-black italic text-charcoal">
+            <h2 className="font-playfair text-4xl md:text-5xl font-black text-charcoal">
               2006 – 2026<span className="text-gold">.</span>
             </h2>
           </div>

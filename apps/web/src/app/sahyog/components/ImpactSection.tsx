@@ -33,7 +33,7 @@ export default function ImpactSection() {
           Your Impact
         </span>
 
-        <h2 className="font-playfair text-3xl md:text-4xl font-black italic text-charcoal mb-10 md:mb-14">
+        <h2 className="font-playfair text-3xl md:text-4xl font-black text-charcoal mb-10 md:mb-14">
           आपका सहयोग क्या करता है
         </h2>
 

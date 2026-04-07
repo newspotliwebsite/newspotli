@@ -108,7 +108,7 @@ function ContactForm() {
             <polyline points="20 6 9 17 4 12"/>
           </svg>
         </div>
-        <h3 className="font-playfair text-2xl font-black italic text-charcoal mb-2">संदेश मिल गया!</h3>
+        <h3 className="font-playfair text-2xl font-black text-charcoal mb-2">संदेश मिल गया!</h3>
         <p className="font-noto text-charcoal/55">हम 2 कार्य दिवसों में जवाब देंगे।</p>
       </motion.div>
     )
@@ -187,7 +187,7 @@ export default function ContactPage() {
             className="max-w-5xl mx-auto"
           >
             <span className="font-source text-[11px] font-black tracking-[0.25em] uppercase text-charcoal/35 block mb-3">Get In Touch</span>
-            <h1 className="font-playfair text-5xl md:text-6xl font-black italic text-charcoal">
+            <h1 className="font-playfair text-5xl md:text-6xl font-black text-charcoal">
               संपर्क करें<span className="text-gold">.</span>
             </h1>
             <p className="font-noto text-charcoal/50 text-lg leading-relaxed max-w-xl mt-4">
@@ -286,7 +286,7 @@ export default function ContactPage() {
               viewport={VIEWPORT_ONCE}
               className="lg:col-span-3 bg-white border border-charcoal/8 rounded-sm p-6 md:p-8 shadow-sm"
             >
-              <h2 className="font-playfair text-2xl font-black italic text-charcoal mb-6">
+              <h2 className="font-playfair text-2xl font-black text-charcoal mb-6">
                 Send a Message<span className="text-gold">.</span>
               </h2>
               <ContactForm />

@@ -140,7 +140,7 @@ export default async function CategoryPage({
             <div className="flex items-start gap-5">
               <span className="text-6xl md:text-7xl select-none hidden sm:block" role="img">{icon}</span>
               <div className="flex-1">
-                <h1 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-black italic leading-tight mb-3">
+                <h1 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-black leading-tight mb-3">
                   {cat.title}<span className="text-gold">.</span>
                 </h1>
                 {cat.description && (

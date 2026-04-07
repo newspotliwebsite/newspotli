@@ -149,13 +149,13 @@ export default function Header() {
             <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
               {/* Circular Logo Placeholder — swap with real logo later */}
               <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-gold to-gold-light flex items-center justify-center flex-shrink-0 border-2 border-white/20 group-hover:border-white/40 transition-colors shadow-lg">
-                <span className="font-playfair font-black italic text-maroon text-sm md:text-base leading-none">
+                <span className="font-playfair font-black text-maroon text-sm md:text-base leading-none">
                   NP
                 </span>
               </div>
               {/* Wordmark */}
               <div className="min-w-0">
-                <span className="font-playfair text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black italic tracking-tight text-white group-hover:text-gold transition-colors duration-300 block leading-none">
+                <span className="font-playfair text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black tracking-tight text-white group-hover:text-gold transition-colors duration-300 block leading-none">
                   News Potli<span className="text-gold group-hover:text-white transition-colors duration-300">.</span>
                 </span>
                 <span className="font-noto text-cream/60 text-[10px] sm:text-xs mt-0.5 block leading-tight">

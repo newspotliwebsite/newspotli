@@ -136,7 +136,7 @@ export default function HeroSection({ featuredArticle, sidebarArticles }: HeroSe
 
               {/* Headline */}
               <Link href={articleUrl} className="group block">
-                <h2 className="font-playfair text-2xl sm:text-3xl md:text-4xl lg:text-[36px] font-black italic text-white leading-[1.1] mb-4 group-hover:text-gold transition-colors duration-300 text-balance">
+                <h2 className="font-playfair text-2xl sm:text-3xl md:text-4xl lg:text-[36px] font-black text-white leading-[1.1] mb-4 group-hover:text-gold transition-colors duration-300 text-balance">
                   {featuredArticle.title}
                 </h2>
               </Link>
@@ -149,7 +149,7 @@ export default function HeroSection({ featuredArticle, sidebarArticles }: HeroSe
 
               {/* Author row */}
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-maroon to-maroon-dark border-2 border-gold/30 flex items-center justify-center text-white font-black text-xs font-playfair italic flex-shrink-0">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-maroon to-maroon-dark border-2 border-gold/30 flex items-center justify-center text-white font-black text-xs font-playfair flex-shrink-0">
                   {featuredArticle.author?.name?.[0] || 'A'}
                 </div>
                 <div>
@@ -193,7 +193,7 @@ export default function HeroSection({ featuredArticle, sidebarArticles }: HeroSe
           <div className="lg:w-[40%] bg-white rounded-sm shadow-md flex flex-col">
             {/* Sidebar Header */}
             <div className="px-6 py-4 border-b-2 border-maroon/10">
-              <h3 className="font-playfair text-xl font-black italic text-charcoal flex items-center gap-2">
+              <h3 className="font-playfair text-xl font-black text-charcoal flex items-center gap-2">
                 Top Stories
                 <span className="inline-block w-2 h-2 rounded-full bg-maroon ml-1"></span>
               </h3>
@@ -213,7 +213,7 @@ export default function HeroSection({ featuredArticle, sidebarArticles }: HeroSe
                   }}
                 >
                   {/* Large number */}
-                  <span className="font-playfair font-black italic text-4xl text-maroon/20 leading-none select-none flex-shrink-0 w-8 group-hover:text-maroon/40 transition-colors duration-300">
+                  <span className="font-playfair font-black text-4xl text-maroon/20 leading-none select-none flex-shrink-0 w-8 group-hover:text-maroon/40 transition-colors duration-300">
                     {index + 1}
                   </span>
 

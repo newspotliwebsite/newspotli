@@ -290,7 +290,7 @@ export default function ClipAndShare({ children, articleTitle, articleUrl }: Cli
                   <p className="font-source text-[10px] font-black tracking-[0.2em] uppercase text-maroon">
                     Clip &amp; Share
                   </p>
-                  <p className="font-playfair text-lg font-black italic text-charcoal mt-0.5">
+                  <p className="font-playfair text-lg font-black text-charcoal mt-0.5">
                     चयनित पाठ शेयर करें
                   </p>
                 </div>

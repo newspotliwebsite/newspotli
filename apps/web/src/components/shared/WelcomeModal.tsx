@@ -131,7 +131,7 @@ export default function WelcomeModal() {
                   </div>
                   {/* Bottom label */}
                   <div className="absolute bottom-3 left-4 right-12">
-                    <p className="font-playfair text-white text-lg md:text-xl font-black italic leading-tight drop-shadow-lg">
+                    <p className="font-playfair text-white text-lg md:text-xl font-black leading-tight drop-shadow-lg">
                       अरविंद शुक्ला का संदेश
                     </p>
                     <p className="font-source text-cream/60 text-xs mt-0.5">Pulitzer Grantee · 18+ Years Journalism</p>
@@ -156,7 +156,7 @@ export default function WelcomeModal() {
                 <p className="font-source text-[10px] font-black tracking-[0.2em] uppercase text-maroon mb-1">
                   Welcome to News Potli
                 </p>
-                <h2 className="font-playfair text-xl md:text-2xl font-black italic text-charcoal leading-tight">
+                <h2 className="font-playfair text-xl md:text-2xl font-black text-charcoal leading-tight">
                   भारत के गाँवों की <span className="text-maroon">असली खबरें</span>
                 </h2>
                 <p className="font-noto text-sm text-charcoal/60 mt-2 leading-relaxed">

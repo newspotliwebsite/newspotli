@@ -64,7 +64,7 @@ function FeaturedCard({ article }: { article: ArticleType }) {
             {article.category.title}
           </span>
         )}
-        <h3 className="font-playfair font-black italic text-white text-xl md:text-2xl lg:text-[24px] leading-snug line-clamp-3 group-hover:text-gold transition-colors duration-300 text-balance mb-2">
+        <h3 className="font-playfair font-black text-white text-xl md:text-2xl lg:text-[24px] leading-snug line-clamp-3 group-hover:text-gold transition-colors duration-300 text-balance mb-2">
           {article.title}
         </h3>
         {article.excerpt && (
@@ -157,7 +157,7 @@ export default function LatestNewsGrid({ articles }: { articles: ArticleType[] }
             <span className="font-source text-[11px] font-black tracking-[0.2em] text-maroon uppercase block mb-1.5">
               Breaking Coverage
             </span>
-            <h2 className="font-playfair text-3xl md:text-4xl font-black italic text-charcoal">
+            <h2 className="font-playfair text-3xl md:text-4xl font-black text-charcoal">
               ताज़ा <span className="text-maroon">खबरें.</span>
             </h2>
           </div>

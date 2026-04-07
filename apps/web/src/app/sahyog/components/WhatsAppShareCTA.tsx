@@ -28,7 +28,7 @@ export default function WhatsAppShareCTA() {
         </div>
 
         {/* Headline */}
-        <h2 className="font-playfair text-3xl md:text-4xl font-black italic text-charcoal mb-4">
+        <h2 className="font-playfair text-3xl md:text-4xl font-black text-charcoal mb-4">
           इस मिशन को आगे बढ़ाएँ
         </h2>
 

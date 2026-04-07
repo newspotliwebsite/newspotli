@@ -66,7 +66,7 @@ export default function CategoriesGrid({ categories }: { categories: CategoryDat
         >
           <div>
             <span className="font-source text-[11px] font-black tracking-[0.2em] text-maroon uppercase block mb-1.5">Browse By Topic</span>
-            <h2 className="font-playfair text-3xl md:text-4xl font-black italic text-charcoal">
+            <h2 className="font-playfair text-3xl md:text-4xl font-black text-charcoal">
               प्रमुख <span className="text-maroon">विषय.</span>
             </h2>
           </div>

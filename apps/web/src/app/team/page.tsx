@@ -106,7 +106,7 @@ function TeamCard({ member }: { member: TeamMember }) {
     >
       {/* Avatar */}
       <div className="relative aspect-[4/5] overflow-hidden flex items-center justify-center bg-gradient-to-br from-maroon to-maroon-dark">
-        <span className="font-playfair font-black italic text-white text-6xl sm:text-7xl select-none leading-none">
+        <span className="font-playfair font-black text-white text-6xl sm:text-7xl select-none leading-none">
           {member.initials}
         </span>
 
@@ -143,7 +143,7 @@ function ContributorCard({ contributor }: { contributor: Contributor }) {
     >
       {/* Avatar initial */}
       <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green to-green-mid flex items-center justify-center flex-shrink-0">
-        <span className="font-playfair font-black italic text-white text-sm leading-none">
+        <span className="font-playfair font-black text-white text-sm leading-none">
           {contributor.initials}
         </span>
       </div>
@@ -181,11 +181,11 @@ export default function TeamPage() {
               viewport={VIEWPORT_ONCE}
               className="flex flex-col md:flex-row md:items-end gap-4 md:gap-12"
             >
-              <h1 className="font-playfair text-5xl md:text-6xl font-black italic text-charcoal leading-tight">
+              <h1 className="font-playfair text-5xl md:text-6xl font-black text-charcoal leading-tight">
                 हमारी टीम<span className="text-gold">.</span>
               </h1>
               <div className="md:pb-2">
-                <p className="font-source text-2xl md:text-3xl font-bold text-charcoal/25 italic">
+                <p className="font-source text-2xl md:text-3xl font-bold text-charcoal/25">
                   Our People
                 </p>
               </div>
@@ -242,7 +242,7 @@ export default function TeamPage() {
                 <span className="font-source text-[11px] font-black tracking-[0.25em] uppercase text-charcoal/35 block mb-2">
                   Freelance Network
                 </span>
-                <h2 className="font-playfair text-3xl md:text-4xl font-black italic text-charcoal">
+                <h2 className="font-playfair text-3xl md:text-4xl font-black text-charcoal">
                   योगदानकर्ता<span className="text-gold">.</span>
                 </h2>
               </motion.div>
@@ -274,7 +274,7 @@ export default function TeamPage() {
         {/* ── Join Team CTA ── */}
         <section className="bg-maroon py-16 md:py-20 px-4 md:px-12 lg:px-24 relative overflow-hidden">
           {/* Watermark */}
-          <span className="absolute right-0 top-1/2 -translate-y-1/2 font-playfair text-[200px] text-white/[0.03] font-black italic select-none pointer-events-none hidden lg:block leading-none">
+          <span className="absolute right-0 top-1/2 -translate-y-1/2 font-playfair text-[200px] text-white/[0.03] font-black select-none pointer-events-none hidden lg:block leading-none">
             Join
           </span>
 
@@ -293,7 +293,7 @@ export default function TeamPage() {
               initial="hidden"
               whileInView="visible"
               viewport={VIEWPORT_ONCE}
-              className="font-playfair text-3xl md:text-4xl font-black italic text-white mb-4"
+              className="font-playfair text-3xl md:text-4xl font-black text-white mb-4"
             >
               हमारे साथ जुड़ें<span className="text-gold">.</span>
             </motion.h2>

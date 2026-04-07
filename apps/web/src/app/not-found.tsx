@@ -29,17 +29,17 @@ export default function NotFound() {
 
         {/* Logo wordmark accent */}
         <div className="mb-8">
-          <span className="font-playfair text-2xl font-black italic text-charcoal/20 tracking-tight select-none">
+          <span className="font-playfair text-2xl font-black text-charcoal/20 tracking-tight select-none">
             News Potli
           </span>
         </div>
 
         {/* Decorative 404 */}
         <div className="relative mb-2 select-none pointer-events-none">
-          <span className="block font-playfair text-[clamp(120px,20vw,200px)] font-black italic leading-none text-maroon/10">
+          <span className="block font-playfair text-[clamp(120px,20vw,200px)] font-black leading-none text-maroon/10">
             404
           </span>
-          <span className="absolute inset-0 flex items-center justify-center font-playfair text-[clamp(120px,20vw,200px)] font-black italic leading-none text-maroon/90">
+          <span className="absolute inset-0 flex items-center justify-center font-playfair text-[clamp(120px,20vw,200px)] font-black leading-none text-maroon/90">
             404
           </span>
         </div>

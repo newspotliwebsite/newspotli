@@ -48,7 +48,7 @@ export default function DeepStories({ stories }: { stories: DeepStory[] }) {
         <div className="flex justify-between items-end border-b border-charcoal/10 pb-5 mb-10">
           <div>
             <span className="font-source text-[11px] font-black tracking-[0.2em] text-maroon uppercase block mb-1.5">In-depth Reporting</span>
-            <h2 className="font-playfair text-3xl md:text-4xl font-black italic text-charcoal">
+            <h2 className="font-playfair text-3xl md:text-4xl font-black text-charcoal">
               गहरी <span className="text-maroon">खबरें.</span>
             </h2>
           </div>
@@ -123,7 +123,7 @@ export default function DeepStories({ stories }: { stories: DeepStory[] }) {
                 className="group flex items-start gap-5 py-6 first:pt-0 last:pb-0 hover:bg-maroon/[0.03] transition-colors -mx-4 px-4 rounded"
               >
                 {/* Giant number */}
-                <span className="font-playfair text-6xl font-black italic text-charcoal/8 leading-none flex-shrink-0 w-12 text-right group-hover:text-gold/20 transition-colors duration-300 select-none">
+                <span className="font-playfair text-6xl font-black text-charcoal/8 leading-none flex-shrink-0 w-12 text-right group-hover:text-gold/20 transition-colors duration-300 select-none">
                   {String(i + 2).padStart(2, '0')}
                 </span>
 

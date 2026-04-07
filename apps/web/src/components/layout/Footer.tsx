@@ -77,7 +77,7 @@ export default function Footer() {
           {/* Col 1: Brand */}
           <div>
             <Link href="/" className="inline-block mb-5">
-              <h2 className="font-playfair text-3xl font-black italic tracking-tight text-white">
+              <h2 className="font-playfair text-3xl font-black tracking-tight text-white">
                 News Potli<span className="text-gold">.</span>
               </h2>
             </Link>

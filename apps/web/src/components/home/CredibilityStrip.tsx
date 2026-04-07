@@ -67,7 +67,7 @@ export default function CredibilityStrip() {
               <span className="text-lg mb-2 opacity-60">{stat.icon}</span>
 
               {/* Number */}
-              <div className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-black italic tabular-nums text-white leading-none">
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-black tabular-nums text-white leading-none">
                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
               </div>
 

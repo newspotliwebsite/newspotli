@@ -17,7 +17,7 @@ export default function SahyogHero() {
         </span>
 
         {/* Main headline */}
-        <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black italic text-white leading-[1.1] mb-6 text-balance">
+        <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] mb-6 text-balance">
           आपकी पत्रकारिता,{' '}
           <span className="relative inline-block">
             आपका सहयोग

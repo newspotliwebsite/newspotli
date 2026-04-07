@@ -31,7 +31,7 @@ export const articleComponents: PortableTextComponents = {
 
   block: {
     h2: ({ children }) => (
-      <h2 className="font-playfair text-2xl md:text-3xl font-black italic text-charcoal mt-12 mb-4 leading-snug border-l-4 border-gold pl-5">
+      <h2 className="font-playfair text-2xl md:text-3xl font-black text-charcoal mt-12 mb-4 leading-snug border-l-4 border-gold pl-5">
         {children}
       </h2>
     ),

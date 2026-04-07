@@ -220,7 +220,7 @@ export default function VideoGrid({ videos }: { videos: YouTubeVideo[] }) {
             <span className="font-source text-[11px] font-black tracking-[0.25em] uppercase text-gold block mb-3">
               Video Library
             </span>
-            <h1 className="font-playfair text-5xl md:text-6xl font-black italic text-white leading-tight">
+            <h1 className="font-playfair text-5xl md:text-6xl font-black text-white leading-tight">
               वीडियो<span className="text-gold">.</span>
             </h1>
             <p className="font-noto text-white/55 mt-2 text-base">
@@ -242,7 +242,7 @@ export default function VideoGrid({ videos }: { videos: YouTubeVideo[] }) {
               <YouTubeIcon />
             </div>
             <div>
-              <p className="font-playfair text-2xl font-black italic text-white">
+              <p className="font-playfair text-2xl font-black text-white">
                 266K+
               </p>
               <p className="font-source text-[10px] font-black tracking-widest uppercase text-white/40">

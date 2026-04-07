@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Playfair_Display, Noto_Sans_Devanagari, Source_Sans_3 } from "next/font/google";
+import { Playfair_Display, Tiro_Devanagari_Hindi, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 
 const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
@@ -12,10 +12,11 @@ const playfair = Playfair_Display({
   style: ["normal", "italic"],
 });
 
-const noto = Noto_Sans_Devanagari({
+const tiro = Tiro_Devanagari_Hindi({
   subsets: ["devanagari", "latin"],
   variable: "--font-noto",
-  weight: ["400", "700"],
+  weight: ["400"],
+  style: ["normal"],
 });
 
 const source = Source_Sans_3({
@@ -57,7 +58,7 @@ gtag('config', '${gaId}');`}
         </>
       )}
       <body
-        className={`${playfair.variable} ${noto.variable} ${source.variable} font-source antialiased bg-cream text-foreground`}
+        className={`${playfair.variable} ${tiro.variable} ${source.variable} font-source antialiased bg-cream text-foreground`}
       >
         {children}
         <Script id="sw-register" strategy="afterInteractive">

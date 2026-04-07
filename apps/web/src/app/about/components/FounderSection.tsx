@@ -47,7 +47,7 @@ export default function FounderSection() {
 
               {/* Name on photo */}
               <div className="absolute bottom-0 left-0 right-0 p-5">
-                <h2 className="font-playfair text-xl font-black italic text-white leading-tight">
+                <h2 className="font-playfair text-xl font-black text-white leading-tight">
                   Arvind Shukla
                 </h2>
                 <p className="font-source text-xs text-white/70 mt-1">Founder &amp; Editor-in-Chief</p>
@@ -116,7 +116,7 @@ export default function FounderSection() {
 
             {/* Quote signature */}
             <div className="mt-10 pt-8 border-t border-charcoal/8">
-              <p className="font-playfair text-lg md:text-xl italic text-charcoal/70 mb-3">
+              <p className="font-playfair text-lg md:text-xl text-charcoal/70 mb-3">
                 &ldquo;पत्रकारिता एक ज़िम्मेदारी है — उन लोगों की आवाज़ बनने की जो अपनी बात खुद नहीं कह सकते।&rdquo;
               </p>
               <div className="flex items-center gap-3">

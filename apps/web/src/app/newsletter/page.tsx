@@ -236,7 +236,7 @@ export default function NewsletterPage() {
               </span>
             </div>
 
-            <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl font-black italic text-white leading-[1.05] mb-2">
+            <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.05] mb-2">
               Daily Potli में<br />स्वागत है&nbsp;🌾
             </h1>
 
@@ -249,7 +249,7 @@ export default function NewsletterPage() {
               {/* Avatar stack */}
               <div className="flex -space-x-2">
                 {['#8B1A1A', '#2D5016', '#C8860A', '#1a3a6a'].map((c, i) => (
-                  <div key={i} className="w-7 h-7 rounded-full border-2 border-maroon-dark flex items-center justify-center text-white font-playfair font-black text-xs italic" style={{ backgroundColor: c }}>
+                  <div key={i} className="w-7 h-7 rounded-full border-2 border-maroon-dark flex items-center justify-center text-white font-playfair font-black text-xs" style={{ backgroundColor: c }}>
                     {['क', 'रा', 'स', 'प'][i]}
                   </div>
                 ))}
@@ -268,7 +268,7 @@ export default function NewsletterPage() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <span className="font-source text-[11px] font-black tracking-[0.25em] uppercase text-charcoal/35 block mb-2">What You Get</span>
-              <h2 className="font-playfair text-3xl md:text-4xl font-black italic text-charcoal">
+              <h2 className="font-playfair text-3xl md:text-4xl font-black text-charcoal">
                 हर Potli में क्या होगा<span className="text-gold">?</span>
               </h2>
             </div>
@@ -294,7 +294,7 @@ export default function NewsletterPage() {
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
               <div>
                 <span className="font-source text-[11px] font-black tracking-[0.25em] uppercase text-charcoal/35 block mb-2">Archive</span>
-                <h2 className="font-playfair text-3xl md:text-4xl font-black italic text-charcoal">
+                <h2 className="font-playfair text-3xl md:text-4xl font-black text-charcoal">
                   पिछले अंक<span className="text-gold">.</span>
                 </h2>
               </div>
@@ -308,7 +308,7 @@ export default function NewsletterPage() {
                 <div key={i}
                   className="group bg-white border border-charcoal/8 rounded-sm p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all cursor-pointer relative overflow-hidden">
                   {/* Issue number watermark */}
-                  <span className="absolute -right-2 -top-2 font-playfair text-8xl font-black italic text-charcoal/[0.04] select-none leading-none">
+                  <span className="absolute -right-2 -top-2 font-playfair text-8xl font-black text-charcoal/[0.04] select-none leading-none">
                     {String(PAST_ISSUES.length - i).padStart(2, '0')}
                   </span>
 
@@ -335,7 +335,7 @@ export default function NewsletterPage() {
         {/* ── Inline Signup ── */}
         <section className="py-14 md:py-16 px-4 md:px-12 lg:px-24">
           <div className="max-w-xl mx-auto text-center">
-            <h2 className="font-playfair text-2xl md:text-3xl font-black italic text-charcoal mb-2">
+            <h2 className="font-playfair text-2xl md:text-3xl font-black text-charcoal mb-2">
               अभी जुड़ें<span className="text-gold">.</span>
             </h2>
             <p className="font-noto text-charcoal/50 text-sm mb-6">नि:शुल्क · हर सोमवार सुबह आएगा</p>
@@ -355,7 +355,7 @@ export default function NewsletterPage() {
               </div>
 
               <div className="flex-1 text-center sm:text-left relative">
-                <h3 className="font-playfair text-xl md:text-2xl font-black italic text-white mb-1">
+                <h3 className="font-playfair text-xl md:text-2xl font-black text-white mb-1">
                   WhatsApp Community<span className="text-[#25D366]">.</span>
                 </h3>
                 <p className="font-noto text-white/65 text-sm leading-relaxed">

@@ -99,7 +99,7 @@ function SearchContent() {
           <span className="font-source text-[11px] font-black tracking-[0.2em] text-maroon uppercase block mb-3">
             Search
           </span>
-          <h1 className="font-playfair text-3xl md:text-4xl font-black italic text-charcoal mb-6">
+          <h1 className="font-playfair text-3xl md:text-4xl font-black text-charcoal mb-6">
             खोज परिणाम<span className="text-gold">.</span>
           </h1>
 
@@ -157,7 +157,7 @@ function SearchContent() {
                   className="group flex items-start gap-5 py-6 border-b border-charcoal/8 hover:bg-white px-4 -mx-4 transition-colors"
                 >
                   {/* Number */}
-                  <span className="hidden sm:block font-playfair text-3xl font-black italic text-charcoal/10 w-8 flex-shrink-0 group-hover:text-maroon/20 transition-colors">
+                  <span className="hidden sm:block font-playfair text-3xl font-black text-charcoal/10 w-8 flex-shrink-0 group-hover:text-maroon/20 transition-colors">
                     {String(index + 1).padStart(2, '0')}
                   </span>
 

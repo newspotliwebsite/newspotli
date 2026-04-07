@@ -183,7 +183,7 @@ export default function CategoryClient({ slug, category, initialArticles }: Cate
               <ol className="space-y-4">
                 {filteredArticles.slice(0, 5).map((article: any, i: number) => (
                   <li key={article._id} className="flex gap-3 group">
-                    <span className="font-playfair text-2xl font-black italic text-charcoal/10 w-6 flex-shrink-0 group-hover:text-maroon/20 transition-colors">
+                    <span className="font-playfair text-2xl font-black text-charcoal/10 w-6 flex-shrink-0 group-hover:text-maroon/20 transition-colors">
                       {i + 1}
                     </span>
                     <a

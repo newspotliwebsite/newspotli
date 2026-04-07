@@ -225,7 +225,7 @@ export default async function ArticlePage({
           )}
 
           {/* Title */}
-          <h1 className="font-playfair text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-black italic text-charcoal leading-[1.15] mb-6 text-balance">
+          <h1 className="font-playfair text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-black text-charcoal leading-[1.15] mb-6 text-balance">
             {data.title}
           </h1>
 
@@ -248,7 +248,7 @@ export default async function ArticlePage({
                   className="object-cover w-full h-full"
                 />
               ) : (
-                <span className="flex items-center justify-center w-full h-full text-white font-playfair font-black italic text-lg">
+                <span className="flex items-center justify-center w-full h-full text-white font-playfair font-black text-lg">
                   NP
                 </span>
               )}
@@ -354,7 +354,7 @@ export default async function ArticlePage({
                     className="object-cover w-full h-full"
                   />
                 ) : (
-                  <span className="flex items-center justify-center w-full h-full text-white font-playfair font-black italic text-2xl">
+                  <span className="flex items-center justify-center w-full h-full text-white font-playfair font-black text-2xl">
                     NP
                   </span>
                 )}
@@ -364,7 +364,7 @@ export default async function ArticlePage({
                 <p className="font-source text-[10px] font-black tracking-[0.2em] uppercase text-charcoal/40 mb-1">
                   About the Author
                 </p>
-                <h3 className="font-playfair text-xl font-black italic text-charcoal mb-1">
+                <h3 className="font-playfair text-xl font-black text-charcoal mb-1">
                   {data.author.name}
                 </h3>
                 {data.author.role && (
@@ -400,7 +400,7 @@ export default async function ArticlePage({
               <span className="font-source text-[11px] font-black tracking-[0.2em] text-maroon uppercase block mb-1">
                 Related Coverage
               </span>
-              <h2 className="font-playfair text-2xl md:text-3xl font-black italic text-charcoal">
+              <h2 className="font-playfair text-2xl md:text-3xl font-black text-charcoal">
                 और पढ़ें<span className="text-maroon">.</span>
               </h2>
             </div>
