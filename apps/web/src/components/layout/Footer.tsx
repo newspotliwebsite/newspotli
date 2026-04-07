@@ -1,23 +1,13 @@
 'use client'
-import Link from 'next/link'
-import { useState } from 'react'
 
-const TOPICS = [
-  { title: 'खेती किसानी', slug: '/category/kheti-kisani' },
-  { title: 'पशु पालन', slug: '/category/pashu-palan' },
-  { title: 'मौसम-बेमौसम', slug: '/category/mausam-bemausam' },
-  { title: 'सरकारी योजना', slug: '/category/sarkari-yojana' },
-  { title: 'कमाई की बात', slug: '/category/kamai-ki-baat' },
-  { title: 'तकनीक से तरक्की', slug: '/category/takneek-se-tarakki' },
-]
+import Link from 'next/link'
+import Image from 'next/image'
+import { useState } from 'react'
 
 const PLATFORM_LINKS = [
   { title: 'About Us', href: '/about' },
   { title: 'Our Team', href: '/team' },
-  { title: 'Contact', href: '/contact' },
-  { title: 'सहयोग करें', href: '/sahyog' },
-  { title: 'Videos', href: '/videos' },
-  { title: 'Newsletter', href: '/newsletter' },
+  { title: 'Pitch Your Story', href: '/contact' },
   { title: 'Privacy Policy', href: '/privacy' },
   { title: 'Terms of Service', href: '/terms' },
 ]
@@ -49,22 +39,33 @@ const FacebookIcon = () => (
   </svg>
 )
 
-const EnvelopeIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-    <polyline points="22,6 12,13 2,6"/>
-  </svg>
-)
-
 const SOCIALS = [
-  { label: 'YouTube', href: 'https://youtube.com', icon: <YouTubeIcon />, hoverColor: 'hover:bg-red-600' },
-  { label: 'Instagram', href: 'https://instagram.com', icon: <InstagramIcon />, hoverColor: 'hover:bg-pink-600' },
-  { label: 'X / Twitter', href: 'https://twitter.com', icon: <XIcon />, hoverColor: 'hover:bg-neutral-800' },
-  { label: 'Facebook', href: 'https://facebook.com', icon: <FacebookIcon />, hoverColor: 'hover:bg-blue-700' },
+  { label: 'YouTube', href: 'https://youtube.com/@newspotli', icon: <YouTubeIcon />, hoverColor: 'hover:bg-red-600' },
+  { label: 'Instagram', href: 'https://instagram.com/newspotli', icon: <InstagramIcon />, hoverColor: 'hover:bg-pink-600' },
+  { label: 'X / Twitter', href: 'https://twitter.com/newspotli', icon: <XIcon />, hoverColor: 'hover:bg-neutral-800' },
+  { label: 'Facebook', href: 'https://facebook.com/newspotli', icon: <FacebookIcon />, hoverColor: 'hover:bg-blue-700' },
 ]
 
 export default function Footer() {
-  const [email, setEmail] = useState('')
+  const [contactForm, setContactForm] = useState({ name: '', number: '', email: '', question: '' })
+  const [contactStatus, setContactStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setContactStatus('loading')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(contactForm),
+      })
+      if (!res.ok) throw new Error('Failed')
+      setContactStatus('success')
+      setContactForm({ name: '', number: '', email: '', question: '' })
+    } catch {
+      setContactStatus('error')
+    }
+  }
 
   return (
     <footer className="bg-[#111111] text-cream pt-16 pb-8 px-4 md:px-10 lg:px-20 relative overflow-hidden">
@@ -72,14 +73,21 @@ export default function Footer() {
       <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-maroon via-gold to-maroon" />
 
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
 
-          {/* Col 1: Brand */}
+          {/* Left: Logo + Tagline + Social Icons */}
           <div>
-            <Link href="/" className="inline-block mb-5">
-              <h2 className="font-playfair text-3xl font-black tracking-tight text-white">
-                News Potli<span className="text-gold">.</span>
-              </h2>
+            <Link href="/" className="inline-flex items-center gap-3 mb-5 group">
+              <Image
+                src="/images/logos/logo-hindi.png"
+                alt="News Potli"
+                width={48}
+                height={48}
+                className="w-12 h-12 rounded-full border-2 border-white/10 group-hover:border-gold transition-colors"
+              />
+              <span className="font-playfair text-2xl font-black tracking-tight text-white group-hover:text-gold transition-colors">
+                News Potli<span className="text-gold group-hover:text-white">.</span>
+              </span>
             </Link>
             <p className="font-noto text-cream/70 text-sm mb-6 leading-relaxed">
               भारत के गाँवों और किसानों की आवाज़। ग्रामीण भारत की हर उस खबर का पता, जो आपके लिए जानना ज़रूरी है।
@@ -100,33 +108,16 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Col 2: Topics */}
+          {/* Middle: Platform Links */}
           <div>
             <h3 className="font-source text-[11px] font-black tracking-[0.18em] uppercase text-gold mb-5 pb-3 border-b border-gold/25">
-              प्रमुख विषय
-            </h3>
-            <ul className="space-y-3">
-              {TOPICS.map((t) => (
-                <li key={t.slug}>
-                  <Link href={t.slug} className="font-noto text-cream/65 hover:text-gold transition-colors text-sm flex items-center gap-2 group">
-                    <span className="w-1 h-1 bg-maroon rounded-full flex-shrink-0 group-hover:bg-gold transition-colors"></span>
-                    {t.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Col 3: Platform */}
-          <div>
-            <h3 className="font-source text-[11px] font-black tracking-[0.18em] uppercase text-maroon mb-5 pb-3 border-b border-maroon/30">
               Platform
             </h3>
             <ul className="space-y-3">
               {PLATFORM_LINKS.map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className="font-source text-cream/65 hover:text-gold transition-colors text-sm flex items-center gap-2 group">
-                    <span className="w-1 h-1 bg-white/20 rounded-full flex-shrink-0 group-hover:bg-gold transition-colors"></span>
+                    <span className="w-1 h-1 bg-white/20 rounded-full flex-shrink-0 group-hover:bg-gold transition-colors" />
                     {l.title}
                   </Link>
                 </li>
@@ -134,33 +125,57 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 4: Newsletter Mini */}
+          {/* Right: Contact Us Form */}
           <div>
-            <h3 className="font-source text-[11px] font-black tracking-[0.18em] uppercase text-green mb-5 pb-3 border-b border-green/30">
-              Newsletter
+            <h3 className="font-source text-[11px] font-black tracking-[0.18em] uppercase text-maroon mb-5 pb-3 border-b border-maroon/30">
+              Contact Us
             </h3>
-            <p className="font-noto text-cream/60 text-sm mb-4 leading-relaxed">
-              रोज़ की ज़रूरी खबरें, सीधे inbox में।
-            </p>
-            <form className="flex flex-col gap-3" onSubmit={(e) => { e.preventDefault(); setEmail('') }}>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-cream/30">
-                  <EnvelopeIcon />
-                </span>
-                <input
-                  type="email"
-                  placeholder="Email पता..."
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-white/8 border border-white/12 focus:border-gold rounded-sm pl-10 pr-4 py-3 text-cream text-sm placeholder-cream/30 font-noto outline-none transition-all"
-                />
-              </div>
+            <form className="space-y-3" onSubmit={handleContactSubmit}>
+              <input
+                type="text"
+                placeholder="Name"
+                value={contactForm.name}
+                onChange={(e) => setContactForm((p) => ({ ...p, name: e.target.value }))}
+                className="w-full bg-white/8 border border-white/12 focus:border-gold rounded-sm px-4 py-2.5 text-cream text-sm placeholder-cream/30 font-source outline-none transition-all"
+                required
+              />
+              <input
+                type="tel"
+                placeholder="Phone Number"
+                value={contactForm.number}
+                onChange={(e) => setContactForm((p) => ({ ...p, number: e.target.value }))}
+                className="w-full bg-white/8 border border-white/12 focus:border-gold rounded-sm px-4 py-2.5 text-cream text-sm placeholder-cream/30 font-source outline-none transition-all"
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                value={contactForm.email}
+                onChange={(e) => setContactForm((p) => ({ ...p, email: e.target.value }))}
+                className="w-full bg-white/8 border border-white/12 focus:border-gold rounded-sm px-4 py-2.5 text-cream text-sm placeholder-cream/30 font-source outline-none transition-all"
+                required
+              />
+              <textarea
+                placeholder="Your Question"
+                value={contactForm.question}
+                onChange={(e) => setContactForm((p) => ({ ...p, question: e.target.value }))}
+                rows={3}
+                className="w-full bg-white/8 border border-white/12 focus:border-gold rounded-sm px-4 py-2.5 text-cream text-sm placeholder-cream/30 font-source outline-none transition-all resize-none"
+                required
+              />
               <button
                 type="submit"
-                className="w-full bg-gold hover:bg-gold-light text-white font-noto font-bold py-3 text-sm transition-all hover:shadow-[0_4px_20px_rgba(200,134,10,0.4)] hover:-translate-y-0.5 rounded-sm"
+                disabled={contactStatus === 'loading' || contactStatus === 'success'}
+                className={`w-full font-source font-bold py-2.5 text-sm rounded-sm transition-all
+                  ${contactStatus === 'success'
+                    ? 'bg-emerald-500 text-white cursor-default'
+                    : 'bg-gold hover:bg-gold-light text-white hover:-translate-y-0.5'}
+                `}
               >
-                सब्सक्राइब करें
+                {contactStatus === 'loading' ? '...' : contactStatus === 'success' ? 'Sent!' : 'Send Message'}
               </button>
+              {contactStatus === 'error' && (
+                <p className="text-red-300 text-xs font-source">Something went wrong. Please try again.</p>
+              )}
             </form>
           </div>
         </div>
