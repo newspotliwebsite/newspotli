@@ -29,7 +29,6 @@ import Header from '@/components/layout/Header'
 import BreakingTicker from '@/components/layout/BreakingTicker'
 import Footer from '@/components/layout/Footer'
 import HeroSection from '@/components/home/HeroSection'
-import CredibilityStrip from '@/components/home/CredibilityStrip'
 import LatestNewsGrid from '@/components/home/LatestNewsGrid'
 import FeaturedVideos from '@/components/home/FeaturedVideos'
 import CategoriesGrid from '@/components/home/CategoriesGrid'
@@ -125,7 +124,6 @@ export default async function HomePage() {
           featuredArticle={featuredArticle}
           sidebarArticles={sidebarArticles}
         />
-        <CredibilityStrip />
         <LatestNewsGrid articles={filteredLatest} />
         <FeaturedVideos />
         <CategoriesGrid categories={categories} />
