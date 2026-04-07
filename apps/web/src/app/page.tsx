@@ -31,7 +31,7 @@ import Footer from '@/components/layout/Footer'
 import HeroSection from '@/components/home/HeroSection'
 import LatestNewsGrid from '@/components/home/LatestNewsGrid'
 import FeaturedVideos from '@/components/home/FeaturedVideos'
-import CategoriesGrid from '@/components/home/CategoriesGrid'
+import MoreHeadlines from '@/components/home/MoreHeadlines'
 import NewsletterBanner from '@/components/home/NewsletterBanner'
 import DeepStories from '@/components/home/DeepStories'
 import SeriesSection from '@/components/home/SeriesSection'
@@ -43,7 +43,7 @@ export const revalidate = 60
 export default async function HomePage() {
   let featuredArticle: any = null
   let latestArticles: any[] = []
-  let categories: any[] = []
+  let moreHeadlines: any[] = []
   let deepStories: any[] = []
   let sidebarArticles: any[] = []
 
@@ -59,10 +59,10 @@ export default async function HomePage() {
         "category": category->{ title, slug, color, icon },
         "author": author->{ name }
       }`, {}, { next: { revalidate: 60 } }),
-      client.fetch(groq`*[_type=="category"]{
-        _id, title, titleEn, slug, icon, color, description,
-        "storyCount": count(*[_type == "article" && references(^._id)])
-      }`, {}, { next: { revalidate: 3600 } }),
+      client.fetch(groq`*[_type=="article"] | order(publishedAt desc)[6..25]{
+        _id, title, slug, publishedAt,
+        "category": category->{ title, color }
+      }`, {}, { next: { revalidate: 60 } }),
       client.fetch(groq`*[_type=="article"] | order(publishedAt desc)[0..4]{
         _id, title, slug, excerpt, heroImage, publishedAt,
         "category": category->{ title, slug, color }
@@ -75,7 +75,7 @@ export default async function HomePage() {
 
     featuredArticle = featured
     latestArticles = latest || []
-    categories = cats || []
+    moreHeadlines = cats || []
     deepStories = deep || []
     sidebarArticles = sidebar || []
 
@@ -130,7 +130,7 @@ export default async function HomePage() {
         <DeepStories stories={deepStories} />
         <FeaturedVideos />
         <NewsletterBanner />
-        <CategoriesGrid categories={categories} />
+        <MoreHeadlines articles={moreHeadlines} />
       </main>
 
       <Footer />
