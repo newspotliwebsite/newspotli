@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 import SearchBar from '@/components/ui/SearchBar'
 import WeatherWidget from '@/components/layout/WeatherWidget'
@@ -9,13 +10,12 @@ import FontSizeControl from '@/components/layout/FontSizeControl'
 
 const CATEGORIES = [
   { title: 'खेती किसानी', slug: 'kheti-kisani' },
-  { title: 'पशु पालन', slug: 'pashu-palan' },
-  { title: 'मौसम-बेमौसम', slug: 'mausam-bemausam' },
-  { title: 'सरकारी योजना', slug: 'sarkari-yojana' },
-  { title: 'कमाई की बात', slug: 'kamai-ki-baat' },
-  { title: 'तकनीक से तरक्की', slug: 'takneek-se-tarakki' },
-  { title: 'गांव की कहानियां', slug: 'gaon-ki-kahaniyan' },
-  { title: 'बाजार', slug: 'bazaar' },
+  { title: 'मौसम बेमौसम', slug: 'mausam-bemausam' },
+  { title: 'पशुपालन', slug: 'pashu-palan' },
+  { title: 'साक्षात्कार', slug: 'sakshatkaar' },
+  { title: 'बाज़ार', slug: 'bazaar' },
+  { title: 'ग्राउन्ड रिपोर्ट्स', slug: 'ground-reports' },
+  { title: 'कमाई वाली बात', slug: 'kamai-ki-baat' },
 ]
 
 const SOCIALS = [
@@ -112,12 +112,9 @@ export default function Header() {
 
         {/* ── Top Utility Bar ── */}
         <div className="bg-[#0f0f0f] text-cream/70 text-xs py-1.5 px-4 md:px-10 lg:px-20 flex justify-between items-center border-b border-white/5">
-          {/* Left: Date + Weather */}
+          {/* Left: Date */}
           <div className="flex items-center gap-4 font-source">
             <span className="font-noto hidden sm:inline text-cream/50">{currentDate}</span>
-            <span className="hidden sm:inline-flex">
-              <WeatherWidget />
-            </span>
           </div>
 
           {/* Right: Font Size + Social Icons */}
@@ -145,50 +142,47 @@ export default function Header() {
         <div className="bg-maroon text-white py-3 md:py-4 px-4 md:px-10 lg:px-20">
           <div className="flex items-center justify-between gap-4">
 
-            {/* Left: Logo + Brand */}
-            <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
-              {/* Circular Logo Placeholder — swap with real logo later */}
-              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-gold to-gold-light flex items-center justify-center flex-shrink-0 border-2 border-white/20 group-hover:border-white/40 transition-colors shadow-lg">
-                <span className="font-playfair font-black text-maroon text-sm md:text-base leading-none">
-                  NP
-                </span>
-              </div>
-              {/* Wordmark */}
-              <div className="min-w-0">
-                <span className="font-playfair text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black tracking-tight text-white group-hover:text-gold transition-colors duration-300 block leading-none">
-                  News Potli<span className="text-gold group-hover:text-white transition-colors duration-300">.</span>
-                </span>
-                <span className="font-noto text-cream/60 text-[10px] sm:text-xs mt-0.5 block leading-tight">
-                  भारत के गाँवों और किसानों की आवाज़
-                </span>
-              </div>
-            </Link>
-
-            {/* Right: Actions */}
-            <div className="flex items-center gap-2 md:gap-3 flex-shrink-0">
+            {/* Left: Search + Support (desktop) */}
+            <div className="hidden md:flex items-center gap-3 flex-1">
               <SearchBar />
-
-              {/* CTA: सहयोग करें — the most strategic button on the site */}
               <Link
                 href="/sahyog"
-                className="hidden md:inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-white font-noto font-bold py-2 px-5 rounded-sm text-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(200,134,10,0.4)]"
+                className="inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-white font-noto font-bold py-2 px-5 rounded-sm text-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(200,134,10,0.4)]"
               >
                 <HeartIcon />
                 सहयोग करें
               </Link>
+            </div>
 
-              {/* Mobile: compact support icon */}
+            {/* Center: Logo */}
+            <Link href="/" className="flex flex-col items-center group flex-shrink-0">
+              <Image
+                src="/images/logos/logo-hindi.png"
+                alt="News Potli"
+                width={72}
+                height={72}
+                className="w-14 h-14 md:w-[72px] md:h-[72px] rounded-full border-2 border-white/20 group-hover:border-gold transition-colors shadow-lg"
+              />
+              <span className="font-noto text-cream/60 text-[9px] sm:text-[10px] mt-1 block leading-tight text-center">
+                भारत के गाँवों और किसानों की आवाज़
+              </span>
+            </Link>
+
+            {/* Right: Mobile actions + Desktop placeholder */}
+            <div className="hidden md:flex items-center gap-3 flex-1 justify-end">
+              <WeatherWidget />
+            </div>
+            <div className="flex md:hidden items-center gap-2 flex-shrink-0">
+              <SearchBar />
               <Link
                 href="/sahyog"
-                className="md:hidden p-2 text-gold hover:text-gold-light transition-colors"
+                className="p-2 text-gold hover:text-gold-light transition-colors"
                 aria-label="सहयोग करें"
               >
                 <HeartIcon />
               </Link>
-
-              {/* Mobile Menu Toggle */}
               <button
-                className="md:hidden p-2 text-cream rounded-full hover:bg-white/10 transition-colors"
+                className="p-2 text-cream rounded-full hover:bg-white/10 transition-colors"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={isMobileMenuOpen}
