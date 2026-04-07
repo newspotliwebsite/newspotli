@@ -34,6 +34,7 @@ import FeaturedVideos from '@/components/home/FeaturedVideos'
 import CategoriesGrid from '@/components/home/CategoriesGrid'
 import NewsletterBanner from '@/components/home/NewsletterBanner'
 import DeepStories from '@/components/home/DeepStories'
+import SeriesSection from '@/components/home/SeriesSection'
 import MandiPriceTicker from '@/components/home/MandiPriceTicker'
 import WelcomeModal from '@/components/shared/WelcomeModal'
 
@@ -124,11 +125,12 @@ export default async function HomePage() {
           featuredArticle={featuredArticle}
           sidebarArticles={sidebarArticles}
         />
+        <SeriesSection />
         <LatestNewsGrid articles={filteredLatest} />
-        <FeaturedVideos />
-        <CategoriesGrid categories={categories} />
-        <NewsletterBanner />
         <DeepStories stories={deepStories} />
+        <FeaturedVideos />
+        <NewsletterBanner />
+        <CategoriesGrid categories={categories} />
       </main>
 
       <Footer />
