@@ -21,31 +21,29 @@ export default function MissionStatement() {
         </div>
 
         {/* Three pillars */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-14 pt-12 border-t border-white/8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-14 pt-12 border-t border-white/8">
           {[
             {
-              num: '01',
+              icon: '\u2705',
               title: 'सटीकता',
               en: 'Accuracy',
               desc: 'हर खबर को तीन स्रोतों से सत्यापित करने के बाद ही प्रकाशित किया जाता है।',
             },
             {
-              num: '02',
+              icon: '\uD83D\uDEE1\uFE0F',
               title: 'स्वतंत्रता',
               en: 'Independence',
               desc: 'हम किसी भी राजनीतिक दल या कॉर्पोरेट के प्रभाव से मुक्त हैं।',
             },
             {
-              num: '03',
+              icon: '\uD83D\uDCF1',
               title: 'पहुँच',
               en: 'Accessibility',
               desc: 'सरल हिंदी में, ताकि हर किसान समझ सके — पढ़ा-लिखा हो या नहीं।',
             },
           ].map((pillar) => (
-            <div key={pillar.num}>
-              <span className="font-noto text-4xl font-black text-white/10 block mb-3">
-                {pillar.num}
-              </span>
+            <div key={pillar.icon}>
+              <span className="text-2xl block mb-3">{pillar.icon}</span>
               <div className="flex items-baseline gap-2 mb-2">
                 <h3 className="font-noto font-bold text-cream text-lg">{pillar.title}</h3>
                 <span className="font-source text-[11px] text-cream/30 tracking-widest uppercase">{pillar.en}</span>

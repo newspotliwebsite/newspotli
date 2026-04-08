@@ -70,7 +70,7 @@ function VideoCard({
     <motion.article
       variants={fadeInUp}
       whileHover={{ y: -6, transition: { duration: 0.25 } }}
-      className="group bg-white border border-charcoal/8 rounded-sm overflow-hidden hover:shadow-xl transition-shadow duration-300"
+      className="group bg-white border border-[#e8e0d0] rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
     >
       {/* Thumbnail */}
       <button
@@ -137,7 +137,7 @@ function VideoModal({
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
         transition={{ duration: 0.25 }}
-        className="relative w-full max-w-4xl aspect-video bg-black rounded-sm overflow-hidden shadow-2xl"
+        className="relative w-full max-w-4xl aspect-video bg-black rounded-xl overflow-hidden shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <iframe
@@ -186,7 +186,7 @@ function EmptyState() {
         href="https://youtube.com/@newspotli"
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 mt-6 bg-maroon hover:bg-maroon-dark text-white font-source font-bold px-6 py-3 rounded-sm transition-colors"
+        className="inline-flex items-center gap-2 mt-6 bg-maroon hover:bg-maroon-dark text-white font-source font-bold px-6 py-3 rounded-xl transition-colors"
       >
         <YouTubeIcon /> YouTube पर देखें
       </a>
@@ -236,7 +236,7 @@ export default function VideoGrid({ videos }: { videos: YouTubeVideo[] }) {
             initial="hidden"
             animate="visible"
             variants={scaleIn}
-            className="flex items-center gap-4 bg-white/8 border border-white/12 hover:border-gold/40 rounded-sm px-6 py-4 transition-all group self-start md:self-center"
+            className="flex items-center gap-4 bg-white/8 border border-white/12 hover:border-gold/40 rounded-xl px-6 py-4 transition-all group self-start md:self-center"
           >
             <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white flex-shrink-0">
               <YouTubeIcon />
@@ -246,7 +246,7 @@ export default function VideoGrid({ videos }: { videos: YouTubeVideo[] }) {
                 266K+
               </p>
               <p className="font-source text-[10px] font-black tracking-widest uppercase text-white/40">
-                Subscribers on YouTube
+                266K+ subscribers · 1,666+ videos · 7.3 करोड़+ views
               </p>
             </div>
             <svg
@@ -315,7 +315,7 @@ export default function VideoGrid({ videos }: { videos: YouTubeVideo[] }) {
                 href="https://youtube.com/@newspotli"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-maroon hover:bg-maroon-dark text-white font-source font-black px-8 py-3.5 rounded-sm transition-all hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 bg-maroon hover:bg-maroon-dark text-white font-source font-black px-8 py-3.5 rounded-xl transition-all hover:-translate-y-0.5"
               >
                 <YouTubeIcon /> और वीडियो देखें -- YouTube पर
               </Link>

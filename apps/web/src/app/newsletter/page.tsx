@@ -177,7 +177,7 @@ function NewsletterForm({ variant = 'hero' }: { variant?: 'hero' | 'inline' }) {
             value={email}
             onChange={e => setEmail(e.target.value)}
             placeholder="आपका Email पता..."
-            className={`w-full pl-11 pr-4 py-3.5 rounded-sm outline-none transition-all font-noto text-sm
+            className={`w-full pl-11 pr-4 py-3.5 rounded-xl outline-none transition-all font-noto text-sm
               ${isHero
                 ? 'bg-white/12 border border-white/20 focus:border-white/50 text-white placeholder:text-white/35'
                 : 'bg-white border border-charcoal/15 focus:border-maroon text-charcoal placeholder:text-charcoal/30'
@@ -187,7 +187,7 @@ function NewsletterForm({ variant = 'hero' }: { variant?: 'hero' | 'inline' }) {
         <button
           type="submit"
           disabled={status === 'loading'}
-          className={`font-source font-black px-7 py-3.5 rounded-sm transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-70
+          className={`font-source font-black px-7 py-3.5 rounded-xl transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-70
             ${isHero
               ? 'bg-gold hover:bg-gold-light text-white shadow-lg shadow-gold/25'
               : 'bg-maroon hover:bg-maroon-dark text-white'
@@ -275,8 +275,8 @@ export default function NewsletterPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
               {BENEFITS.map((b) => (
                 <div key={b.title}
-                  className="group bg-white border border-charcoal/8 rounded-sm p-5 hover:shadow-md hover:-translate-y-1 transition-all text-center">
-                  <div className={`w-14 h-14 ${b.bg} ${b.color} rounded-sm flex items-center justify-center mx-auto mb-4 transition-colors`}>
+                  className="group bg-white border border-[#e8e0d0] rounded-xl p-5 hover:shadow-md hover:-translate-y-1 transition-all text-center">
+                  <div className={`w-14 h-14 ${b.bg} ${b.color} rounded-xl flex items-center justify-center mx-auto mb-4 transition-colors`}>
                     {b.icon}
                   </div>
                   <h3 className="font-noto font-bold text-base text-charcoal mb-1">{b.title}</h3>
@@ -306,7 +306,7 @@ export default function NewsletterPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {PAST_ISSUES.map((issue, i) => (
                 <div key={i}
-                  className="group bg-white border border-charcoal/8 rounded-sm p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all cursor-pointer relative overflow-hidden">
+                  className="group bg-white border border-[#e8e0d0] rounded-xl p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all cursor-pointer relative overflow-hidden">
                   {/* Issue number watermark */}
                   <span className="absolute -right-2 -top-2 font-noto text-8xl font-black text-charcoal/[0.04] select-none leading-none">
                     {String(PAST_ISSUES.length - i).padStart(2, '0')}
@@ -346,7 +346,7 @@ export default function NewsletterPage() {
         {/* ── WhatsApp CTA ── */}
         <section className="py-10 md:py-12 px-4 md:px-12 lg:px-24">
           <div className="max-w-3xl mx-auto">
-            <div className="relative bg-[#075E54] rounded-sm overflow-hidden px-6 md:px-10 py-8 flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
+            <div className="relative bg-[#075E54] rounded-xl overflow-hidden px-6 md:px-10 py-8 flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
               {/* subtle radial glow */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#128C7E]/40 to-transparent pointer-events-none" />
 
@@ -365,7 +365,7 @@ export default function NewsletterPage() {
 
               <a href="https://wa.me/919161682122?text=Hello%2C%20I%20want%20to%20join%20News%20Potli%20WhatsApp%20community"
                 target="_blank" rel="noopener noreferrer"
-                className="flex-shrink-0 inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1ebe5a] text-white font-source font-black px-6 py-3 rounded-sm transition-all hover:-translate-y-0.5 shadow-lg whitespace-nowrap relative">
+                className="flex-shrink-0 inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1ebe5a] text-white font-source font-black px-6 py-3 rounded-xl transition-all hover:-translate-y-0.5 shadow-lg whitespace-nowrap relative">
                 <WhatsAppIcon />
                 Group Join करें
               </a>

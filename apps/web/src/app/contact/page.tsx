@@ -120,7 +120,7 @@ function ContactForm() {
         <motion.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-red-50 border border-red-200 text-red-700 font-source text-sm px-4 py-3 rounded-sm"
+          className="bg-red-50 border border-red-200 text-red-700 font-source text-sm px-4 py-3 rounded-xl"
         >
           {error}
         </motion.div>
@@ -131,20 +131,20 @@ function ContactForm() {
           <label className="font-source text-[11px] font-black tracking-wider text-charcoal/45 uppercase block mb-1.5">Name *</label>
           <input required type="text" placeholder="नाम / Your name"
             value={name} onChange={(e) => setName(e.target.value)}
-            className="w-full bg-white border border-charcoal/12 focus:border-maroon text-charcoal placeholder:text-charcoal/25 font-noto px-4 py-3 rounded-sm outline-none transition-all text-sm shadow-sm" />
+            className="w-full bg-white border border-charcoal/12 focus:border-maroon text-charcoal placeholder:text-charcoal/25 font-noto px-4 py-3 rounded-xl outline-none transition-all text-sm shadow-sm" />
         </div>
         <div>
           <label className="font-source text-[11px] font-black tracking-wider text-charcoal/45 uppercase block mb-1.5">Email *</label>
           <input required type="email" placeholder="email@address.com"
             value={email} onChange={(e) => setEmail(e.target.value)}
-            className="w-full bg-white border border-charcoal/12 focus:border-maroon text-charcoal placeholder:text-charcoal/25 font-source px-4 py-3 rounded-sm outline-none transition-all text-sm shadow-sm" />
+            className="w-full bg-white border border-charcoal/12 focus:border-maroon text-charcoal placeholder:text-charcoal/25 font-source px-4 py-3 rounded-xl outline-none transition-all text-sm shadow-sm" />
         </div>
       </div>
 
       <div>
         <label className="font-source text-[11px] font-black tracking-wider text-charcoal/45 uppercase block mb-1.5">Subject *</label>
         <select required value={subject} onChange={(e) => setSubject(e.target.value)}
-          className="w-full bg-white border border-charcoal/12 focus:border-maroon text-charcoal font-source px-4 py-3 rounded-sm outline-none transition-all text-sm shadow-sm appearance-none cursor-pointer">
+          className="w-full bg-white border border-charcoal/12 focus:border-maroon text-charcoal font-source px-4 py-3 rounded-xl outline-none transition-all text-sm shadow-sm appearance-none cursor-pointer">
           <option value="">Select a subject</option>
           {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
         </select>
@@ -154,13 +154,13 @@ function ContactForm() {
         <label className="font-source text-[11px] font-black tracking-wider text-charcoal/45 uppercase block mb-1.5">Message *</label>
         <textarea required rows={6} placeholder="अपनी बात लिखें..."
           value={message} onChange={(e) => setMessage(e.target.value)}
-          className="w-full bg-white border border-charcoal/12 focus:border-maroon text-charcoal placeholder:text-charcoal/25 font-noto px-4 py-3 rounded-sm outline-none transition-all text-sm shadow-sm resize-none" />
+          className="w-full bg-white border border-charcoal/12 focus:border-maroon text-charcoal placeholder:text-charcoal/25 font-noto px-4 py-3 rounded-xl outline-none transition-all text-sm shadow-sm resize-none" />
       </div>
 
       <motion.button type="submit" disabled={loading}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        className="w-full bg-maroon hover:bg-maroon-dark text-white font-source font-black py-3.5 rounded-sm transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2 shadow-md disabled:opacity-70 text-base">
+        className="w-full bg-maroon hover:bg-maroon-dark text-white font-source font-black py-3.5 rounded-xl transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2 shadow-md disabled:opacity-70 text-base">
         {loading ? (
           <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Sending...</>
         ) : (
@@ -178,7 +178,7 @@ export default function ContactPage() {
       <main className="bg-cream min-h-screen">
 
         {/* ── Page Header ── */}
-        <section className="bg-white border-b border-charcoal/8 py-14 md:py-18 px-4 md:px-12 lg:px-24">
+        <section className="bg-white border-b border-[#e8e0d0] py-14 md:py-18 px-4 md:px-12 lg:px-24">
           <motion.div
             variants={fadeInUp}
             initial="hidden"
@@ -187,7 +187,7 @@ export default function ContactPage() {
             className="max-w-5xl mx-auto"
           >
             <span className="font-source text-[11px] font-black tracking-[0.25em] uppercase text-charcoal/35 block mb-3">Get In Touch</span>
-            <h1 className="font-noto text-5xl md:text-6xl font-black text-charcoal">
+            <h1 className="font-noto text-4xl md:text-5xl font-black text-charcoal">
               संपर्क करें<span className="text-gold">.</span>
             </h1>
             <p className="font-noto text-charcoal/50 text-lg leading-relaxed max-w-xl mt-4">
@@ -222,7 +222,7 @@ export default function ContactPage() {
               <motion.div variants={fadeInUp}>
                 <p className="font-source text-[11px] font-black tracking-[0.2em] uppercase text-charcoal/35 mb-3">WhatsApp</p>
                 <a href="https://wa.me/919161682122" target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#1ebe5a] text-white font-source font-black px-6 py-3.5 rounded-sm transition-all hover:-translate-y-0.5 shadow-lg shadow-[#25D366]/20">
+                  className="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#1ebe5a] text-white font-source font-black px-6 py-3.5 rounded-xl transition-all hover:-translate-y-0.5 shadow-lg shadow-[#25D366]/20">
                   <WhatsAppIcon />
                   +91 91616 82122
                 </a>
@@ -258,7 +258,7 @@ export default function ContactPage() {
                       href={s.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`flex flex-col items-center gap-1.5 p-3 bg-white border border-charcoal/10 rounded-sm text-charcoal/50 ${s.color} hover:text-white hover:border-transparent transition-all`}
+                      className={`flex flex-col items-center gap-1.5 p-3 bg-white border border-charcoal/10 rounded-xl text-charcoal/50 ${s.color} hover:text-white hover:border-transparent transition-all`}
                     >
                       {s.icon}
                       <span className="font-source text-[9px] font-bold tracking-wide">{s.name}</span>
@@ -268,7 +268,7 @@ export default function ContactPage() {
               </motion.div>
 
               {/* Working hours */}
-              <motion.div variants={fadeInUp} className="bg-charcoal/4 border border-charcoal/8 rounded-sm p-4">
+              <motion.div variants={fadeInUp} className="bg-charcoal/4 border border-[#e8e0d0] rounded-xl p-4">
                 <p className="font-source text-[11px] font-black tracking-[0.2em] uppercase text-charcoal/35 mb-2">Response Time</p>
                 <p className="font-noto text-charcoal/65 text-sm leading-relaxed">
                   Mon-Fri: 9am-6pm IST<br />
@@ -284,7 +284,7 @@ export default function ContactPage() {
               initial="hidden"
               whileInView="visible"
               viewport={VIEWPORT_ONCE}
-              className="lg:col-span-3 bg-white border border-charcoal/8 rounded-sm p-6 md:p-8 shadow-sm"
+              className="lg:col-span-3 bg-white border border-[#e8e0d0] rounded-xl p-6 md:p-8 shadow-sm"
             >
               <h2 className="font-noto text-2xl font-black text-charcoal mb-6">
                 Send a Message<span className="text-gold">.</span>

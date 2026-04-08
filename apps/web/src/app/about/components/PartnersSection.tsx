@@ -29,7 +29,7 @@ export default function PartnersSection() {
           {PARTNERS.map((p) => (
             <div
               key={p.name}
-              className="group bg-white border border-charcoal/10 hover:border-maroon/30 hover:bg-maroon/3 px-5 py-3 rounded-sm transition-all cursor-default shadow-sm hover:shadow-md hover:-translate-y-0.5"
+              className="group bg-white border border-charcoal/10 hover:border-maroon/30 hover:bg-maroon/3 px-5 py-3 rounded-xl transition-all cursor-default shadow-sm hover:shadow-md hover:-translate-y-0.5"
             >
               <span className="font-source font-black text-sm text-charcoal/60 group-hover:text-maroon transition-colors tracking-wide">
                 {p.name}

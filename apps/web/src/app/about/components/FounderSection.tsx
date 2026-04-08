@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 // Award SVG
 const AwardIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
@@ -28,24 +26,13 @@ export default function FounderSection() {
           Founder &amp; Editor-in-Chief
         </span>
 
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start bg-cream rounded-2xl p-8 shadow-sm">
 
           {/* ── Left: Photo ── */}
           <div className="relative flex-shrink-0 w-72 mx-auto lg:mx-0">
-            {/* Photo frame */}
-            <div className="relative rounded-sm overflow-hidden aspect-[3/4] bg-charcoal/5 shadow-xl">
-              {/* Placeholder image — replace with real Sanity image */}
-              <Image
-                src="https://placehold.co/480x640/3a0a0a/FFFFFF/webp?text=Arvind+Shukla"
-                alt="Arvind Shukla — Founder, News Potli"
-                fill
-                className="object-cover"
-                sizes="288px"
-              />
-              {/* Dark gradient overlay at bottom */}
+            <div className="relative rounded-2xl overflow-hidden aspect-[3/4] bg-gradient-to-br from-maroon to-maroon-dark flex items-center justify-center shadow-xl">
+              <span className="font-noto text-[120px] font-bold text-white/20 select-none">अ</span>
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent" />
-
-              {/* Name on photo */}
               <div className="absolute bottom-0 left-0 right-0 p-5">
                 <h2 className="font-noto text-xl font-black text-white leading-tight">
                   Arvind Shukla
@@ -65,11 +52,11 @@ export default function FounderSection() {
             {/* Social links below photo */}
             <div className="flex items-center gap-3 mt-4 justify-center lg:justify-start">
               <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
-                 className="w-8 h-8 flex items-center justify-center bg-charcoal/5 hover:bg-maroon hover:text-white text-charcoal/50 rounded-sm transition-all">
+                 className="w-8 h-8 flex items-center justify-center bg-charcoal/5 hover:bg-maroon hover:text-white text-charcoal/50 rounded-xl transition-all">
                 <LinkedInIcon />
               </a>
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"
-                 className="w-8 h-8 flex items-center justify-center bg-charcoal/5 hover:bg-charcoal hover:text-white text-charcoal/50 rounded-sm transition-all">
+                 className="w-8 h-8 flex items-center justify-center bg-charcoal/5 hover:bg-charcoal hover:text-white text-charcoal/50 rounded-xl transition-all">
                 <TwitterIcon />
               </a>
             </div>

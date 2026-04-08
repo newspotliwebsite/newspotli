@@ -102,28 +102,28 @@ function TeamCard({ member }: { member: TeamMember }) {
       variants={scaleIn}
       whileHover={{ y: -4 }}
       transition={{ duration: 0.2 }}
-      className="group bg-white border border-charcoal/8 rounded-sm overflow-hidden hover:shadow-xl transition-shadow duration-300"
+      className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
     >
-      {/* Avatar */}
-      <div className="relative aspect-[4/5] overflow-hidden flex items-center justify-center bg-gradient-to-br from-maroon to-maroon-dark">
-        <span className="font-noto font-black text-white text-6xl sm:text-7xl select-none leading-none">
-          {member.initials}
-        </span>
-
-        {/* Badge overlay (if applicable) */}
+      {/* Top gradient with initial */}
+      <div className="h-40 bg-gradient-to-br from-maroon to-maroon-dark flex flex-col items-center justify-center gap-2">
+        <div className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-sm border-2 border-white/30 flex items-center justify-center">
+          <span className="font-noto font-black text-white text-3xl select-none leading-none">
+            {member.initials}
+          </span>
+        </div>
         {member.badge && (
-          <div className="absolute top-3 right-3 bg-gold text-white text-[9px] font-black font-source tracking-wider uppercase px-2.5 py-1 rounded-full">
+          <span className="bg-gold text-white text-[9px] font-black font-source tracking-wider uppercase px-2.5 py-1 rounded-full">
             {member.badge}
-          </div>
+          </span>
         )}
       </div>
 
       {/* Info */}
-      <div className="p-5">
+      <div className="p-6">
         <h3 className="font-noto font-bold text-lg text-charcoal leading-tight mb-0.5">
           {member.hindiName}
         </h3>
-        <p className="font-source text-xs font-bold tracking-wider text-maroon uppercase mb-3">
+        <p className="font-source text-xs font-bold tracking-wider text-maroon uppercase mb-3 mt-1">
           {member.role}
         </p>
         <p className="font-noto text-sm text-charcoal/55 leading-relaxed line-clamp-3">
@@ -139,7 +139,7 @@ function ContributorCard({ contributor }: { contributor: Contributor }) {
   return (
     <motion.div
       variants={fadeInUp}
-      className="flex items-center gap-3 p-4 bg-white border border-charcoal/8 hover:border-maroon/20 hover:bg-cream transition-all group rounded-sm"
+      className="flex items-center gap-3 p-4 bg-white border border-charcoal/8 hover:border-maroon/20 hover:bg-cream transition-all group rounded-xl"
     >
       {/* Avatar initial */}
       <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green to-green-mid flex items-center justify-center flex-shrink-0">
@@ -317,13 +317,13 @@ export default function TeamPage() {
             >
               <Link
                 href="mailto:careers@newspotli.com"
-                className="inline-flex items-center justify-center gap-2 bg-gold hover:bg-gold-light text-white font-source font-black px-8 py-3.5 rounded-sm transition-all hover:-translate-y-0.5 shadow-lg shadow-gold/20"
+                className="inline-flex items-center justify-center gap-2 bg-maroon hover:bg-maroon-dark text-white font-source font-black px-8 py-4 rounded-xl transition-all hover:-translate-y-0.5 shadow-lg shadow-maroon/20"
               >
                 Apply Now <ArrowIcon />
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-source font-bold px-8 py-3.5 rounded-sm transition-all border border-white/15"
+                className="inline-flex items-center justify-center gap-2 bg-charcoal hover:bg-charcoal/80 text-white font-source font-bold px-8 py-4 rounded-xl transition-all"
               >
                 Contact Us
               </Link>

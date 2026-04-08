@@ -44,12 +44,12 @@ export default function AboutCTA() {
             <input
               type="email"
               placeholder="आपका Email पता..."
-              className="w-full bg-white/10 border border-white/15 focus:border-gold text-white placeholder:text-white/30 font-noto pl-11 pr-4 py-3.5 rounded-sm outline-none transition-all text-sm"
+              className="w-full bg-white/10 border border-white/15 focus:border-gold text-white placeholder:text-white/30 font-noto pl-11 pr-4 py-3.5 rounded-xl outline-none transition-all text-sm"
             />
           </div>
           <button
             type="submit"
-            className="bg-gold hover:bg-gold-light text-white font-source font-black px-6 py-3.5 rounded-sm transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2 text-sm"
+            className="bg-gold hover:bg-gold-light text-white font-source font-black px-6 py-3.5 rounded-xl transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2 text-sm"
           >
             सब्सक्राइब <ArrowIcon />
           </button>

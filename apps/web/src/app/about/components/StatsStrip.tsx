@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from 'react'
 
 const STATS = [
-  { value: 266000, display: '2,66,000+', label: 'YouTube Subscribers', suffix: '' },
-  { value: 73, display: '73M+', label: 'Total Views', suffix: 'M' },
-  { value: 1666, display: '1,666+', label: 'Videos Published', suffix: '' },
-  { value: 50000, display: '50,000+', label: 'Newsletter Readers', suffix: '' },
+  { value: 266, display: '2,66,000+', label: 'YouTube Subscribers', format: 'lakh' },
+  { value: 73, display: '7.3 करोड़+', label: 'Total Views', format: 'crore' },
+  { value: 1666, display: '1,666+', label: 'Videos Published', format: 'number' },
+  { value: 50, display: '50,000+', label: 'Newsletter Readers', format: 'thousand' },
 ]
 
 function useCountUp(target: number, duration = 1800, active: boolean) {
@@ -26,12 +26,16 @@ function useCountUp(target: number, duration = 1800, active: boolean) {
 }
 
 function StatCard({ stat, active }: { stat: typeof STATS[0]; active: boolean }) {
-  const count = useCountUp(stat.value, 1800, active)
-  const display = active
-    ? stat.suffix === 'M'
-      ? `${(count / 1000000).toFixed(0)}M+`
-      : count.toLocaleString('hi-IN') + '+'
-    : '0'
+  const count = useCountUp(stat.value, 1200, active)
+  const display = (() => {
+    if (!active) return '0'
+    switch (stat.format) {
+      case 'lakh': return `${count.toLocaleString('en-IN')}K+`
+      case 'crore': return `${(count / 10).toFixed(1)} करोड़+`
+      case 'thousand': return `${count}K+`
+      default: return count.toLocaleString('en-IN') + '+'
+    }
+  })()
 
   return (
     <div className="text-center px-6 py-8 group">
