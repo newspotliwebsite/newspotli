@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 
 const PLATFORM_LINKS = [
@@ -67,12 +68,23 @@ export default function Footer() {
   const inputClass = 'w-full bg-[#2a2a2a] border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-source placeholder:text-white/40 outline-none focus:border-gold transition-colors'
 
   return (
-    <footer className="bg-charcoal text-white pt-20 pb-5 px-5">
+    <footer className="bg-charcoal text-white pt-20 pb-6 px-5 relative overflow-hidden">
       <div className="max-w-site mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 mb-16">
 
-          {/* Column 1: Brand */}
+          {/* Column 1: Brand + NP Logo */}
           <div>
+            {/* NP Logo with gentle tilt animation */}
+            <Link href="/" className="inline-block mb-4 group">
+              <Image
+                src="/images/logos/logo-hindi.png"
+                alt="News Potli"
+                width={80}
+                height={80}
+                className="w-16 h-16 rounded-full border-2 border-white/10 group-hover:border-gold transition-colors"
+                style={{ animation: 'footerLogoTilt 4s ease-in-out infinite' }}
+              />
+            </Link>
             <Link href="/" className="inline-block mb-2.5">
               <h2 className="font-noto text-[28px] font-bold text-white">
                 न्यूज़ पोटली
@@ -95,7 +107,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className="text-white/60 hover:text-gold transition-colors"
+                  className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-gold hover:border-gold transition-all duration-300"
                 >
                   {s.icon}
                 </a>
@@ -113,7 +125,7 @@ export default function Footer() {
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="font-source text-sm text-white/70 hover:text-gold hover:underline transition-colors"
+                    className="font-source text-sm text-white/70 hover:text-gold hover:translate-x-1 inline-block transition-all duration-200"
                   >
                     {l.title}
                   </Link>
@@ -178,10 +190,28 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/10 pt-5 text-center">
+        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="font-source text-xs text-cream/40">
             © 2026 News Potli. All rights reserved.
           </p>
+          <a
+            href="https://buildrocketlabs.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-2.5 text-cream/40 hover:text-gold transition-colors duration-300"
+          >
+            <span className="font-source text-xs">Crafted by</span>
+            <Image
+              src="/images/logos/buildrocket.png"
+              alt="BuildRocket Labs"
+              width={24}
+              height={24}
+              className="w-5 h-5 rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+            />
+            <span className="font-source text-xs font-bold group-hover:text-gold transition-colors">
+              BuildRocket Labs
+            </span>
+          </a>
         </div>
       </div>
     </footer>
