@@ -20,48 +20,67 @@ async function fetchLatestVideosFromYT(): Promise<YouTubeVideo[]> {
   }
 
   try {
-    // 1. Fetch latest videos from channel
-    const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=5&type=video`
+    // 1. Fetch latest videos from channel (fetch 15 to have enough after filtering Shorts)
+    const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=15&type=video`
     const searchRes = await fetch(searchUrl)
-    
+
     if (!searchRes.ok) {
       throw new Error(`YouTube API returned ${searchRes.status}`)
     }
-    
+
     const searchData = await searchRes.json()
     const rawVideos = searchData.items || []
 
     if (rawVideos.length === 0) return []
 
-    // Extract video IDs for stats lookup
+    // Extract video IDs for duration + stats lookup
     const videoIds = rawVideos.map((item: any) => item.id.videoId).join(',')
 
-    // 2. Fetch statistics (viewCount) for these videos
-    const statsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&id=${videoIds}&part=statistics`
-    const statsRes = await fetch(statsUrl)
-    let statsMap: Record<string, string> = {}
-    
-    if (statsRes.ok) {
-      const statsData = await statsRes.json()
-      statsMap = (statsData.items || []).reduce((acc: Record<string, string>, item: any) => {
-        acc[item.id] = item.statistics?.viewCount || '0'
+    // 2. Fetch contentDetails (duration) + statistics in one call
+    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&id=${videoIds}&part=contentDetails,statistics`
+    const detailsRes = await fetch(detailsUrl)
+    let detailsMap: Record<string, { viewCount: string; duration: string }> = {}
+
+    if (detailsRes.ok) {
+      const detailsData = await detailsRes.json()
+      detailsMap = (detailsData.items || []).reduce((acc: Record<string, { viewCount: string; duration: string }>, item: any) => {
+        acc[item.id] = {
+          viewCount: item.statistics?.viewCount || '0',
+          duration: item.contentDetails?.duration || 'PT0S',
+        }
         return acc
       }, {})
     }
 
-    // 3. Map and merge data
-    return rawVideos.map((item: any) => ({
-      id: item.id.videoId,
-      title: item.snippet.title,
-      thumbnailUrl: item.snippet.thumbnails?.high?.url || item.snippet.thumbnails?.default?.url,
-      publishedAt: item.snippet.publishedAt,
-      viewCount: formatViewCount(statsMap[item.id.videoId] || '0')
-    }))
+    // 3. Filter out Shorts (duration < 60 seconds) and map
+    return rawVideos
+      .filter((item: any) => {
+        const duration = detailsMap[item.id.videoId]?.duration || 'PT0S'
+        return parseDurationSeconds(duration) >= 60
+      })
+      .slice(0, 5)
+      .map((item: any) => ({
+        id: item.id.videoId,
+        title: item.snippet.title,
+        thumbnailUrl: item.snippet.thumbnails?.high?.url || item.snippet.thumbnails?.default?.url,
+        publishedAt: item.snippet.publishedAt,
+        viewCount: formatViewCount(detailsMap[item.id.videoId]?.viewCount || '0'),
+      }))
 
   } catch (error) {
     console.error('Error fetching YouTube videos:', error)
     return generateMockVideos()
   }
+}
+
+// Parse ISO 8601 duration (PT1H2M3S) to total seconds
+function parseDurationSeconds(iso: string): number {
+  const match = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/)
+  if (!match) return 0
+  const h = parseInt(match[1] || '0', 10)
+  const m = parseInt(match[2] || '0', 10)
+  const s = parseInt(match[3] || '0', 10)
+  return h * 3600 + m * 60 + s
 }
 
 // Format numbers like 1500 -> 1.5K, 1500000 -> 1.5M
