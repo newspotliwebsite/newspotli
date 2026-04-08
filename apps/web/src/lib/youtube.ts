@@ -20,8 +20,8 @@ async function fetchLatestVideosFromYT(): Promise<YouTubeVideo[]> {
   }
 
   try {
-    // 1. Fetch latest videos from channel (fetch 15 to have enough after filtering Shorts)
-    const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=15&type=video`
+    // 1. Fetch latest videos from channel (fetch 25 to have enough after filtering Shorts)
+    const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=25&type=video`
     const searchRes = await fetch(searchUrl)
 
     if (!searchRes.ok) {
@@ -52,11 +52,11 @@ async function fetchLatestVideosFromYT(): Promise<YouTubeVideo[]> {
       }, {})
     }
 
-    // 3. Filter out Shorts (duration < 60 seconds) and map
+    // 3. Filter out Shorts (duration < 3 minutes) — YT Shorts can be up to 3 min
     return rawVideos
       .filter((item: any) => {
         const duration = detailsMap[item.id.videoId]?.duration || 'PT0S'
-        return parseDurationSeconds(duration) >= 60
+        return parseDurationSeconds(duration) >= 180
       })
       .slice(0, 5)
       .map((item: any) => ({
