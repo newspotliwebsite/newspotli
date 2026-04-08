@@ -21,7 +21,7 @@ export default function ArvindMessage() {
           {/* ── Right: Content ── */}
           <div className="flex-1">
             {/* Name */}
-            <h2 className="font-playfair text-2xl md:text-3xl font-black text-charcoal mb-4">
+            <h2 className="font-noto text-2xl md:text-3xl font-black text-charcoal mb-4">
               अरविंद शुक्ला
             </h2>
 

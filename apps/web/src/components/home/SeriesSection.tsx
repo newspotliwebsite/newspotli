@@ -4,82 +4,50 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 const SERIES = [
-  {
-    title: 'तकनीक से तरक्की',
-    slug: 'takneek-se-tarakki',
-    image: '/images/series/takneek-se-tarakki.jpg',
-    color: '#1a1a3d',
-  },
-  {
-    title: 'एग्रो हीरो',
-    slug: 'agro-hero',
-    image: '/images/series/agro-hero.jpg',
-    color: '#2D5016',
-  },
-  {
-    title: 'सोशल हीरोज',
-    slug: 'social-heroes',
-    image: '/images/series/social-heroes.jpg',
-    color: '#8B1A1A',
-  },
-  {
-    title: 'सोलर से समृद्धि',
-    slug: 'solar-se-samriddhi',
-    image: '/images/series/solar-se-samriddhi.jpg',
-    color: '#C8860A',
-  },
-  {
-    title: 'एग्रो पाठशाला',
-    slug: 'agro-pathshala',
-    image: '/images/series/agro-pathshala.jpg',
-    color: '#5C2D00',
-  },
+  { name: 'तकनीक से तरक्की', slug: 'taknik-se-tarakki', image: '/images/series/series-tech-tarakki.png', episodes: 24 },
+  { name: 'एग्रो हीरो', slug: 'agro-hero', image: '/images/series/series-agro-hero.png', episodes: 18 },
+  { name: 'सोशल हीरोज', slug: 'social-heroes', image: '/images/series/series-social-heroes.png', episodes: 15 },
+  { name: 'सोलर से समृद्धि', slug: 'solar-samriddhi', image: '/images/series/series-solar-samriddhi.png', episodes: 12 },
+  { name: 'एग्रो पाठशाला', slug: 'agro-pathshala', image: '/images/series/series-agro-pathshala.png', episodes: 30 },
 ]
 
 export default function SeriesSection() {
   return (
-    <section className="bg-cream py-12 md:py-16 px-4 md:px-8 lg:px-24">
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="border-b border-charcoal/10 pb-5 mb-10">
-          <span className="font-source text-[11px] font-black tracking-[0.2em] text-maroon uppercase block mb-1.5">
-            Our Series
-          </span>
-          <h2 className="font-playfair text-3xl md:text-4xl font-black text-charcoal">
-            हमारी <span className="text-maroon">सीरीज़.</span>
-          </h2>
-        </div>
+    <section className="bg-white py-20 text-center">
+      <div className="max-w-site mx-auto px-5">
+        {/* Title with gold underline */}
+        <h2 className="font-noto text-[28px] font-bold text-charcoal inline-block relative">
+          हमारी सीरीज़
+          <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-10 h-0.5 bg-gold" />
+        </h2>
 
-        {/* Circular Cards */}
-        <div className="flex justify-center gap-6 md:gap-10 lg:gap-14 flex-wrap">
+        {/* Series Cards */}
+        <div className="flex justify-center gap-10 lg:gap-12 mt-16 flex-wrap md:flex-nowrap overflow-x-auto scrollbar-none pb-4">
           {SERIES.map((series) => (
             <Link
               key={series.slug}
-              href={`/series/${series.slug}`}
-              className="group flex flex-col items-center gap-3 w-28 md:w-32"
+              href={`/category/${series.slug}`}
+              className="group flex-shrink-0 w-[160px] transition-all duration-250"
             >
-              <div
-                className="relative w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-3 border-charcoal/10 group-hover:border-gold transition-colors duration-300 shadow-md group-hover:shadow-xl"
-                style={{ borderWidth: '3px' }}
-              >
+              {/* Circular Image */}
+              <div className="w-[140px] h-[140px] rounded-full border-[3px] border-gold mx-auto mb-4 overflow-hidden bg-cream-dark flex items-center justify-center transition-all duration-250 group-hover:border-maroon group-hover:shadow-card-hover">
                 <Image
                   src={series.image}
-                  alt={series.title}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                  sizes="112px"
+                  alt={series.name}
+                  width={140}
+                  height={140}
+                  className="w-full h-full object-cover group-hover:scale-[1.08] transition-transform duration-300"
+                  sizes="140px"
                 />
-                {/* Fallback overlay if image missing */}
-                <div
-                  className="absolute inset-0 flex items-center justify-center text-white font-playfair font-black text-lg"
-                  style={{ background: `${series.color}cc` }}
-                >
-                  {series.title[0]}
-                </div>
               </div>
-              <span className="font-noto font-bold text-sm text-charcoal text-center leading-tight group-hover:text-maroon transition-colors duration-200">
-                {series.title}
-              </span>
+              {/* Name */}
+              <p className="font-noto text-base font-bold text-charcoal mb-1">
+                {series.name}
+              </p>
+              {/* Episode count */}
+              <p className="font-source text-xs text-charcoal/70">
+                {series.episodes} एपिसोड
+              </p>
             </Link>
           ))}
         </div>

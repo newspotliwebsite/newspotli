@@ -138,7 +138,7 @@ export default function MandiPriceTickerClient({ prices }: Props) {
             >
               {/* Section header */}
               <div className="flex items-center justify-between mb-5">
-                <h3 className="font-playfair text-xl md:text-2xl font-bold text-charcoal">
+                <h3 className="font-noto text-xl md:text-2xl font-bold text-charcoal">
                   आज के <span className="text-maroon">मंडी भाव</span>
                 </h3>
                 <span className="font-source text-xs text-charcoal/50">

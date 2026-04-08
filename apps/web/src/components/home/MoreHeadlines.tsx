@@ -13,46 +13,59 @@ export default function MoreHeadlines({ articles }: { articles: HeadlineArticle[
   if (!articles || articles.length === 0) return null
 
   return (
-    <section className="bg-cream py-12 md:py-16 px-4 md:px-8 lg:px-24">
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="border-b border-charcoal/10 pb-5 mb-8">
-          <span className="font-source text-[11px] font-black tracking-[0.2em] text-maroon uppercase block mb-1.5">
-            More Headlines
-          </span>
-          <h2 className="font-playfair text-3xl md:text-4xl font-black text-charcoal">
-            और <span className="text-maroon">खबरें.</span>
+    <section className="bg-cream py-20 px-5">
+      <div className="max-w-site mx-auto">
+        {/* Title with gold underline */}
+        <div className="text-center mb-10">
+          <h2 className="font-noto text-[28px] font-bold text-charcoal inline-block relative">
+            और खबरें पढ़ें
+            <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-10 h-0.5 bg-gold" />
           </h2>
+          <p className="text-charcoal/70 text-sm mt-3 font-source">More Stories</p>
         </div>
 
-        {/* Scrollable Headlines List */}
-        <div className="max-h-[480px] overflow-y-auto scrollbar-thin pr-2">
-          <ul className="divide-y divide-charcoal/8">
-            {articles.map((article) => (
-              <li key={article._id}>
-                <Link
-                  href={`/article/${article.slug.current}`}
-                  className="group flex items-start gap-3 py-4 hover:bg-maroon/[0.03] transition-colors -mx-3 px-3 rounded"
-                >
-                  {/* Category dot */}
-                  <span
-                    className="w-2.5 h-2.5 rounded-full flex-shrink-0 mt-1.5"
-                    style={{ backgroundColor: article.category?.color || '#8B1A1A' }}
-                  />
+        {/* Headlines List */}
+        <div className="bg-white rounded-lg p-5 shadow-card">
+          {articles.map((article, i) => (
+            <Link
+              key={article._id}
+              href={`/article/${article.slug.current}`}
+              className={`group grid grid-cols-[auto_1fr_auto] items-center gap-5 py-4 px-2.5 transition-all duration-200 hover:bg-cream-dark ${
+                i < articles.length - 1 ? 'border-b border-border-warm' : ''
+              }`}
+            >
+              {/* Category with dot */}
+              <div className="flex items-center gap-2.5 w-[120px]">
+                <span
+                  className="w-2 h-2 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: article.category?.color || '#8B1A1A' }}
+                />
+                <span className="font-source text-xs font-bold uppercase tracking-wide text-charcoal/50">
+                  {article.category?.title || 'खबर'}
+                </span>
+              </div>
 
-                  {/* Headline */}
-                  <span className="flex-1 font-noto font-bold text-[15px] leading-snug text-charcoal group-hover:text-maroon transition-colors duration-200 line-clamp-2">
-                    {article.title}
-                  </span>
+              {/* Headline */}
+              <h4 className="font-noto text-[17px] font-bold text-charcoal group-hover:text-maroon transition-colors">
+                {article.title}
+              </h4>
 
-                  {/* Time ago */}
-                  <span className="font-source text-xs text-charcoal/40 flex-shrink-0 mt-0.5 whitespace-nowrap">
-                    {timeAgo(article.publishedAt)}
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+              {/* Time */}
+              <span className="font-source text-xs text-charcoal/70 whitespace-nowrap">
+                {timeAgo(article.publishedAt)}
+              </span>
+            </Link>
+          ))}
+        </div>
+
+        {/* Load more button */}
+        <div className="text-center mt-10">
+          <Link
+            href="/latest"
+            className="inline-flex items-center gap-2 px-6 py-2.5 border border-maroon text-maroon font-source font-bold text-sm rounded hover:bg-maroon hover:text-white transition-all duration-200"
+          >
+            और पढ़ें
+          </Link>
         </div>
       </div>
     </section>

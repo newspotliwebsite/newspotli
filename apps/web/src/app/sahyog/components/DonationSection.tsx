@@ -107,7 +107,7 @@ export default function DonationSection() {
           <span className="font-source text-[11px] font-black tracking-[0.25em] text-charcoal/40 uppercase block mb-3">
             Support
           </span>
-          <h2 className="font-playfair text-3xl md:text-4xl font-black text-charcoal">
+          <h2 className="font-noto text-3xl md:text-4xl font-black text-charcoal">
             राशि चुनें
           </h2>
         </div>

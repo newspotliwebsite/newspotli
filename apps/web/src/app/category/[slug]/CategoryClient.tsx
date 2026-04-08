@@ -172,28 +172,31 @@ export default function CategoryClient({ slug, category, initialArticles }: Cate
               <h3 className="font-source text-[11px] font-black tracking-[0.2em] text-gold uppercase mb-4 pb-3 border-b border-gold/20">
                 🔥 Most Read
               </h3>
-              <ol className="space-y-4">
-                {filteredArticles.slice(0, 5).map((article: any, i: number) => (
-                  <li key={article._id} className="flex gap-3 group">
-                    <span className="font-playfair text-2xl font-black text-charcoal/10 w-6 flex-shrink-0 group-hover:text-maroon/20 transition-colors">
-                      {i + 1}
-                    </span>
+              <ul className="space-y-4">
+                {filteredArticles.slice(0, 5).map((article: any) => (
+                  <li key={article._id}>
                     <a
                       href={`/article/${article.slug?.current || article.slug}`}
-                      className="flex-1 min-w-0"
+                      className="group flex items-start gap-2"
                     >
-                      <h4 className="font-noto font-bold text-sm text-charcoal leading-snug group-hover:text-maroon transition-colors line-clamp-2">
-                        {article.title}
-                      </h4>
-                      {article.readTime && (
-                        <span className="font-source text-[11px] text-charcoal/40 mt-1 flex items-center gap-1">
-                          <ClockIcon /> {article.readTime} min
-                        </span>
-                      )}
+                      <span
+                        className="w-2 h-2 rounded-full flex-shrink-0 mt-1.5"
+                        style={{ backgroundColor: article.category?.color || '#8B1A1A' }}
+                      />
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-noto font-bold text-sm text-charcoal leading-snug group-hover:text-maroon transition-colors line-clamp-2">
+                          {article.title}
+                        </h4>
+                        {article.readTime && (
+                          <span className="font-source text-[11px] text-charcoal/40 mt-1 flex items-center gap-1">
+                            <ClockIcon /> {article.readTime} min
+                          </span>
+                        )}
+                      </div>
                     </a>
                   </li>
                 ))}
-              </ol>
+              </ul>
             </div>
 
             {/* More Headlines */}

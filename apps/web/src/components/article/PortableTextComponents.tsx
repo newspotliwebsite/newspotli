@@ -31,7 +31,7 @@ export const articleComponents: PortableTextComponents = {
 
   block: {
     h2: ({ children }) => (
-      <h2 className="font-playfair text-2xl md:text-3xl font-black text-charcoal mt-12 mb-4 leading-snug border-l-4 border-gold pl-5">
+      <h2 className="font-noto text-2xl md:text-3xl font-black text-charcoal mt-12 mb-4 leading-snug border-l-4 border-gold pl-5">
         {children}
       </h2>
     ),
@@ -52,7 +52,7 @@ export const articleComponents: PortableTextComponents = {
     ),
     blockquote: ({ children }) => (
       <blockquote className="relative my-10 py-6 px-8 border-l-4 border-maroon bg-maroon/[0.04] italic">
-        <span className="absolute -top-3 left-4 font-playfair text-5xl text-maroon/20 select-none leading-none">&ldquo;</span>
+        <span className="absolute -top-3 left-4 font-noto text-5xl text-maroon/20 select-none leading-none">&ldquo;</span>
         <div className="font-noto text-lg leading-relaxed text-charcoal/80">
           {children}
         </div>

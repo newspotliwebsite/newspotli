@@ -55,7 +55,7 @@ export default function ArticleCard({ article, featured = false }: ArticleCardPr
               {article.category.title}
             </span>
           )}
-          <h3 className="font-playfair font-black text-white text-2xl md:text-3xl leading-snug line-clamp-3 group-hover:text-gold transition-colors duration-300 text-balance">
+          <h3 className="font-noto font-black text-white text-2xl md:text-3xl leading-snug line-clamp-3 group-hover:text-gold transition-colors duration-300 text-balance">
             {article.title}
           </h3>
           <div className="flex items-center gap-3 text-cream/60 text-xs font-source mt-3">

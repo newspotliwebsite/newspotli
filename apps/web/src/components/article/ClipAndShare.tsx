@@ -290,7 +290,7 @@ export default function ClipAndShare({ children, articleTitle, articleUrl }: Cli
                   <p className="font-source text-[10px] font-black tracking-[0.2em] uppercase text-maroon">
                     Clip &amp; Share
                   </p>
-                  <p className="font-playfair text-lg font-black text-charcoal mt-0.5">
+                  <p className="font-noto text-lg font-black text-charcoal mt-0.5">
                     चयनित पाठ शेयर करें
                   </p>
                 </div>
@@ -304,7 +304,7 @@ export default function ClipAndShare({ children, articleTitle, articleUrl }: Cli
 
               {/* Quote Card */}
               <div className="bg-cream border border-charcoal/8 p-5 mb-6 relative">
-                <div className="absolute -top-3 left-5 text-gold/40 font-playfair text-5xl font-black leading-none select-none">
+                <div className="absolute -top-3 left-5 text-gold/40 font-noto text-5xl font-black leading-none select-none">
                   &ldquo;
                 </div>
                 <p className="font-noto text-base text-charcoal/80 leading-relaxed pt-3">

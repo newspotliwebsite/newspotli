@@ -32,7 +32,7 @@ export default function TransparencySection() {
           पारदर्शिता
         </span>
 
-        <h2 className="font-playfair text-3xl md:text-4xl font-black text-white mb-10 md:mb-14">
+        <h2 className="font-noto text-3xl md:text-4xl font-black text-white mb-10 md:mb-14">
           आपका पैसा कहाँ जाता है
         </h2>
 

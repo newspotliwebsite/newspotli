@@ -220,7 +220,7 @@ export default async function AuthorPage({
                         className="object-cover w-full h-full"
                       />
                     ) : (
-                      <span className="flex items-center justify-center w-full h-full text-white font-playfair font-black text-4xl md:text-5xl">
+                      <span className="flex items-center justify-center w-full h-full text-white font-noto font-black text-4xl md:text-5xl">
                         {author.name?.charAt(0) || 'N'}
                       </span>
                     )}
@@ -232,7 +232,7 @@ export default async function AuthorPage({
                   <p className="font-source text-[10px] font-black tracking-[0.2em] uppercase text-maroon mb-2">
                     Author
                   </p>
-                  <h1 className="font-playfair text-3xl md:text-4xl lg:text-5xl font-black text-charcoal leading-tight mb-2">
+                  <h1 className="font-noto text-3xl md:text-4xl lg:text-5xl font-black text-charcoal leading-tight mb-2">
                     {author.name}
                   </h1>
                   {author.role && (
@@ -266,7 +266,7 @@ export default async function AuthorPage({
                     <PenIcon />
                   </div>
                   <div>
-                    <p className="font-playfair text-2xl font-black text-charcoal leading-none">
+                    <p className="font-noto text-2xl font-black text-charcoal leading-none">
                       {articleCount}
                     </p>
                     <p className="font-source text-xs text-charcoal/50 mt-0.5">
@@ -280,7 +280,7 @@ export default async function AuthorPage({
                     <FolderIcon />
                   </div>
                   <div>
-                    <p className="font-playfair text-2xl font-black text-charcoal leading-none">
+                    <p className="font-noto text-2xl font-black text-charcoal leading-none">
                       {uniqueCategories.length}
                     </p>
                     <p className="font-source text-xs text-charcoal/50 mt-0.5">
@@ -315,7 +315,7 @@ export default async function AuthorPage({
             <span className="font-source text-[11px] font-black tracking-[0.2em] text-maroon uppercase block mb-1">
               All Stories
             </span>
-            <h2 className="font-playfair text-2xl md:text-3xl font-black text-charcoal">
+            <h2 className="font-noto text-2xl md:text-3xl font-black text-charcoal">
               सभी लेख<span className="text-maroon">.</span>
             </h2>
           </div>

@@ -64,23 +64,23 @@
     }
   }
 
-  /* Gold text selection */
+  /* Gold tint text selection (matches reference) */
   ::selection {
-    background-color: #c8860a;
-    color: #fff;
+    background: rgba(200, 134, 10, 0.2);
+    color: #8B1A1A;
   }
 
-  /* Custom Scrollbar */
+  /* Custom Scrollbar (matches reference) */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #f4f0e8;
+    background: #FAF6EE;
   }
   ::-webkit-scrollbar-thumb {
     background: #8b1a1a;
-    border-radius: 3px;
+    border-radius: 10px;
   }
   ::-webkit-scrollbar-thumb:hover {
     background: #c8860a;
@@ -332,6 +332,15 @@
     padding-left: 12px;
     border-radius: 2px;
     transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  /* Hide scrollbar (for horizontal scroll nav) */
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
   }
 
   /* Noise texture overlay */

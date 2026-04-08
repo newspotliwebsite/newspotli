@@ -9,7 +9,7 @@ export default function AboutHero() {
         </span>
 
         {/* Main headline */}
-        <h1 className="font-playfair text-5xl sm:text-6xl md:text-7xl font-black text-charcoal leading-[1.05] mb-6 text-balance">
+        <h1 className="font-noto text-5xl sm:text-6xl md:text-7xl font-black text-charcoal leading-[1.05] mb-6 text-balance">
           भारत के गाँवों की{' '}
           <span className="relative inline-block">
             आवाज़
@@ -30,7 +30,7 @@ export default function AboutHero() {
         {/* Decorative pull-quote */}
         <div className="mt-12 flex gap-4 items-start max-w-2xl">
           <div className="w-1 min-h-full bg-gold flex-shrink-0 self-stretch rounded-full" />
-          <p className="font-playfair text-xl md:text-2xl text-charcoal/70 leading-relaxed">
+          <p className="font-noto text-xl md:text-2xl text-charcoal/70 leading-relaxed">
             &ldquo;We do not just report the news — we give voice to the voiceless 700 million.&rdquo;
           </p>
         </div>

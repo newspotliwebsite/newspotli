@@ -4,7 +4,7 @@ export default function SahyogHero() {
     <section className="relative bg-gradient-to-br from-maroon via-maroon-dark to-[#3a0808] py-20 md:py-28 px-4 md:px-12 lg:px-24 overflow-hidden">
       {/* Decorative watermark */}
       <span
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-playfair text-[12rem] sm:text-[18rem] md:text-[24rem] font-black text-white/[0.03] leading-none select-none pointer-events-none whitespace-nowrap"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-noto text-[12rem] sm:text-[18rem] md:text-[24rem] font-black text-white/[0.03] leading-none select-none pointer-events-none whitespace-nowrap"
         aria-hidden="true"
       >
         सहयोग
@@ -17,7 +17,7 @@ export default function SahyogHero() {
         </span>
 
         {/* Main headline */}
-        <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] mb-6 text-balance">
+        <h1 className="font-noto text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] mb-6 text-balance">
           आपकी पत्रकारिता,{' '}
           <span className="relative inline-block">
             आपका सहयोग

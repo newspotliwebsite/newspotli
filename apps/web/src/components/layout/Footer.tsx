@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { useState } from 'react'
 
 const PLATFORM_LINKS = [
@@ -12,7 +11,6 @@ const PLATFORM_LINKS = [
   { title: 'Terms of Service', href: '/terms' },
 ]
 
-// SVG Social Icons
 const YouTubeIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
     <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
@@ -39,68 +37,65 @@ const FacebookIcon = () => (
   </svg>
 )
 
-const SOCIALS = [
-  { label: 'YouTube', href: 'https://youtube.com/@newspotli', icon: <YouTubeIcon />, hoverColor: 'hover:bg-red-600' },
-  { label: 'Instagram', href: 'https://instagram.com/newspotli', icon: <InstagramIcon />, hoverColor: 'hover:bg-pink-600' },
-  { label: 'X / Twitter', href: 'https://twitter.com/newspotli', icon: <XIcon />, hoverColor: 'hover:bg-neutral-800' },
-  { label: 'Facebook', href: 'https://facebook.com/newspotli', icon: <FacebookIcon />, hoverColor: 'hover:bg-blue-700' },
-]
+const SpotifyIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+    <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+  </svg>
+)
 
 export default function Footer() {
-  const [contactForm, setContactForm] = useState({ name: '', number: '', email: '', question: '' })
-  const [contactStatus, setContactStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [form, setForm] = useState({ name: '', number: '', email: '', question: '' })
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
 
-  const handleContactSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setContactStatus('loading')
+    setStatus('loading')
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(contactForm),
+        body: JSON.stringify(form),
       })
       if (!res.ok) throw new Error('Failed')
-      setContactStatus('success')
-      setContactForm({ name: '', number: '', email: '', question: '' })
+      setStatus('success')
+      setForm({ name: '', number: '', email: '', question: '' })
     } catch {
-      setContactStatus('error')
+      setStatus('error')
     }
   }
 
+  const inputClass = 'w-full bg-[#2a2a2a] border border-cream-dark rounded-lg px-3 py-2.5 text-white text-sm font-source placeholder:text-white/40 outline-none focus:border-gold transition-colors'
+
   return (
-    <footer className="bg-[#111111] text-cream pt-16 pb-8 px-4 md:px-10 lg:px-20 relative overflow-hidden">
-      {/* Top gold accent */}
-      <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-maroon via-gold to-maroon" />
+    <footer className="bg-charcoal text-white pt-20 pb-5 px-5">
+      <div className="max-w-site mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mb-16">
 
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
-
-          {/* Left: Logo + Tagline + Social Icons */}
+          {/* Column 1: Brand */}
           <div>
-            <Link href="/" className="inline-flex items-center gap-3 mb-5 group">
-              <Image
-                src="/images/logos/logo-hindi.png"
-                alt="News Potli"
-                width={48}
-                height={48}
-                className="w-12 h-12 rounded-full border-2 border-white/10 group-hover:border-gold transition-colors"
-              />
-              <span className="font-playfair text-2xl font-black tracking-tight text-white group-hover:text-gold transition-colors">
-                News Potli<span className="text-gold group-hover:text-white">.</span>
-              </span>
+            <Link href="/" className="inline-block mb-2.5">
+              <h2 className="font-noto text-[28px] font-bold text-white">
+                न्यूज़ पोटली
+              </h2>
             </Link>
-            <p className="font-noto text-cream/70 text-sm mb-6 leading-relaxed">
-              भारत के गाँवों और किसानों की आवाज़। ग्रामीण भारत की हर उस खबर का पता, जो आपके लिए जानना ज़रूरी है।
+            <p className="font-source text-sm text-white/50 mb-8">
+              भारत के गाँव और किसान की आवाज़
             </p>
-            <div className="flex gap-3">
-              {SOCIALS.map((s) => (
+            <div className="flex gap-4">
+              {[
+                { icon: <YouTubeIcon />, href: 'https://youtube.com/@newspotli', label: 'YouTube' },
+                { icon: <InstagramIcon />, href: 'https://instagram.com/newspotli', label: 'Instagram' },
+                { icon: <XIcon />, href: 'https://twitter.com/newspotli', label: 'X' },
+                { icon: <FacebookIcon />, href: 'https://facebook.com/newspotli', label: 'Facebook' },
+                { icon: <SpotifyIcon />, href: '#', label: 'Spotify' },
+              ].map((s) => (
                 <a
                   key={s.label}
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className={`w-10 h-10 bg-white/8 border border-white/10 flex items-center justify-center text-cream/70 hover:text-white ${s.hoverColor} hover:border-transparent transition-all duration-200 rounded-sm`}
+                  className="text-white/60 hover:text-gold transition-colors"
                 >
                   {s.icon}
                 </a>
@@ -108,16 +103,18 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Middle: Platform Links */}
+          {/* Column 2: Platform */}
           <div>
-            <h3 className="font-source text-[11px] font-black tracking-[0.18em] uppercase text-gold mb-5 pb-3 border-b border-gold/25">
+            <h4 className="font-source text-sm uppercase tracking-[2px] text-gold mb-6">
               Platform
-            </h3>
+            </h4>
             <ul className="space-y-3">
               {PLATFORM_LINKS.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="font-source text-cream/65 hover:text-gold transition-colors text-sm flex items-center gap-2 group">
-                    <span className="w-1 h-1 bg-white/20 rounded-full flex-shrink-0 group-hover:bg-gold transition-colors" />
+                  <Link
+                    href={l.href}
+                    className="font-source text-sm text-white/70 hover:text-gold hover:underline transition-colors"
+                  >
                     {l.title}
                   </Link>
                 </li>
@@ -125,74 +122,66 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Right: Contact Us Form */}
+          {/* Column 3: Contact */}
           <div>
-            <h3 className="font-source text-[11px] font-black tracking-[0.18em] uppercase text-maroon mb-5 pb-3 border-b border-maroon/30">
+            <h4 className="font-source text-sm uppercase tracking-[2px] text-gold mb-6">
               Contact Us
-            </h3>
-            <form className="space-y-3" onSubmit={handleContactSubmit}>
+            </h4>
+            <form className="flex flex-col gap-2.5" onSubmit={handleSubmit}>
               <input
                 type="text"
-                placeholder="Name"
-                value={contactForm.name}
-                onChange={(e) => setContactForm((p) => ({ ...p, name: e.target.value }))}
-                className="w-full bg-white/8 border border-white/12 focus:border-gold rounded-sm px-4 py-2.5 text-cream text-sm placeholder-cream/30 font-source outline-none transition-all"
+                placeholder="नाम"
+                value={form.name}
+                onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
+                className={inputClass}
                 required
               />
               <input
                 type="tel"
-                placeholder="Phone Number"
-                value={contactForm.number}
-                onChange={(e) => setContactForm((p) => ({ ...p, number: e.target.value }))}
-                className="w-full bg-white/8 border border-white/12 focus:border-gold rounded-sm px-4 py-2.5 text-cream text-sm placeholder-cream/30 font-source outline-none transition-all"
+                placeholder="संपर्क नंबर"
+                value={form.number}
+                onChange={(e) => setForm((p) => ({ ...p, number: e.target.value }))}
+                className={inputClass}
               />
               <input
                 type="email"
-                placeholder="Email"
-                value={contactForm.email}
-                onChange={(e) => setContactForm((p) => ({ ...p, email: e.target.value }))}
-                className="w-full bg-white/8 border border-white/12 focus:border-gold rounded-sm px-4 py-2.5 text-cream text-sm placeholder-cream/30 font-source outline-none transition-all"
+                placeholder="ईमेल"
+                value={form.email}
+                onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
+                className={inputClass}
                 required
               />
               <textarea
-                placeholder="Your Question"
-                value={contactForm.question}
-                onChange={(e) => setContactForm((p) => ({ ...p, question: e.target.value }))}
+                placeholder="आपका सवाल"
+                value={form.question}
+                onChange={(e) => setForm((p) => ({ ...p, question: e.target.value }))}
                 rows={3}
-                className="w-full bg-white/8 border border-white/12 focus:border-gold rounded-sm px-4 py-2.5 text-cream text-sm placeholder-cream/30 font-source outline-none transition-all resize-none"
+                className={`${inputClass} resize-none`}
                 required
               />
               <button
                 type="submit"
-                disabled={contactStatus === 'loading' || contactStatus === 'success'}
-                className={`w-full font-source font-bold py-2.5 text-sm rounded-sm transition-all
-                  ${contactStatus === 'success'
-                    ? 'bg-emerald-500 text-white cursor-default'
-                    : 'bg-gold hover:bg-gold-light text-white hover:-translate-y-0.5'}
+                disabled={status === 'loading' || status === 'success'}
+                className={`w-full rounded-lg py-3 font-source font-bold text-sm mt-0.5 transition-all
+                  ${status === 'success'
+                    ? 'bg-emerald-500 text-white'
+                    : 'bg-gold text-charcoal hover:opacity-90'}
                 `}
               >
-                {contactStatus === 'loading' ? '...' : contactStatus === 'success' ? 'Sent!' : 'Send Message'}
+                {status === 'loading' ? '...' : status === 'success' ? 'भेज दिया!' : 'भेजें'}
               </button>
-              {contactStatus === 'error' && (
-                <p className="text-red-300 text-xs font-source">Something went wrong. Please try again.</p>
+              {status === 'error' && (
+                <p className="text-red-400 text-xs font-source">कुछ गड़बड़ हुई, फिर कोशिश करें।</p>
               )}
             </form>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-white/8 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="font-source text-cream/40 text-xs">
-            © 2026 News Potli. All rights reserved. Powered by{' '}
-            <a href="https://buildrocketlabs.com" className="text-gold hover:text-gold-light transition-colors font-bold">
-              BuildRocket Labs
-            </a>
+        {/* Bottom bar */}
+        <div className="border-t border-white/10 pt-5 text-center">
+          <p className="font-source text-xs text-cream/40">
+            © 2026 News Potli. All rights reserved.
           </p>
-          <div className="flex items-center gap-3 text-cream/30 font-source text-xs">
-            <span>Supported by Pulitzer Center</span>
-            <span className="text-white/15">·</span>
-            <span>SEBI Registered</span>
-          </div>
         </div>
       </div>
     </footer>

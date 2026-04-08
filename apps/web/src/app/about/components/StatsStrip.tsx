@@ -35,7 +35,7 @@ function StatCard({ stat, active }: { stat: typeof STATS[0]; active: boolean }) 
 
   return (
     <div className="text-center px-6 py-8 group">
-      <div className="font-playfair text-4xl md:text-5xl font-black text-gold mb-2 tabular-nums">
+      <div className="font-noto text-4xl md:text-5xl font-black text-gold mb-2 tabular-nums">
         {display}
       </div>
       <div className="font-source text-[11px] font-black tracking-[0.2em] uppercase text-white/50">

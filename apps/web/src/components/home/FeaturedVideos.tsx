@@ -21,7 +21,7 @@ export default async function FeaturedVideos() {
               </svg>
               News Potli Video
             </span>
-            <h2 className="font-playfair text-3xl md:text-4xl font-black text-white flex items-center gap-3">
+            <h2 className="font-noto text-3xl md:text-4xl font-black text-white flex items-center gap-3">
               पोटली <span className="text-gold">Prime.</span>
             </h2>
           </div>

@@ -15,7 +15,7 @@ export default function TermsPage() {
       <main className="bg-cream min-h-screen">
         <div className="max-w-3xl mx-auto px-4 md:px-6 py-12 md:py-20">
           <span className="font-source text-[11px] font-black tracking-[0.2em] text-maroon uppercase block mb-3">Legal</span>
-          <h1 className="font-playfair text-4xl md:text-5xl font-black text-charcoal mb-8">
+          <h1 className="font-noto text-4xl md:text-5xl font-black text-charcoal mb-8">
             सेवा की <span className="text-maroon">शर्तें.</span>
           </h1>
 
@@ -24,28 +24,28 @@ export default function TermsPage() {
               News Potli (newspotli.com) का उपयोग करके, आप इन सेवा की शर्तों से सहमत होते हैं।
             </p>
 
-            <h2 className="font-playfair text-2xl font-black text-charcoal mt-10 border-l-4 border-gold pl-5">
+            <h2 className="font-noto text-2xl font-black text-charcoal mt-10 border-l-4 border-gold pl-5">
               सामग्री का उपयोग
             </h2>
             <p className="text-base leading-relaxed">
               News Potli पर प्रकाशित सभी लेख, वीडियो और अन्य सामग्री कॉपीराइट सुरक्षित हैं। आप व्यक्तिगत उपयोग के लिए सामग्री पढ़ और साझा कर सकते हैं, लेकिन व्यावसायिक उपयोग के लिए अनुमति आवश्यक है।
             </p>
 
-            <h2 className="font-playfair text-2xl font-black text-charcoal mt-10 border-l-4 border-gold pl-5">
+            <h2 className="font-noto text-2xl font-black text-charcoal mt-10 border-l-4 border-gold pl-5">
               सटीकता
             </h2>
             <p className="text-base leading-relaxed">
               हम सटीक और विश्वसनीय पत्रकारिता के लिए प्रतिबद्ध हैं। किसी भी त्रुटि की सूचना हमें तुरंत दें और हम सुधार करेंगे।
             </p>
 
-            <h2 className="font-playfair text-2xl font-black text-charcoal mt-10 border-l-4 border-gold pl-5">
+            <h2 className="font-noto text-2xl font-black text-charcoal mt-10 border-l-4 border-gold pl-5">
               विज्ञापन और प्रायोजित सामग्री
             </h2>
             <p className="text-base leading-relaxed">
               प्रायोजित सामग्री को हमेशा स्पष्ट रूप से चिह्नित किया जाता है। संपादकीय सामग्री विज्ञापनदाताओं से स्वतंत्र है।
             </p>
 
-            <h2 className="font-playfair text-2xl font-black text-charcoal mt-10 border-l-4 border-gold pl-5">
+            <h2 className="font-noto text-2xl font-black text-charcoal mt-10 border-l-4 border-gold pl-5">
               संपर्क
             </h2>
             <p className="text-base leading-relaxed">

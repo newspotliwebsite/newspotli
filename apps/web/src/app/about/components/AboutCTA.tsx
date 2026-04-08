@@ -19,7 +19,7 @@ export default function AboutCTA() {
   return (
     <section className="bg-maroon py-16 md:py-24 px-4 md:px-12 lg:px-24 relative overflow-hidden">
       {/* Decorative large text watermark */}
-      <span className="absolute right-8 top-1/2 -translate-y-1/2 font-playfair text-[180px] font-black text-white/[0.03] select-none pointer-events-none leading-none hidden lg:block">
+      <span className="absolute right-8 top-1/2 -translate-y-1/2 font-noto text-[180px] font-black text-white/[0.03] select-none pointer-events-none leading-none hidden lg:block">
         Mission
       </span>
 
@@ -27,7 +27,7 @@ export default function AboutCTA() {
         <span className="font-source text-[11px] font-black tracking-[0.25em] uppercase text-gold mb-4 block">
           Join the Mission
         </span>
-        <h2 className="font-playfair text-3xl md:text-5xl font-black text-white leading-tight mb-4">
+        <h2 className="font-noto text-3xl md:text-5xl font-black text-white leading-tight mb-4">
           हमारे मिशन का हिस्सा बनें<span className="text-gold">.</span>
         </h2>
         <p className="font-noto text-white/70 text-base md:text-lg leading-relaxed mb-10 max-w-xl mx-auto">

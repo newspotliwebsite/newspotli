@@ -19,7 +19,7 @@ export default function PartnersSection() {
           <span className="font-source text-[11px] font-black tracking-[0.25em] uppercase text-charcoal/35 block mb-2">
             Partners &amp; Collaborations
           </span>
-          <h2 className="font-playfair text-3xl md:text-4xl font-black text-charcoal">
+          <h2 className="font-noto text-3xl md:text-4xl font-black text-charcoal">
             जिनके साथ काम किया<span className="text-gold">.</span>
           </h2>
         </div>
