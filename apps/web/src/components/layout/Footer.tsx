@@ -64,7 +64,7 @@ export default function Footer() {
     }
   }
 
-  const inputClass = 'w-full bg-[#2a2a2a] border border-cream-dark rounded-lg px-3 py-2.5 text-white text-sm font-source placeholder:text-white/40 outline-none focus:border-gold transition-colors'
+  const inputClass = 'w-full bg-[#2a2a2a] border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-source placeholder:text-white/40 outline-none focus:border-gold transition-colors'
 
   return (
     <footer className="bg-charcoal text-white pt-20 pb-5 px-5">
@@ -127,7 +127,7 @@ export default function Footer() {
             <h4 className="font-source text-sm uppercase tracking-[2px] text-gold mb-6">
               Contact Us
             </h4>
-            <form className="flex flex-col gap-2.5" onSubmit={handleSubmit}>
+            <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
               <input
                 type="text"
                 placeholder="नाम"
@@ -155,14 +155,14 @@ export default function Footer() {
                 placeholder="आपका सवाल"
                 value={form.question}
                 onChange={(e) => setForm((p) => ({ ...p, question: e.target.value }))}
-                rows={3}
-                className={`${inputClass} resize-none`}
+                rows={4}
+                className={`${inputClass} resize-none min-h-[96px]`}
                 required
               />
               <button
                 type="submit"
                 disabled={status === 'loading' || status === 'success'}
-                className={`w-full rounded-lg py-3 font-source font-bold text-sm mt-0.5 transition-all
+                className={`w-full rounded-lg py-3 font-source font-bold text-sm mt-2 transition-all
                   ${status === 'success'
                     ? 'bg-emerald-500 text-white'
                     : 'bg-gold text-charcoal hover:opacity-90'}

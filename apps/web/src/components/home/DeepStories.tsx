@@ -44,17 +44,21 @@ export default function DeepStories({ stories }: { stories: DeepStory[] }) {
                 className="group block bg-white rounded-lg overflow-hidden shadow-card border-t-4 border-maroon hover:-translate-y-1 hover:shadow-card-hover transition-all duration-250"
               >
                 {/* Image */}
-                <div className="relative aspect-video bg-cream-dark flex items-center justify-center text-[50px]">
+                <div className="relative aspect-video flex items-center justify-center overflow-hidden">
                   {imageUrl ? (
-                    <Image
-                      src={imageUrl}
-                      alt={story.heroImage?.alt || story.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                    />
+                    <>
+                      <Image
+                        src={imageUrl}
+                        alt={story.heroImage?.alt || story.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                    </>
                   ) : (
-                    <span>📰</span>
+                    <div className="absolute inset-0 bg-gradient-to-br from-cream-dark to-cream flex items-center justify-center">
+                      <span className="text-5xl">{story.category?.title?.[0] || '📰'}</span>
+                    </div>
                   )}
                 </div>
 

@@ -148,13 +148,13 @@ export default function Header() {
               </div>
 
               {/* Center: Logo */}
-              <Link href="/" className="flex items-center justify-center">
+              <Link href="/" className="flex items-center justify-center mb-1">
                 <Image
                   src="/images/logos/logo-hindi.png"
                   alt="News Potli"
-                  width={80}
-                  height={80}
-                  className="h-16 w-auto"
+                  width={120}
+                  height={120}
+                  className="h-14 w-auto"
                   priority
                 />
               </Link>
@@ -172,13 +172,13 @@ export default function Header() {
 
             {/* Mobile layout: stacked vertically, center everything */}
             <div className="flex md:hidden flex-col items-center gap-3">
-              <Link href="/" className="flex items-center justify-center">
+              <Link href="/" className="flex items-center justify-center mb-1">
                 <Image
                   src="/images/logos/logo-hindi.png"
                   alt="News Potli"
-                  width={80}
-                  height={80}
-                  className="h-14 w-auto"
+                  width={100}
+                  height={100}
+                  className="h-11 w-auto"
                   priority
                 />
               </Link>

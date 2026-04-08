@@ -1,6 +1,13 @@
+import Image from 'next/image'
+
 const PARTNERS = [
-  'World Bank', 'BCG', 'Jain Irrigation', 'Escorts Kubota',
-  'IFFCO', '2030 Water Resource Group', 'SESI', 'Amal Farms',
+  { name: 'World Bank', logo: '/images/partners/world-bank.png' },
+  { name: 'BCG', logo: '/images/partners/bcg.png' },
+  { name: 'Jain Irrigation', logo: '/images/partners/jain-irrigation.png' },
+  { name: 'Escorts Kubota', logo: '/images/partners/escorts-kubota.png' },
+  { name: 'IFFCO', logo: '/images/partners/iffco.png' },
+  { name: '2030 Water Resource Group', logo: '/images/partners/2030-water.png' },
+  { name: 'SESI', logo: '/images/partners/sesi.png' },
 ]
 
 export default function TrustedBy() {
@@ -12,15 +19,21 @@ export default function TrustedBy() {
 
       {/* Marquee container */}
       <div className="relative">
-        <div className="flex gap-[50px] animate-marquee-trusted w-max">
+        <div className="flex items-center gap-16 animate-marquee-trusted w-max">
           {/* Double the list for seamless loop */}
-          {[...PARTNERS, ...PARTNERS].map((name, i) => (
-            <span
-              key={`${name}-${i}`}
-              className="font-source text-lg font-bold text-charcoal/50 whitespace-nowrap hover:text-maroon hover:scale-110 transition-all duration-200 cursor-default"
+          {[...PARTNERS, ...PARTNERS].map((partner, i) => (
+            <div
+              key={`${partner.name}-${i}`}
+              className="flex-shrink-0 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default"
             >
-              {name}
-            </span>
+              <Image
+                src={partner.logo}
+                alt={partner.name}
+                width={120}
+                height={36}
+                className="h-9 w-auto object-contain"
+              />
+            </div>
           ))}
         </div>
       </div>

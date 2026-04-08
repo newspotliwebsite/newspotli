@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { timeAgo } from '@/lib/utils'
 
 interface HeroSectionProps {
@@ -32,13 +33,22 @@ export default function HeroSection({ featuredArticle, sidebarArticles }: HeroSe
 
   return (
     <section
-      className="bg-cream py-16 px-5"
+      className="bg-cream py-16 px-5 relative overflow-hidden"
       style={{
         backgroundImage: 'radial-gradient(#e8e0d0 1px, transparent 1px)',
         backgroundSize: '30px 30px',
       }}
     >
-      <div className="max-w-site mx-auto">
+      {/* Background illustration */}
+      <Image
+        src="/images/illustrations/hero-farmer-field.png"
+        alt=""
+        fill
+        className="object-cover opacity-[0.06] pointer-events-none"
+        aria-hidden="true"
+        priority={false}
+      />
+      <div className="max-w-site mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-[65%_35%] gap-8">
           {/* LEFT COLUMN -- Featured Card */}
           <div className="relative overflow-hidden rounded-lg border border-[#e8e0d0] bg-white p-6 sm:p-10 shadow-card">

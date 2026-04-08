@@ -67,9 +67,9 @@ export default async function HomePage() {
         _id, title, slug, publishedAt,
         "category": category->{ title, color }
       }`, {}, { next: { revalidate: 60 } }),
-      client.fetch(groq`*[_type=="article"] | order(publishedAt desc)[6..13]{
+      client.fetch(groq`*[_type=="article"] | order(publishedAt desc)[0..9]{
         _id, title, slug, publishedAt,
-        "category": category->{ title, color }
+        "category": category->{ title, slug, color }
       }`, {}, { next: { revalidate: 60 } }),
     ])
 

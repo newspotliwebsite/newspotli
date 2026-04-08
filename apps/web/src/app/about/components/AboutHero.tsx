@@ -1,8 +1,18 @@
+import Image from 'next/image'
+
 // ── About Hero ────────────────────────────────────────────────────
 export default function AboutHero() {
   return (
-    <section className="bg-cream py-20 md:py-28 px-4 md:px-12 lg:px-24 overflow-hidden">
-      <div className="max-w-5xl mx-auto">
+    <section className="bg-cream py-20 md:py-28 px-4 md:px-12 lg:px-24 overflow-hidden relative">
+      {/* Background illustration */}
+      <Image
+        src="/images/illustrations/about-journalism-field.png"
+        alt=""
+        fill
+        className="object-cover opacity-[0.08] pointer-events-none"
+        aria-hidden="true"
+      />
+      <div className="max-w-5xl mx-auto relative z-10">
         {/* Eyebrow */}
         <span className="inline-block font-source text-[11px] font-black tracking-[0.25em] uppercase text-maroon mb-6 border border-maroon/30 px-3 py-1">
           Our Story
