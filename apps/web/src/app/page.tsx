@@ -26,6 +26,7 @@ export const metadata: Metadata = {
 }
 
 import Header from '@/components/layout/Header'
+import SplashHero from '@/components/home/SplashHero'
 import BreakingTicker from '@/components/layout/BreakingTicker'
 import Footer from '@/components/layout/Footer'
 import HeroSection from '@/components/home/HeroSection'
@@ -119,11 +120,14 @@ export default async function HomePage() {
       <Header />
 
       <main id="main-content" className="flex-1">
+        <SplashHero />
         <BreakingTicker />
-        <HeroSection
-          featuredArticle={featuredArticle}
-          sidebarArticles={sidebarArticles}
-        />
+        <div id="latest">
+          <HeroSection
+            featuredArticle={featuredArticle}
+            sidebarArticles={sidebarArticles}
+          />
+        </div>
         <SeriesSection />
         <LatestNewsGrid articles={filteredLatest} />
         <FeaturedVideos />

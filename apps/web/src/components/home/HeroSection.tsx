@@ -33,10 +33,10 @@ export default function HeroSection({ featuredArticle, sidebarArticles }: HeroSe
 
   return (
     <section
-      className="bg-cream py-16 px-5 relative overflow-hidden"
+      className="bg-cream py-12 md:py-16 px-4 md:px-8 lg:px-24 relative overflow-hidden"
       style={{
-        backgroundImage: 'radial-gradient(#e8e0d0 1px, transparent 1px)',
-        backgroundSize: '30px 30px',
+        backgroundImage: 'radial-gradient(circle, #DDD5C0 1px, transparent 1px)',
+        backgroundSize: '28px 28px',
       }}
     >
       {/* Background illustration */}
@@ -51,7 +51,7 @@ export default function HeroSection({ featuredArticle, sidebarArticles }: HeroSe
       <div className="max-w-site mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-[65%_35%] gap-8">
           {/* LEFT COLUMN -- Featured Card */}
-          <div className="relative overflow-hidden rounded-lg border border-[#e8e0d0] bg-white p-6 sm:p-10 shadow-card">
+          <div className="relative overflow-hidden rounded-xl border border-[#e8e0d0] bg-white p-8 md:p-10 shadow-md">
             {/* Decorative wheat emoji */}
             <span
               className="pointer-events-none absolute bottom-0 right-0 select-none text-[200px] leading-none opacity-5"
