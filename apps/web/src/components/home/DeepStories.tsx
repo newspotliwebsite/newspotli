@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { urlFor } from '@/lib/sanity'
+import { getArticleImage, timeAgo } from '@/lib/utils'
 
 interface DeepStory {
   _id: string
@@ -19,76 +19,52 @@ export default function DeepStories({ stories }: { stories: DeepStory[] }) {
   const displayStories = stories.slice(0, 3)
 
   return (
-    <section className="bg-white py-20 px-5">
+    <section className="bg-cream py-20 px-5">
       <div className="max-w-site mx-auto">
-        {/* Title with gold underline */}
-        <div className="text-center mb-10">
-          <h2 className="font-noto text-[28px] font-bold text-charcoal inline-block relative">
-            गहरी खबरें
-            <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-10 h-0.5 bg-gold" />
-          </h2>
-          <p className="text-charcoal/70 text-sm mt-3 font-source">In-Depth Analysis</p>
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h2 className="font-noto text-2xl md:text-[28px] font-bold text-charcoal leading-tight">
+              गहरी खबरें
+            </h2>
+            <p className="mt-2 font-source text-xs md:text-sm uppercase tracking-[0.12em] text-charcoal/50">
+              In-Depth Stories
+            </p>
+          </div>
+          <Link
+            href="/latest"
+            className="font-source text-sm font-bold text-maroon hover:text-gold transition-colors"
+          >
+            सभी देखें →
+          </Link>
         </div>
 
-        {/* 3-column grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           {displayStories.map((story) => {
-            const imageUrl = story.heroImage?.asset
-              ? urlFor(story.heroImage).width(600).height(340).quality(85).url()
-              : null
-
+            const imageUrl = getArticleImage(story, { width: 800, height: 540, quality: 85 })
             return (
               <Link
                 key={story._id}
                 href={`/article/${story.slug.current}`}
-                className="group block bg-white rounded-lg overflow-hidden shadow-card border-t-4 border-maroon hover:-translate-y-1 hover:shadow-card-hover transition-all duration-250"
+                className="group block rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-0.5"
               >
-                {/* Image */}
-                <div className="relative aspect-video flex items-center justify-center overflow-hidden">
-                  {imageUrl ? (
-                    <>
-                      <Image
-                        src={imageUrl}
-                        alt={story.heroImage?.alt || story.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                      />
-                    </>
-                  ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-cream-dark to-cream flex items-center justify-center">
-                      <span className="text-5xl">{story.category?.title?.[0] || '📰'}</span>
-                    </div>
-                  )}
+                <div className="relative aspect-[3/2] rounded-lg overflow-hidden bg-cream-dark">
+                  <Image
+                    src={imageUrl}
+                    alt={story.heroImage?.alt || story.title}
+                    fill
+                    className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
                 </div>
-
-                {/* Content */}
-                <div className="p-5">
-                  {story.category && (
-                    <span className="inline-block rounded-[6px] bg-charcoal px-3 py-1 text-xs font-bold uppercase tracking-wider text-white mb-2.5">
-                      {story.category.title}
-                    </span>
-                  )}
-                  <h3 className="font-noto text-lg font-bold text-charcoal leading-snug mb-2.5 group-hover:text-maroon transition-colors">
+                <div className="pt-4">
+                  <h3 className="font-noto text-lg font-bold leading-snug text-charcoal line-clamp-3 group-hover:text-maroon transition-colors">
                     {story.title}
                   </h3>
-                  {story.excerpt && (
-                    <p className="font-source text-sm text-charcoal/70 line-clamp-3 mb-5">
-                      {story.excerpt}
-                    </p>
-                  )}
-                  <div className="flex items-center gap-3 text-sm text-charcoal/70 font-source">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-maroon text-xs font-bold text-white">
-                      {story.author?.name?.[0] || 'N'}
-                    </span>
-                    <span>{story.author?.name || 'News Potli'}</span>
-                    {story.readTime && (
-                      <>
-                        <span>•</span>
-                        <span>{story.readTime} मिनट में पढ़ें</span>
-                      </>
-                    )}
-                  </div>
+                  <p className="mt-2 font-source text-xs text-charcoal/60">
+                    {story.author?.name || 'News Potli'}
+                    <span className="mx-1.5">•</span>
+                    {timeAgo(story.publishedAt)}
+                  </p>
                 </div>
               </Link>
             )

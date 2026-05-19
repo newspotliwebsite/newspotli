@@ -26,10 +26,10 @@ export const metadata: Metadata = {
 }
 
 import Header from '@/components/layout/Header'
-import SplashHero from '@/components/home/SplashHero'
 import BreakingTicker from '@/components/layout/BreakingTicker'
 import Footer from '@/components/layout/Footer'
 import HeroSection from '@/components/home/HeroSection'
+import MissionBanner from '@/components/home/MissionBanner'
 import SeriesSection from '@/components/home/SeriesSection'
 import LatestNewsGrid from '@/components/home/LatestNewsGrid'
 import FeaturedVideos from '@/components/home/FeaturedVideos'
@@ -54,7 +54,7 @@ export default async function HomePage() {
         "category": category->{ title, slug, color, icon },
         "author": author->{ name, photo }
       }`, {}, { next: { revalidate: 60 } }),
-      client.fetch(groq`*[_type=="article"] | order(publishedAt desc)[0..5]{
+      client.fetch(groq`*[_type=="article"] | order(publishedAt desc)[0..9]{
         _id, title, slug, excerpt, heroImage, publishedAt, readTime,
         "category": category->{ title, slug, color, icon },
         "author": author->{ name }
@@ -65,8 +65,9 @@ export default async function HomePage() {
         "author": author->{ name }
       }`, {}, { next: { revalidate: 60 } }),
       client.fetch(groq`*[_type=="article"] | order(publishedAt desc)[0..3]{
-        _id, title, slug, publishedAt,
-        "category": category->{ title, color }
+        _id, title, slug, publishedAt, heroImage,
+        "category": category->{ title, color, slug },
+        "author": author->{ name }
       }`, {}, { next: { revalidate: 60 } }),
       client.fetch(groq`*[_type=="article"] | order(publishedAt desc)[0..9]{
         _id, title, slug, publishedAt,
@@ -120,7 +121,6 @@ export default async function HomePage() {
       <Header />
 
       <main id="main-content" className="flex-1">
-        <SplashHero />
         <BreakingTicker />
         <div id="latest">
           <HeroSection
@@ -128,8 +128,9 @@ export default async function HomePage() {
             sidebarArticles={sidebarArticles}
           />
         </div>
-        <SeriesSection />
+        <MissionBanner />
         <LatestNewsGrid articles={filteredLatest} />
+        <SeriesSection />
         <FeaturedVideos />
         <DeepStories stories={deepStories} />
         <MoreHeadlines articles={moreHeadlines} />

@@ -51,7 +51,7 @@ gtag('config', '${gaId}');`}
         </>
       )}
       <body
-        className={`${tiro.variable} ${source.variable} font-source antialiased bg-cream text-foreground`}
+        className={`${tiro.variable} ${source.variable} font-source antialiased bg-white text-foreground`}
       >
         {children}
         <Script id="sw-register" strategy="afterInteractive">
