@@ -1,8 +1,11 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
+import { useState, useEffect, useCallback } from 'react'
 import { getArticleImage, timeAgo } from '@/lib/utils'
 
-interface FeaturedArticle {
+interface Article {
   _id: string
   title: string
   slug: { current: string }
@@ -14,26 +17,98 @@ interface FeaturedArticle {
   author?: { name: string; photo?: { asset?: { _ref: string } } }
 }
 
-interface SidebarArticle {
-  _id: string
-  title: string
-  slug: { current: string }
-  publishedAt: string
-  heroImage?: { alt?: string; asset?: { _ref: string } }
-  category?: { title: string; color?: string; slug?: { current: string } }
-  author?: { name: string }
-}
-
 interface HeroSectionProps {
-  featuredArticle: FeaturedArticle | null
-  sidebarArticles: SidebarArticle[]
+  featuredArticles: Article[]
+  leftArticles: Article[]
+  rightArticles: Article[]
 }
 
-export default function HeroSection({ featuredArticle, sidebarArticles }: HeroSectionProps) {
-  if (!featuredArticle) return null
+function SideList({ heading, articles }: { heading: string; articles: Article[] }) {
+  return (
+    <aside aria-labelledby={`side-${heading}`}>
+      <div className="flex items-center gap-2 mb-5 border-b border-[#e8e0d0] pb-3">
+        <span className="w-1.5 h-1.5 rounded-full bg-maroon" />
+        <h2
+          id={`side-${heading}`}
+          className="font-source text-xs font-bold uppercase tracking-[0.15em] text-maroon"
+        >
+          {heading}
+        </h2>
+      </div>
 
-  const featuredUrl = `/article/${featuredArticle.slug.current}`
-  const featuredImage = getArticleImage(featuredArticle, { width: 1200, height: 800, quality: 85 })
+      <ul className="space-y-5 max-h-[560px] overflow-y-auto pr-1 scrollbar-thin">
+        {articles.map((article, i) => {
+          const thumb = getArticleImage(article, { width: 240, height: 160 })
+          return (
+            <li key={article._id}>
+              <Link
+                href={`/article/${article.slug.current}`}
+                className="group flex gap-3 items-start"
+              >
+                <div className="relative w-[80px] h-[60px] rounded-md overflow-hidden bg-cream-dark flex-shrink-0">
+                  <Image
+                    src={thumb}
+                    alt={article.heroImage?.alt || article.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="80px"
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-noto text-sm font-bold leading-snug text-charcoal line-clamp-2 group-hover:text-maroon transition-colors">
+                    {article.title}
+                  </h3>
+                  <p className="mt-1 font-source text-[11px] text-charcoal/60">
+                    {timeAgo(article.publishedAt)}
+                  </p>
+                </div>
+              </Link>
+              {i < articles.length - 1 && (
+                <div className="mt-5 border-b border-[#eee5d2]" />
+              )}
+            </li>
+          )
+        })}
+      </ul>
+    </aside>
+  )
+}
+
+const ChevronLeftIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <polyline points="15 18 9 12 15 6" />
+  </svg>
+)
+
+const ChevronRightIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <polyline points="9 18 15 12 9 6" />
+  </svg>
+)
+
+export default function HeroSection({
+  featuredArticles,
+  leftArticles,
+  rightArticles,
+}: HeroSectionProps) {
+  const slides = (featuredArticles || []).slice(0, 4)
+  const [current, setCurrent] = useState(0)
+
+  const next = useCallback(() => {
+    setCurrent((c) => (slides.length === 0 ? 0 : (c + 1) % slides.length))
+  }, [slides.length])
+
+  const prev = useCallback(() => {
+    setCurrent((c) => (slides.length === 0 ? 0 : (c - 1 + slides.length) % slides.length))
+  }, [slides.length])
+
+  useEffect(() => {
+    if (slides.length <= 1) return
+    const id = setInterval(next, 5000)
+    return () => clearInterval(id)
+  }, [next, slides.length])
+
+  if (slides.length === 0) return null
 
   return (
     <section className="bg-white py-10 md:py-14 px-4 md:px-8 lg:px-12">
@@ -41,127 +116,100 @@ export default function HeroSection({ featuredArticle, sidebarArticles }: HeroSe
         <div className="grid grid-cols-1 lg:grid-cols-[25%_50%_25%] gap-6 lg:gap-8">
 
           {/* LEFT — ताज़ा खबरें */}
-          <aside aria-labelledby="latest-label" className="order-2 lg:order-1">
-            <div className="flex items-center gap-2 mb-5 border-b border-[#e8e0d0] pb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-maroon" />
-              <h2 id="latest-label" className="font-source text-xs font-bold uppercase tracking-[0.15em] text-maroon">
-                ताज़ा खबरें
-              </h2>
-            </div>
-
-            <ul className="space-y-5">
-              {sidebarArticles.slice(0, 4).map((article) => {
-                const thumb = getArticleImage(article, { width: 240, height: 160 })
-                return (
-                  <li key={article._id}>
-                    <Link
-                      href={`/article/${article.slug.current}`}
-                      className="group flex gap-3 items-start"
-                    >
-                      <div className="relative w-[110px] h-[74px] rounded-md overflow-hidden bg-cream-dark flex-shrink-0">
-                        <Image
-                          src={thumb}
-                          alt={article.heroImage?.alt || article.title}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
-                          sizes="110px"
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <span className="block font-source text-[10px] font-bold uppercase tracking-wider text-gold mb-1">
-                          फ़ीचर स्टोरी
-                        </span>
-                        <h3 className="font-noto text-sm font-bold leading-snug text-charcoal line-clamp-3 group-hover:text-maroon transition-colors">
-                          {article.title}
-                        </h3>
-                        <p className="mt-1.5 font-source text-[11px] text-charcoal/60">
-                          {article.author?.name || 'News Potli'}
-                          <span className="mx-1.5">•</span>
-                          {timeAgo(article.publishedAt)}
-                        </p>
-                      </div>
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
-          </aside>
-
-          {/* CENTER — सुर्खियां (featured) */}
-          <div className="order-1 lg:order-2">
-            <div className="flex items-center gap-2 mb-5 border-b border-[#e8e0d0] pb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-maroon" />
-              <h2 className="font-source text-xs font-bold uppercase tracking-[0.15em] text-maroon">
-                सुर्खियां
-              </h2>
-            </div>
-
-            <Link
-              href={featuredUrl}
-              className="group block relative aspect-[16/10] rounded-lg overflow-hidden bg-cream-dark"
-            >
-              <Image
-                src={featuredImage}
-                alt={featuredArticle.heroImage?.alt || featuredArticle.title}
-                fill
-                priority
-                className="object-cover group-hover:scale-[1.02] transition-transform duration-700"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
-
-              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-7 text-white">
-                {featuredArticle.category && (
-                  <span className="inline-block rounded-sm bg-gold px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white mb-3">
-                    {featuredArticle.category.title}
-                  </span>
-                )}
-                <h3 className="font-noto text-2xl md:text-3xl lg:text-[28px] font-bold leading-[1.25] mb-3">
-                  {featuredArticle.title}
-                </h3>
-                <p className="font-source text-xs md:text-sm text-white/85">
-                  {featuredArticle.author?.name || 'News Potli'}
-                  <span className="mx-2">•</span>
-                  {timeAgo(featuredArticle.publishedAt)}
-                </p>
-              </div>
-            </Link>
+          <div className="hidden lg:block order-2 lg:order-1">
+            <SideList heading="ताज़ा खबरें" articles={leftArticles.slice(0, 5)} />
           </div>
 
-          {/* RIGHT — Subscribe + Donate */}
-          <aside className="order-3 space-y-5">
-            <div className="bg-charcoal text-white rounded-lg p-6">
-              <h3 className="font-noto text-xl font-bold mb-3">
-                सब्सक्राइब
-              </h3>
-              <p className="font-noto text-sm text-white/80 leading-relaxed mb-5">
-                ग्रामीण भारत की सच्ची खबरें और प्रेरणादायक कहानियों से जुड़े रहें।
-              </p>
-              <Link
-                href="/newsletter"
-                className="inline-flex items-center gap-1.5 bg-white text-charcoal px-5 py-2.5 rounded-full font-source font-semibold text-sm hover:bg-cream transition-colors"
-              >
-                न्यूज़लेटर
-                <span aria-hidden="true">→</span>
-              </Link>
-            </div>
+          {/* CENTER — Carousel */}
+          <div className="order-1 lg:order-2">
+            <div className="relative">
+              <div className="relative aspect-[16/9] rounded-lg overflow-hidden bg-cream-dark">
+                <div
+                  className="flex w-full h-full transition-transform duration-500 ease-out"
+                  style={{ transform: `translateX(-${current * 100}%)` }}
+                >
+                  {slides.map((article, idx) => {
+                    const img = getArticleImage(article, { width: 1200, height: 800, quality: 85 })
+                    return (
+                      <Link
+                        key={article._id}
+                        href={`/article/${article.slug.current}`}
+                        className="relative w-full h-full flex-shrink-0 block"
+                      >
+                        <Image
+                          src={img}
+                          alt={article.heroImage?.alt || article.title}
+                          fill
+                          priority={idx === 0}
+                          className="object-cover"
+                          sizes="(max-width: 1024px) 100vw, 50vw"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+                        <div className="absolute bottom-0 left-0 right-0 p-5 md:p-7 text-white">
+                          {article.category && (
+                            <span className="inline-block rounded-sm bg-gold px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white mb-3">
+                              {article.category.title}
+                            </span>
+                          )}
+                          <h3 className="font-noto text-2xl md:text-3xl lg:text-[28px] font-bold leading-[1.25]">
+                            {article.title}
+                          </h3>
+                        </div>
+                      </Link>
+                    )
+                  })}
+                </div>
 
-            <div className="bg-maroon text-white rounded-lg p-6">
-              <h3 className="font-noto text-xl font-bold mb-3">
-                हम स्वतंत्र पत्रकारिता में विश्वास करते हैं।
-              </h3>
-              <p className="font-noto text-sm text-white/85 leading-relaxed mb-5">
-                आपका सहयोग हमें मजबूत बनाता है। News Potli को बनाए रखें।
+                {/* Arrows */}
+                {slides.length > 1 && (
+                  <>
+                    <button
+                      onClick={prev}
+                      aria-label="Previous slide"
+                      className="absolute top-1/2 -translate-y-1/2 left-3 w-10 h-10 rounded-full bg-white/95 text-charcoal shadow-lg flex items-center justify-center hover:bg-white hover:scale-105 transition-all"
+                    >
+                      <ChevronLeftIcon />
+                    </button>
+                    <button
+                      onClick={next}
+                      aria-label="Next slide"
+                      className="absolute top-1/2 -translate-y-1/2 right-3 w-10 h-10 rounded-full bg-white/95 text-charcoal shadow-lg flex items-center justify-center hover:bg-white hover:scale-105 transition-all"
+                    >
+                      <ChevronRightIcon />
+                    </button>
+                  </>
+                )}
+              </div>
+
+              {/* Author/date below image */}
+              <p className="mt-3 font-source text-xs md:text-sm text-charcoal/60">
+                {slides[current].author?.name || 'News Potli'}
+                <span className="mx-2">•</span>
+                {timeAgo(slides[current].publishedAt)}
               </p>
-              <Link
-                href="/sahyog"
-                className="inline-flex items-center gap-1.5 bg-white text-maroon px-5 py-2.5 rounded-full font-source font-semibold text-sm hover:bg-cream transition-colors"
-              >
-                डोनेट
-                <span aria-hidden="true">→</span>
-              </Link>
+
+              {/* Dot indicators */}
+              {slides.length > 1 && (
+                <div className="flex justify-center gap-2 mt-4">
+                  {slides.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrent(idx)}
+                      aria-label={`Go to slide ${idx + 1}`}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        idx === current ? 'w-6 bg-maroon' : 'w-1.5 bg-charcoal/20 hover:bg-charcoal/40'
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
-          </aside>
+          </div>
+
+          {/* RIGHT — More ताज़ा खबरें */}
+          <div className="hidden lg:block order-3">
+            <SideList heading="ताज़ा खबरें" articles={rightArticles.slice(0, 5)} />
+          </div>
         </div>
       </div>
     </section>

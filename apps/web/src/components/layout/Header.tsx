@@ -7,8 +7,8 @@ import Image from 'next/image'
 import SearchBar from '@/components/ui/SearchBar'
 
 const CATEGORIES = [
-  { title: 'एग्री बुलेटिन', slug: 'agri-bulletin' },
   { title: 'खेती किसानी', slug: 'kheti-kisani' },
+  { title: 'एग्री बुलेटिन', slug: 'agri-bulletin' },
   { title: 'मौसम बेमौसम', slug: 'mausam-bemausam' },
   { title: 'पशुपालन', slug: 'pashu-palan' },
   { title: 'साक्षात्कार', slug: 'sakshatkaar' },

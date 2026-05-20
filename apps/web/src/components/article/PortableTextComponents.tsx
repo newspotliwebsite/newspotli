@@ -46,14 +46,14 @@ export const articleComponents: PortableTextComponents = {
       </h4>
     ),
     normal: ({ children }) => (
-      <p className="font-noto text-[17px] leading-[1.9] text-charcoal/85 mb-6">
+      <p className="font-noto text-[17px] leading-[1.85] text-black mb-6">
         {children}
       </p>
     ),
     blockquote: ({ children }) => (
       <blockquote className="relative my-10 py-6 px-8 border-l-4 border-maroon bg-maroon/[0.04] italic">
         <span className="absolute -top-3 left-4 font-noto text-5xl text-maroon/20 select-none leading-none">&ldquo;</span>
-        <div className="font-noto text-lg leading-relaxed text-charcoal/80">
+        <div className="font-noto text-lg leading-relaxed text-black">
           {children}
         </div>
       </blockquote>
@@ -86,7 +86,7 @@ export const articleComponents: PortableTextComponents = {
       </ul>
     ),
     number: ({ children }) => (
-      <ol className="list-decimal space-y-3 my-6 pl-8 font-noto text-[17px] text-charcoal/85 marker:text-maroon marker:font-bold">
+      <ol className="list-decimal space-y-3 my-6 pl-8 font-noto text-[17px] text-black marker:text-maroon marker:font-bold">
         {children}
       </ol>
     ),
@@ -94,7 +94,7 @@ export const articleComponents: PortableTextComponents = {
 
   listItem: {
     bullet: ({ children }) => (
-      <li className="font-noto text-[17px] text-charcoal/85 leading-relaxed relative pl-4 before:content-[''] before:absolute before:left-0 before:top-[10px] before:w-2 before:h-2 before:bg-gold before:rounded-full">
+      <li className="font-noto text-[17px] text-black leading-relaxed relative pl-4 before:content-[''] before:absolute before:left-0 before:top-[10px] before:w-2 before:h-2 before:bg-gold before:rounded-full">
         {children}
       </li>
     ),

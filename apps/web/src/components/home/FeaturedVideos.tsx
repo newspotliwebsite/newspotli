@@ -13,15 +13,8 @@ export default async function FeaturedVideos() {
       <div className="max-w-site mx-auto">
         <div className="mb-10">
           <h2 className="font-noto text-2xl md:text-[28px] font-bold text-charcoal leading-tight">
-            खास{' '}
-            <span className="inline-flex items-center bg-green text-white px-3 py-1 rounded-full text-xl md:text-2xl">
-              वीडियो
-            </span>
-            {' '}जो दूसरों से हटकर हैं
+            वीडियो
           </h2>
-          <p className="mt-2 font-source text-xs md:text-sm uppercase tracking-[0.12em] text-charcoal/50">
-            Featured Videos
-          </p>
         </div>
 
         {/* Featured large video */}

@@ -29,11 +29,11 @@ import Header from '@/components/layout/Header'
 import BreakingTicker from '@/components/layout/BreakingTicker'
 import Footer from '@/components/layout/Footer'
 import HeroSection from '@/components/home/HeroSection'
-import MissionBanner from '@/components/home/MissionBanner'
 import SeriesSection from '@/components/home/SeriesSection'
 import LatestNewsGrid from '@/components/home/LatestNewsGrid'
 import FeaturedVideos from '@/components/home/FeaturedVideos'
 import DeepStories from '@/components/home/DeepStories'
+import WebStories from '@/components/home/WebStories'
 import MoreHeadlines from '@/components/home/MoreHeadlines'
 import TrustedBy from '@/components/home/TrustedBy'
 import NewsletterStrip from '@/components/home/NewsletterStrip'
@@ -41,20 +41,22 @@ import NewsletterStrip from '@/components/home/NewsletterStrip'
 export const revalidate = 60
 
 export default async function HomePage() {
-  let featuredArticle: any = null
+  let featuredArticles: any[] = []
   let latestArticles: any[] = []
   let deepStories: any[] = []
-  let sidebarArticles: any[] = []
+  let leftSide: any[] = []
+  let rightSide: any[] = []
   let moreHeadlines: any[] = []
+  let webStories: any[] = []
 
   try {
-    const [featured, latest, deep, sidebar, headlines] = await Promise.all([
-      client.fetch(groq`*[_type=="article" && featured==true] | order(publishedAt desc)[0]{
+    const [featured, latest, deep, headlines, stories] = await Promise.all([
+      client.fetch(groq`*[_type=="article" && featured==true] | order(publishedAt desc)[0..3]{
         _id, title, slug, excerpt, heroImage, publishedAt, readTime, breakingNews,
         "category": category->{ title, slug, color, icon },
         "author": author->{ name, photo }
       }`, {}, { next: { revalidate: 60 } }),
-      client.fetch(groq`*[_type=="article"] | order(publishedAt desc)[0..9]{
+      client.fetch(groq`*[_type=="article"] | order(publishedAt desc)[0..19]{
         _id, title, slug, excerpt, heroImage, publishedAt, readTime,
         "category": category->{ title, slug, color, icon },
         "author": author->{ name }
@@ -64,34 +66,40 @@ export default async function HomePage() {
         "category": category->{ title, slug, color },
         "author": author->{ name }
       }`, {}, { next: { revalidate: 60 } }),
-      client.fetch(groq`*[_type=="article"] | order(publishedAt desc)[0..3]{
+      client.fetch(groq`*[_type=="article"] | order(publishedAt desc)[0..8]{
         _id, title, slug, publishedAt, heroImage,
-        "category": category->{ title, color, slug },
+        "category": category->{ title, slug, color },
         "author": author->{ name }
       }`, {}, { next: { revalidate: 60 } }),
-      client.fetch(groq`*[_type=="article"] | order(publishedAt desc)[0..9]{
-        _id, title, slug, publishedAt,
-        "category": category->{ title, slug, color }
+      client.fetch(groq`*[_type == "article" && defined(heroImage)] | order(publishedAt desc)[0..9]{
+        _id, title, slug, heroImage, publishedAt,
+        "author": author->{ name }
       }`, {}, { next: { revalidate: 60 } }),
     ])
 
-    featuredArticle = featured
+    featuredArticles = featured || []
     latestArticles = latest || []
     deepStories = deep || []
-    sidebarArticles = sidebar || []
     moreHeadlines = headlines || []
+    webStories = stories || []
 
-    if (!featuredArticle && latestArticles.length > 0) {
-      featuredArticle = latestArticles[0]
+    // Fallback: use latest if no featured
+    if (featuredArticles.length === 0 && latestArticles.length > 0) {
+      featuredArticles = latestArticles.slice(0, 4)
     }
+
+    // Split latest into left/right sidebar columns (skip featured ids)
+    const featuredIds = new Set(featuredArticles.map((a: any) => a._id))
+    const remaining = latestArticles.filter((a: any) => !featuredIds.has(a._id))
+    leftSide = remaining.slice(0, 5)
+    rightSide = remaining.slice(5, 10)
   } catch (error: any) {
     console.error('Failed to fetch Sanity data:', error.message || error)
   }
 
-  // Deduplicate featured from latest
-  const filteredLatest = featuredArticle
-    ? latestArticles.filter((a: any) => a._id !== featuredArticle._id)
-    : latestArticles
+  // For LatestNewsGrid: exclude what's already in hero carousel
+  const usedInHero = new Set(featuredArticles.map((a: any) => a._id))
+  const filteredLatest = latestArticles.filter((a: any) => !usedInHero.has(a._id))
 
   // Organization JSON-LD
   const orgJsonLd = {
@@ -124,15 +132,16 @@ export default async function HomePage() {
         <BreakingTicker />
         <div id="latest">
           <HeroSection
-            featuredArticle={featuredArticle}
-            sidebarArticles={sidebarArticles}
+            featuredArticles={featuredArticles}
+            leftArticles={leftSide}
+            rightArticles={rightSide}
           />
         </div>
-        <MissionBanner />
         <LatestNewsGrid articles={filteredLatest} />
         <SeriesSection />
         <FeaturedVideos />
         <DeepStories stories={deepStories} />
+        <WebStories stories={webStories} />
         <MoreHeadlines articles={moreHeadlines} />
         <TrustedBy />
         <NewsletterStrip />

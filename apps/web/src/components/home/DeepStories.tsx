@@ -24,11 +24,8 @@ export default function DeepStories({ stories }: { stories: DeepStory[] }) {
         <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
           <div>
             <h2 className="font-noto text-2xl md:text-[28px] font-bold text-charcoal leading-tight">
-              गहरी खबरें
+              मौसम-बेमौसम
             </h2>
-            <p className="mt-2 font-source text-xs md:text-sm uppercase tracking-[0.12em] text-charcoal/50">
-              In-Depth Stories
-            </p>
           </div>
           <Link
             href="/latest"

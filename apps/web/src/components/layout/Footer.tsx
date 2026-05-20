@@ -74,19 +74,17 @@ export default function Footer() {
 
           {/* Column 1: Brand + NP Logo */}
           <div>
-            {/* NP Logo with gentle tilt animation */}
-            <Link href="/" className="inline-block mb-4 group">
+            {/* Logo + Brand row: logo and Hindi title vertically aligned */}
+            <Link href="/" className="flex items-center gap-4 mb-3 group">
               <Image
                 src="/images/logos/logo-hindi.png"
                 alt="News Potli"
                 width={80}
                 height={80}
-                className="w-16 h-16 rounded-full border-2 border-white/10 group-hover:border-gold transition-colors"
+                className="w-14 h-14 rounded-full border-2 border-white/10 group-hover:border-gold transition-colors flex-shrink-0"
                 style={{ animation: 'footerLogoTilt 4s ease-in-out infinite' }}
               />
-            </Link>
-            <Link href="/" className="inline-block mb-2.5">
-              <h2 className="font-noto text-[28px] font-bold text-white">
+              <h2 className="font-noto text-[26px] font-bold text-white leading-none">
                 न्यूज़ पोटली
               </h2>
             </Link>

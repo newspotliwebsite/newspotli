@@ -225,13 +225,13 @@ export default async function ArticlePage({
           )}
 
           {/* Title */}
-          <h1 className="font-noto text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-black text-charcoal leading-[1.15] mb-6 text-balance">
+          <h1 className="font-noto text-3xl sm:text-4xl md:text-[44px] lg:text-[48px] font-black text-black leading-[1.4] break-words mb-6">
             {data.title}
           </h1>
 
           {/* Excerpt */}
           {data.excerpt && (
-            <p className="font-noto text-lg md:text-xl text-charcoal/65 leading-relaxed mb-6 max-w-3xl">
+            <p className="font-noto text-lg md:text-xl text-black leading-[1.7] mb-6 max-w-3xl">
               {data.excerpt}
             </p>
           )}
