@@ -7,24 +7,14 @@ import { client, urlFor } from '@/lib/sanity'
 import {
   AUTHOR_BY_SLUG_QUERY,
   ARTICLES_BY_AUTHOR_QUERY,
-  ALL_AUTHOR_SLUGS_QUERY,
 } from '@/lib/queries'
 import { getArticleImage, timeAgo } from '@/lib/utils'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 
 // ── ISR ──
+export const dynamic = 'force-dynamic'
 export const revalidate = 60
-
-// ── Static Params ──
-export async function generateStaticParams() {
-  try {
-    const slugs: string[] = await client.fetch(ALL_AUTHOR_SLUGS_QUERY)
-    return (slugs || []).map((slug) => ({ slug }))
-  } catch {
-    return []
-  }
-}
 
 // ── Metadata ──
 export async function generateMetadata({

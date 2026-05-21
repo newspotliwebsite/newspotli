@@ -7,7 +7,6 @@ import { PortableText } from '@portabletext/react'
 import { client, urlFor } from '@/lib/sanity'
 import {
   ARTICLE_BY_SLUG_QUERY,
-  ALL_ARTICLE_SLUGS_QUERY,
   RELATED_ARTICLES_BY_CATEGORY_QUERY,
 } from '@/lib/queries'
 import { articleComponents } from '@/components/article/PortableTextComponents'
@@ -21,17 +20,8 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 
 // ── ISR ──
+export const dynamic = 'force-dynamic'
 export const revalidate = 60
-
-// ── Static Params ──
-export async function generateStaticParams() {
-  try {
-    const slugs: string[] = await client.fetch(ALL_ARTICLE_SLUGS_QUERY)
-    return (slugs || []).map((slug) => ({ slug }))
-  } catch {
-    return []
-  }
-}
 
 // ── Metadata ──
 export async function generateMetadata({

@@ -12,6 +12,7 @@ import Footer from '@/components/layout/Footer'
 import CategoryClient from './CategoryClient'
 
 export const revalidate = 60
+export const dynamicParams = true
 
 // ── Static Params ──
 export async function generateStaticParams() {
