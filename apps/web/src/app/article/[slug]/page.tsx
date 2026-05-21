@@ -23,13 +23,25 @@ import Footer from '@/components/layout/Footer'
 export const dynamic = 'force-dynamic'
 export const revalidate = 60
 
+// Decode URL-encoded Hindi slugs safely.
+// Next.js usually decodes params.slug already, but direct navigation, shared
+// links, or proxies can deliver encoded values. Decoding raw Hindi is a no-op.
+function decodeSlug(raw: string): string {
+  try {
+    return decodeURIComponent(raw)
+  } catch {
+    return raw
+  }
+}
+
 // ── Metadata ──
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string }
 }): Promise<Metadata> {
-  const article = await fetchArticle(params.slug)
+  const slug = decodeSlug(params.slug)
+  const article = await fetchArticle(slug)
   if (!article) return { title: 'Article Not Found — News Potli' }
 
   const title = article.seoTitle || article.title
@@ -59,7 +71,7 @@ export async function generateMetadata({
       images: [ogImage],
     },
     alternates: {
-      canonical: `/article/${params.slug}`,
+      canonical: `/article/${slug}`,
     },
   }
 }
@@ -114,7 +126,8 @@ export default async function ArticlePage({
 }: {
   params: { slug: string }
 }) {
-  const article = await fetchArticle(params.slug)
+  const slug = decodeSlug(params.slug)
+  const article = await fetchArticle(slug)
 
   if (!article) {
     const { notFound } = await import('next/navigation')
@@ -137,7 +150,7 @@ export default async function ArticlePage({
 
   const catColor = data.category?.color || '#8B1A1A'
   const date = formatDate(data.publishedAt)
-  const articleUrl = `/article/${params.slug}`
+  const articleUrl = `/article/${slug}`
 
   // JSON-LD
   const jsonLd = {
