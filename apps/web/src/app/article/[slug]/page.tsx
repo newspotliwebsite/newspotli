@@ -228,7 +228,7 @@ export default async function ArticlePage({
           )}
 
           {/* Title */}
-          <h1 className="font-noto text-3xl sm:text-4xl md:text-[44px] lg:text-[48px] font-black text-black leading-[1.4] break-words mb-6">
+          <h1 className="font-noto text-3xl md:text-4xl lg:text-5xl font-black text-black leading-snug tracking-tight break-words mb-6">
             {data.title}
           </h1>
 

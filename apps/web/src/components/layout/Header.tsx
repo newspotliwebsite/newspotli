@@ -32,23 +32,9 @@ const CloseIcon = () => (
   </svg>
 )
 
-const SunIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-    <circle cx="12" cy="12" r="4" />
-    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-  </svg>
-)
-
-const MoonIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-  </svg>
-)
-
 export default function Header() {
   const pathname = usePathname()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isDark, setIsDark] = useState(false)
 
   useEffect(() => {
     setIsMobileMenuOpen(false)
@@ -58,25 +44,6 @@ export default function Header() {
     document.body.style.overflow = isMobileMenuOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [isMobileMenuOpen])
-
-  useEffect(() => {
-    try {
-      const stored = window.localStorage.getItem('np-theme')
-      if (stored === 'dark') {
-        document.documentElement.classList.add('dark')
-        setIsDark(true)
-      }
-    } catch {}
-  }, [])
-
-  const toggleTheme = () => {
-    const next = !isDark
-    setIsDark(next)
-    document.documentElement.classList.toggle('dark', next)
-    try {
-      window.localStorage.setItem('np-theme', next ? 'dark' : 'light')
-    } catch {}
-  }
 
   const activeSlug = CATEGORIES.find(
     (cat) => pathname === `/category/${cat.slug}`
@@ -132,15 +99,6 @@ export default function Header() {
               <div className="hidden md:block">
                 <SearchBar />
               </div>
-
-              <button
-                onClick={toggleTheme}
-                aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-                className="p-2 rounded-full text-charcoal/70 hover:text-maroon hover:bg-cream transition-colors"
-                title={isDark ? 'Light mode' : 'Dark mode'}
-              >
-                {isDark ? <SunIcon /> : <MoonIcon />}
-              </button>
 
               <Link
                 href="/sahyog"
