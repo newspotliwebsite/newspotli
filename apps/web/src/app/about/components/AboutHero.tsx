@@ -1,46 +1,36 @@
 import Image from 'next/image'
 
-// ── About Hero ────────────────────────────────────────────────────
 export default function AboutHero() {
   return (
-    <section className="bg-cream py-20 md:py-28 px-4 md:px-12 lg:px-24 overflow-hidden relative">
-      {/* Background illustration */}
+    <section className="relative overflow-hidden bg-gradient-to-br from-[#5C0F0F] to-[#8B1A1A] py-24 md:py-32 px-4 md:px-12 lg:px-24">
+      {/* Optional bg illustration */}
       <Image
         src="/images/illustrations/about-journalism-field.png"
         alt=""
         fill
-        className="object-cover opacity-[0.08] pointer-events-none"
+        className="object-cover opacity-[0.10] pointer-events-none mix-blend-soft-light"
         aria-hidden="true"
       />
-      <div className="max-w-5xl mx-auto relative z-10">
-        {/* Eyebrow */}
-        <span className="inline-block font-source text-[11px] font-black tracking-[0.25em] uppercase text-maroon mb-6 border border-maroon/30 px-3 py-1">
+
+      {/* Decorative gold line */}
+      <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-gold to-transparent opacity-60" />
+
+      <div className="relative z-10 max-w-5xl mx-auto">
+        <span className="font-source text-sm font-black tracking-[0.3em] uppercase text-gold block mb-6">
           Our Story
         </span>
 
-        {/* Main headline */}
-        <h1 className="font-noto text-5xl sm:text-6xl md:text-7xl font-black text-charcoal leading-[1.05] mb-6 text-balance">
-          भारत के गाँवों की{' '}
-          <span className="relative inline-block">
-            आवाज़
-            {/* Maroon underline accent */}
-            <span
-              className="absolute left-0 -bottom-2 h-1.5 w-full bg-maroon rounded-full"
-              aria-hidden="true"
-            />
-          </span>
+        <h1 className="font-noto text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.15] mb-7 text-balance">
+          भारत के गाँवों की आवाज़<span className="text-gold">.</span>
         </h1>
 
-        {/* Sub-headline */}
-        <p className="font-noto text-xl md:text-2xl text-charcoal/60 leading-relaxed max-w-3xl mt-6">
+        <p className="font-noto text-lg md:text-xl text-white/85 leading-[1.75] max-w-3xl">
           18 साल से हम उन खबरों को सामने ला रहे हैं जो मुख्यधारा मीडिया नजरअंदाज करता है —
-          खेत, खलिहान, मंडी, और हर उस किसान की कहानी जो देश का पेट भरता है।
+          मौसम, खेतीबाड़ी, पानी, और हर उस किसान की कहानी जो देश का पेट भरता है।
         </p>
 
-        {/* Decorative pull-quote */}
-        <div className="mt-12 flex gap-4 items-start max-w-2xl">
-          <div className="w-1 min-h-full bg-gold flex-shrink-0 self-stretch rounded-full" />
-          <p className="font-noto text-xl md:text-2xl text-charcoal/70 leading-relaxed">
+        <div className="mt-10 flex gap-4 items-start max-w-2xl border-l-2 border-gold/50 pl-5">
+          <p className="font-source italic text-base md:text-lg text-white/60 leading-relaxed">
             &ldquo;We do not just report the news — we give voice to the voiceless 700 million.&rdquo;
           </p>
         </div>

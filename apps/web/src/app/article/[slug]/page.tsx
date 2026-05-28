@@ -228,7 +228,10 @@ export default async function ArticlePage({
           )}
 
           {/* Title */}
-          <h1 className="font-noto text-3xl md:text-4xl lg:text-5xl font-black text-black leading-snug tracking-tight break-words mb-6">
+          <h1
+            className="font-noto text-3xl md:text-4xl lg:text-5xl font-bold text-black leading-[1.3] tracking-tight mb-6"
+            style={{ wordBreak: 'break-word' }}
+          >
             {data.title}
           </h1>
 

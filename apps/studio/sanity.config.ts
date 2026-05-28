@@ -15,4 +15,14 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
+
+  document: {
+    productionUrl: async (prev, context) => {
+      const { document } = context as { document: { _type?: string; slug?: { current?: string } } }
+      if (document?._type === 'article' && document?.slug?.current) {
+        return `https://newspotli.com/article/${document.slug.current}`
+      }
+      return prev
+    },
+  },
 })
