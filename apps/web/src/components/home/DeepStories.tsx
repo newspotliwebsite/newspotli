@@ -16,7 +16,7 @@ interface DeepStory {
 
 export default function DeepStories({ stories }: { stories: DeepStory[] }) {
   if (!stories || stories.length === 0) return null
-  const displayStories = stories.slice(0, 3)
+  const displayStories = stories.filter((s) => s?.slug?.current).slice(0, 3)
 
   return (
     <section className="bg-cream py-20 px-5">

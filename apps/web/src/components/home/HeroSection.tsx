@@ -37,7 +37,7 @@ function SideList({ heading, articles }: { heading: string; articles: Article[] 
       </div>
 
       <ul className="space-y-5 max-h-[560px] overflow-y-auto pr-1 scrollbar-thin">
-        {articles.map((article, i) => {
+        {articles.filter((a) => a?.slug?.current).map((article, i) => {
           const thumb = getArticleImage(article, { width: 240, height: 160 })
           return (
             <li key={article._id}>
@@ -91,7 +91,7 @@ export default function HeroSection({
   leftArticles,
   rightArticles,
 }: HeroSectionProps) {
-  const slides = (featuredArticles || []).slice(0, 4)
+  const slides = (featuredArticles || []).filter((a) => a?.slug?.current).slice(0, 4)
   const [current, setCurrent] = useState(0)
 
   const next = useCallback(() => {
