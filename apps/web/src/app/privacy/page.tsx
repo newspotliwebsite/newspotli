@@ -1,11 +1,10 @@
 import { Metadata } from 'next'
-import Link from 'next/link'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 
 export const metadata: Metadata = {
-  title: 'गोपनीयता नीति — News Potli',
-  description: 'News Potli की गोपनीयता नीति। हम आपकी जानकारी की सुरक्षा को गंभीरता से लेते हैं।',
+  title: 'Privacy Policy — News Potli',
+  description: 'News Potli is committed to protecting the privacy of our audience, contributors, partners, and visitors.',
 }
 
 export default function PrivacyPage() {
@@ -13,55 +12,52 @@ export default function PrivacyPage() {
     <>
       <Header />
       <main className="bg-cream min-h-screen">
-        <div className="max-w-3xl mx-auto px-4 md:px-6 py-12 md:py-20">
-          <span className="font-source text-[11px] font-black tracking-[0.2em] text-maroon uppercase block mb-3">Legal</span>
-          <h1 className="font-noto text-4xl md:text-5xl font-black text-charcoal mb-8">
-            गोपनीयता <span className="text-maroon">नीति.</span>
+        <div className="max-w-3xl mx-auto px-4 md:px-6 py-16 md:py-20">
+          <h1 className="font-noto text-4xl md:text-5xl font-bold text-charcoal mb-10">
+            Privacy Policy
           </h1>
 
-          <div className="prose prose-lg font-noto text-charcoal/80 space-y-6">
-            <p className="text-lg leading-relaxed">
-              News Potli (newspotli.com) पर आपकी गोपनीयता हमारी प्राथमिकता है। यह नीति बताती है कि हम आपकी जानकारी कैसे एकत्र करते हैं, उपयोग करते हैं और सुरक्षित रखते हैं।
+          <div className="font-source text-charcoal text-base leading-relaxed space-y-6">
+            <p>
+              News Potli is committed to protecting the privacy of our audience, contributors, partners, and visitors. We may collect basic information such as your name, email address, phone number, and location when you subscribe, fill out forms, or interact with our platform.
             </p>
 
-            <h2 className="font-noto text-2xl font-black text-charcoal mt-10 border-l-4 border-gold pl-5">
-              हम कौन सी जानकारी एकत्र करते हैं
+            <h2 className="font-noto text-2xl font-bold text-charcoal mt-10">
+              How We Use Your Information
             </h2>
-            <ul className="list-disc pl-6 space-y-2 text-base">
-              <li>ईमेल पता — जब आप न्यूज़लेटर के लिए सब्सक्राइब करते हैं</li>
-              <li>ब्राउज़िंग डेटा — Google Analytics के माध्यम से (अनाम)</li>
-              <li>खोज क्वेरी — Algolia सर्च के माध्यम से (अनाम)</li>
-              <li>संपर्क फ़ॉर्म — नाम, ईमेल और संदेश जब आप हमसे संपर्क करते हैं</li>
+            <p>We use this information to:</p>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>Provide newsletters, updates, and editorial content</li>
+              <li>Share information about our stories, campaigns, events, and publications</li>
+              <li>Improve user experience and tailor content to audience interests</li>
+              <li>Analyze engagement to strengthen our content and outreach</li>
             </ul>
-
-            <h2 className="font-noto text-2xl font-black text-charcoal mt-10 border-l-4 border-gold pl-5">
-              हम जानकारी का उपयोग कैसे करते हैं
-            </h2>
-            <ul className="list-disc pl-6 space-y-2 text-base">
-              <li>आपको दैनिक न्यूज़लेटर भेजने के लिए</li>
-              <li>वेबसाइट के अनुभव को बेहतर बनाने के लिए</li>
-              <li>आपके सवालों और प्रतिक्रिया का जवाब देने के लिए</li>
-            </ul>
-
-            <h2 className="font-noto text-2xl font-black text-charcoal mt-10 border-l-4 border-gold pl-5">
-              तृतीय-पक्ष सेवाएँ
-            </h2>
-            <p className="text-base leading-relaxed">
-              हम Google Analytics, Algolia, Resend और Sanity.io जैसी सेवाओं का उपयोग करते हैं। इन सेवाओं की अपनी गोपनीयता नीतियाँ हैं।
+            <p>
+              We do not sell, rent, or share your personal data with third parties without your consent. Any payments are processed through secure third-party providers, and we do not store financial information.
+            </p>
+            <p>
+              You can opt out of emails at any time using the unsubscribe link or by contacting us at{' '}
+              <a href="mailto:newspotlioffice@gmail.com" className="text-maroon font-bold hover:text-gold transition-colors">
+                newspotlioffice@gmail.com
+              </a>
+              . You may also request correction or deletion of your data.
             </p>
 
-            <h2 className="font-noto text-2xl font-black text-charcoal mt-10 border-l-4 border-gold pl-5">
-              संपर्क करें
+            <h2 className="font-noto text-2xl font-bold text-charcoal mt-10">
+              Legal Compliance
             </h2>
-            <p className="text-base leading-relaxed">
-              गोपनीयता संबंधित किसी भी प्रश्न के लिए हमसे{' '}
-              <Link href="/contact" className="text-maroon font-bold hover:text-gold transition-colors">
-                संपर्क करें
-              </Link>।
+            <p>
+              We may disclose personal information if required by law. Wherever possible, we will notify you in advance unless legally restricted.
             </p>
 
-            <p className="text-sm text-charcoal/50 mt-10 pt-6 border-t border-charcoal/10">
-              अंतिम अपडेट: मार्च 2026
+            <h2 className="font-noto text-2xl font-bold text-charcoal mt-10">
+              Policy Updates
+            </h2>
+            <p>
+              We may update this policy from time to time. Changes will be posted on this page, and continued use of our platform indicates your acceptance.
+            </p>
+            <p>
+              We take reasonable steps to protect your information, though no system is completely secure.
             </p>
           </div>
         </div>

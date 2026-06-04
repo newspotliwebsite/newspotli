@@ -22,15 +22,43 @@ interface TeamMember {
   badge?: string
 }
 
-// ── Core Team (with photos) ────────────────────────────────────────
-const CORE_TEAM: TeamMember[] = [
+// ── Team (single ordered list) ─────────────────────────────────────
+const TEAM_MEMBERS: TeamMember[] = [
   {
     name: 'अरविंद शुक्ला',
     nameEn: 'Arvind Shukla',
     role: 'FOUNDER & EDITOR-IN-CHIEF',
     photo: '/images/team/arvind-shukla.jpg',
-    bio: 'Pulitzer Center Grantee. 20+ years of rural journalism across print, TV, radio, and digital. Based in Lucknow, UP.',
+    bio: 'Pulitzer Center Grantee. 20+ years of rural journalism across print, TV, radio, and digital. Founded News Potli to amplify the voices of farmers, women, and tribal communities.',
     badge: 'Pulitzer Grantee',
+  },
+  {
+    name: 'साधना शुक्ला',
+    nameEn: 'Sadhana Shukla',
+    role: 'CO-FOUNDER & HEAD OF OPERATIONS',
+    photo: '/images/team/sadhana-shukla.jpg',
+    bio: "Business graduate and former project manager at Gaursons India. Freelance reporter and content writer for the Urban Development Department, Government of UP. Key role in shaping News Potli's vision and field reporting network.",
+  },
+  {
+    name: 'मोहम्मद जलीश',
+    nameEn: 'Mohd Jalish',
+    role: 'ASSOCIATE EDITOR',
+    photo: '/images/team/mohd-jalish.jpg',
+    bio: '13+ years in journalism with India TV, News18 India, TV9 Bharatvarsh, and India News. Handles scripting, packaging, and editorial operations at News Potli.',
+  },
+  {
+    name: 'मिथिलेश धर दुबे',
+    nameEn: 'Mithilesh Dhar Dubey',
+    role: 'ASSOCIATE EDITOR (CONTENT)',
+    photo: '/images/team/mithilesh-dubey.jpg',
+    bio: 'Principal correspondent for IndiaSpend Hindi. Previously at Gaon Connection, Nav Bharat Times, Prabhat Khabar, and Dainik Bhaskar. Expertise in agriculture, education, and climate change.',
+  },
+  {
+    name: 'परितोष चार्ल्स',
+    nameEn: 'Paritosh Charles',
+    role: 'HEAD OF PRODUCTION',
+    photo: null,
+    bio: 'Bio coming soon.',
   },
   {
     name: 'जयंत मिश्रा',
@@ -40,64 +68,32 @@ const CORE_TEAM: TeamMember[] = [
     bio: 'Has reported from Alirajpur, Nashik, Bihar, and Lakhimpur covering tribal communities, farmer suicides, floods, and climate change impact on agriculture.',
   },
   {
-    name: 'मिथिलेश धर दुबे',
-    nameEn: 'Mithilesh Dhar Dubey',
-    role: 'SENIOR CORRESPONDENT',
-    photo: '/images/team/mithilesh-dubey.jpg',
-    bio: 'Principal correspondent for IndiaSpend Hindi. Previously at Gaon Connection, Nav Bharat Times, Prabhat Khabar, and Dainik Bhaskar. Expertise in agriculture, education, and climate change.',
-  },
-  {
-    name: 'मोहम्मद जलीश',
-    nameEn: 'Mohd Jalish',
-    role: 'ASSOCIATE EDITOR',
-    photo: '/images/team/mohd-jalish.jpg',
-    bio: '13+ years in journalism with India TV, News18 India, TV9 Bharatvarsh, and India News. Handles scripting, packaging, and editorial operations.',
-  },
-  {
-    name: 'अजय कुमार',
-    nameEn: 'Ajay Kumar',
+    name: 'अजय राजपूत',
+    nameEn: 'Ajay Rajput',
     role: 'CINEMATOGRAPHER',
     photo: '/images/team/ajay-kumar.jpg',
-    bio: '10+ years in camera operations, drone cinematography, and documentary filmmaking. Captures the ground realities of rural India through powerful visuals.',
-  },
-  {
-    name: 'मयंक श्रीवास्तव',
-    nameEn: 'Mayank Srivastava',
-    role: 'MOTION GRAPHICS & VIDEO EDITOR',
-    photo: '/images/team/mayank-srivastava.jpg',
-    bio: '14 years in motion graphics, video editing, and visual storytelling. Work spans commercials, social media content, corporate films, and digital campaigns.',
-  },
-  {
-    name: 'शिवानी बाजपेयी',
-    nameEn: 'Shivani Bajpai',
-    role: 'SOCIAL MEDIA MANAGER',
-    photo: '/images/team/shivani-bajpai.jpg',
-    bio: "10+ years across marketing, sales, and customer engagement. Manages News Potli's social media — content around agriculture, rural communities, women, and climate.",
-  },
-]
-
-// ── Extended team (no photos yet) ──────────────────────────────────
-const EXTENDED_TEAM: TeamMember[] = [
-  {
-    name: 'साधना शुक्ला',
-    nameEn: 'Sadhana Shukla',
-    role: 'OPERATIONS & FINANCE',
-    photo: null,
-    bio: '',
-  },
-  {
-    name: 'परितोष चार्ल्स',
-    nameEn: 'Paritosh Charles',
-    role: 'TEAM MEMBER',
-    photo: null,
-    bio: '',
+    bio: '10+ years in camera operations, drone cinematography, and documentary filmmaking. Captures the ground realities of rural India through powerful visuals and immersive storytelling.',
   },
   {
     name: 'हस्साम ताजुब',
     nameEn: 'Hassam Tajub',
-    role: 'TEAM MEMBER',
-    photo: null,
-    bio: '',
+    role: 'VIDEO EDITOR',
+    photo: '/images/team/hassam-tajub.jpg',
+    bio: '3+ years in video production specializing in cinematic storytelling, motion graphics, and visual content. Trained in motion graphics from Mumbai. Deep passion for writing, reading, and poetry.',
+  },
+  {
+    name: 'मयंक श्रीवास्तव',
+    nameEn: 'Mayank Srivastava',
+    role: 'VIDEO EDITOR & MOTION GRAPHICS DESIGNER',
+    photo: '/images/team/mayank-srivastava.jpg',
+    bio: '14 years in motion graphics, video editing, and visual storytelling. Work spans commercials, social media content, corporate films, and digital campaigns. Also a faculty trainer in animation.',
+  },
+  {
+    name: 'शिवानी बाजपेयी',
+    nameEn: 'Shivani Bajpai',
+    role: 'COMMUNICATION MANAGER',
+    photo: '/images/team/shivani-bajpai.jpg',
+    bio: '10+ years across marketing, sales, and customer engagement. Creates impactful content around agriculture, rural communities, women, and climate issues.',
   },
 ]
 
@@ -258,66 +254,23 @@ export default function TeamPage() {
           </div>
         </section>
 
-        {/* ── Core Team ── */}
+        {/* ── Team Grid ── */}
         <section className="py-16 md:py-24 px-4 md:px-12 lg:px-24">
           <div className="max-w-6xl mx-auto">
             <motion.div
-              variants={fadeInUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={VIEWPORT_ONCE}
-              className="mb-10"
-            >
-              <span className="font-source text-[11px] font-black tracking-[0.25em] uppercase text-charcoal/40 block mb-2">
-                Core Team
-              </span>
-              <h2 className="font-noto text-3xl md:text-4xl font-bold text-charcoal">
-                मुख्य टीम<span className="text-gold">.</span>
-              </h2>
-            </motion.div>
-
-            <motion.div
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={VIEWPORT_ONCE}
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
             >
-              {CORE_TEAM.map((m) => (
-                <PhotoCard key={m.nameEn} member={m} />
-              ))}
-            </motion.div>
-          </div>
-        </section>
-
-        {/* ── Extended Team ── */}
-        <section className="bg-cream-dark py-16 md:py-20 px-4 md:px-12 lg:px-24">
-          <div className="max-w-6xl mx-auto">
-            <motion.div
-              variants={fadeInUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={VIEWPORT_ONCE}
-              className="mb-10"
-            >
-              <span className="font-source text-[11px] font-black tracking-[0.25em] uppercase text-charcoal/40 block mb-2">
-                Operations &amp; Extended Team
-              </span>
-              <h2 className="font-noto text-3xl md:text-4xl font-bold text-charcoal">
-                विस्तारित टीम<span className="text-gold">.</span>
-              </h2>
-            </motion.div>
-
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={VIEWPORT_ONCE}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
-            >
-              {EXTENDED_TEAM.map((m) => (
-                <InitialsCard key={m.nameEn} member={m} />
-              ))}
+              {TEAM_MEMBERS.map((m) =>
+                m.photo ? (
+                  <PhotoCard key={m.nameEn} member={m} />
+                ) : (
+                  <InitialsCard key={m.nameEn} member={m} />
+                )
+              )}
             </motion.div>
           </div>
         </section>

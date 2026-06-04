@@ -72,22 +72,6 @@ export default function FounderSection() {
               </p>
             </div>
 
-            {/* Credential pills */}
-            <div className="flex flex-wrap gap-2.5 mt-8">
-              <span className="font-source text-[11px] font-bold tracking-wider text-white bg-gold px-3 py-1.5 uppercase rounded-full">
-                Pulitzer Center Grantee
-              </span>
-              <span className="font-source text-[11px] font-bold tracking-wider text-white bg-maroon px-3 py-1.5 uppercase rounded-full">
-                20+ Years in Journalism
-              </span>
-              <span className="font-source text-[11px] font-bold tracking-wider text-white bg-charcoal px-3 py-1.5 uppercase rounded-full">
-                JTRC–IIT Kanpur Fellow
-              </span>
-              <span className="font-source text-[11px] font-bold tracking-wider text-white bg-maroon px-3 py-1.5 uppercase rounded-full">
-                1600+ YouTube Videos
-              </span>
-            </div>
-
             {/* Social links */}
             <div className="flex items-center gap-3 mt-8 pt-6 border-t border-charcoal/10">
               <span className="font-source text-[11px] font-bold tracking-wider text-charcoal/40 uppercase mr-1">
