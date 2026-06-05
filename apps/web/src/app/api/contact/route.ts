@@ -6,32 +6,33 @@ const resend = new Resend(process.env.RESEND_API_KEY || 're_placeholder_key')
 interface ContactBody {
   name: string
   email: string
-  subject: string
-  message: string
+  number?: string
+  question?: string
+  subject?: string
+  message?: string
 }
 
 export async function POST(request: Request) {
   try {
     const body: ContactBody = await request.json()
-    const { name, email, subject, message } = body
+    const name = (body.name || '').trim()
+    const email = (body.email || '').trim()
+    const number = (body.number || '').trim()
+    const message = (body.question || body.message || '').trim()
+    const subject = (body.subject || 'Footer Contact Form').trim()
 
-    // Validate
-    if (!name || name.trim().length < 2) {
+    if (name.length < 2) {
       return NextResponse.json({ error: 'Name is required (min 2 chars)' }, { status: 400 })
     }
-    if (!email || !email.includes('@')) {
+    if (!email.includes('@')) {
       return NextResponse.json({ error: 'Valid email is required' }, { status: 400 })
     }
-    if (!subject || subject.trim().length < 3) {
-      return NextResponse.json({ error: 'Subject is required' }, { status: 400 })
-    }
-    if (!message || message.trim().length < 10) {
-      return NextResponse.json({ error: 'Message must be at least 10 characters' }, { status: 400 })
+    if (message.length < 5) {
+      return NextResponse.json({ error: 'Message must be at least 5 characters' }, { status: 400 })
     }
 
-    // Dev fallback
     if (!process.env.RESEND_API_KEY || process.env.RESEND_API_KEY === 'your_resend_api_key') {
-      await new Promise((r) => setTimeout(r, 500))
+      await new Promise((r) => setTimeout(r, 300))
       return NextResponse.json({ success: true, simulated: true })
     }
 
@@ -43,7 +44,7 @@ export async function POST(request: Request) {
         <h2>New Contact Form Submission</h2>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Subject:</strong> ${subject}</p>
+        ${number ? `<p><strong>Phone:</strong> ${number}</p>` : ''}
         <hr/>
         <p>${message.replace(/\n/g, '<br/>')}</p>
       `,

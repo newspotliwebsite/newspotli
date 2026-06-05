@@ -36,6 +36,19 @@ const TickerLabel = () => (
   </div>
 )
 
+const TickerFallback = () => (
+  <div className="absolute whitespace-nowrap animate-ticker flex items-center h-full">
+    {Array.from({ length: 6 }).map((_, i) => (
+      <span key={`loading-${i}`} className="inline-flex items-center">
+        <span className="text-cream/70 font-noto text-sm px-6 inline-block">
+          लोड हो रहा है...
+        </span>
+        <span className="text-gold/40 text-xs">›</span>
+      </span>
+    ))}
+  </div>
+)
+
 async function TickerContent() {
   let breakingNews: BreakingNewsItem[] = []
 
@@ -50,7 +63,7 @@ async function TickerContent() {
     console.error('Failed to fetch breaking news:', errorMessage)
   }
 
-  if (!breakingNews || breakingNews.length === 0) return null
+  if (!breakingNews || breakingNews.length === 0) return <TickerFallback />
 
   return (
     <div className="absolute whitespace-nowrap animate-ticker flex items-center h-full">
@@ -74,7 +87,7 @@ export default function BreakingTicker() {
     <div className="w-full bg-[#1a0505] border-b border-maroon/30 overflow-hidden flex items-stretch h-10 relative">
       <TickerLabel />
       <div className="flex-1 overflow-hidden relative flex items-center">
-        <Suspense fallback={null}>
+        <Suspense fallback={<TickerFallback />}>
           <TickerContent />
         </Suspense>
       </div>

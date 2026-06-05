@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Tiro_Devanagari_Hindi, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
+import Preloader from "@/components/layout/Preloader";
 
 const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
@@ -53,6 +54,7 @@ gtag('config', '${gaId}');`}
       <body
         className={`${tiro.variable} ${source.variable} font-source antialiased bg-white text-foreground`}
       >
+        <Preloader />
         {children}
         <Script id="sw-register" strategy="afterInteractive">
           {`if ('serviceWorker' in navigator) {

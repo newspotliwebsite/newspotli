@@ -214,43 +214,23 @@ export default function TeamPage() {
       <main className="bg-cream">
         {/* ── Hero ── */}
         <section className="bg-cream border-b border-charcoal/8 py-20 md:py-28 px-4 md:px-12 lg:px-24">
-          <div className="max-w-5xl mx-auto">
-            <motion.span
+          <div className="max-w-5xl mx-auto text-center">
+            <motion.h1
               variants={fadeInUp}
               initial="hidden"
               whileInView="visible"
               viewport={VIEWPORT_ONCE}
-              className="font-source text-[11px] font-black tracking-[0.25em] uppercase text-charcoal/40 block mb-5"
+              className="font-source text-4xl md:text-5xl font-bold text-charcoal leading-tight"
             >
-              The People Behind News Potli
-            </motion.span>
-
+              OUR TEAM
+            </motion.h1>
             <motion.div
               variants={fadeInUp}
               initial="hidden"
               whileInView="visible"
               viewport={VIEWPORT_ONCE}
-              className="flex flex-col md:flex-row md:items-end gap-3 md:gap-12"
-            >
-              <h1 className="font-noto text-4xl md:text-5xl lg:text-6xl font-bold text-charcoal leading-tight">
-                हमारी टीम<span className="text-gold">.</span>
-              </h1>
-              <div className="md:pb-3">
-                <p className="font-source text-2xl md:text-3xl font-bold text-charcoal/25">
-                  Our People
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.p
-              variants={fadeInUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={VIEWPORT_ONCE}
-              className="font-noto text-charcoal/60 text-lg leading-relaxed max-w-2xl mt-6"
-            >
-              वे लोग जो रोज़ लोगों और गाँवों से सच्ची खबरें लाते हैं — कैमरे के सामने और पर्दे के पीछे भी।
-            </motion.p>
+              className="mx-auto mt-6 h-[2px] w-16 bg-gold/70"
+            />
           </div>
         </section>
 

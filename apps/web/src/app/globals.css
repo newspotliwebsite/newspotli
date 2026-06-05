@@ -147,6 +147,17 @@
   }
 }
 
+/* Preloader fade */
+@keyframes preloaderFade {
+  0%, 80% { opacity: 1; }
+  100% { opacity: 0; pointer-events: none; visibility: hidden; }
+}
+
+@keyframes preloaderBar {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
 /* Ticker scroll */
 @keyframes ticker {
   0% {

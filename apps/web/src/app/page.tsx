@@ -36,7 +36,6 @@ import DeepStories from '@/components/home/DeepStories'
 import WebStories from '@/components/home/WebStories'
 import MoreHeadlines from '@/components/home/MoreHeadlines'
 import TrustedBy from '@/components/home/TrustedBy'
-import NewsletterStrip from '@/components/home/NewsletterStrip'
 
 export const revalidate = 60
 
@@ -144,7 +143,6 @@ export default async function HomePage() {
         <WebStories stories={webStories} />
         <MoreHeadlines articles={moreHeadlines} />
         <TrustedBy />
-        <NewsletterStrip />
       </main>
 
       <Footer />

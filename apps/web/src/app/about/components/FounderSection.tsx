@@ -50,12 +50,9 @@ export default function FounderSection() {
               Founder &amp; Editor-in-Chief
             </span>
 
-            <h2 className="font-noto text-3xl md:text-4xl font-bold text-charcoal leading-tight">
-              अरविंद शुक्ला
-            </h2>
-            <p className="font-source text-base md:text-lg text-charcoal/50 mt-1.5">
+            <h2 className="font-source text-3xl md:text-4xl font-bold text-charcoal leading-tight">
               Arvind Shukla
-            </p>
+            </h2>
 
             <div className="space-y-5 mt-7 font-noto text-[16px] leading-[1.85] text-charcoal/80">
               <p>

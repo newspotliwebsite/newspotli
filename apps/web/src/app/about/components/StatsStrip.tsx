@@ -47,13 +47,6 @@ export default function StatsStrip() {
   return (
     <section className="bg-white py-16 px-4 md:px-8 lg:px-24">
       <div className="max-w-6xl mx-auto">
-        <h2 className="font-noto text-2xl font-bold text-charcoal text-center mb-2">
-          हमारी पहुंच
-        </h2>
-        <p className="font-source text-sm text-charcoal/50 uppercase tracking-wide text-center mb-10">
-          Our Reach
-        </p>
-
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
           {STATS.map((stat) => (
             <a

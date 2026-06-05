@@ -15,7 +15,6 @@ import ProgressBar from '@/components/article/ProgressBar'
 import ArticleCard from '@/components/shared/ArticleCard'
 import ClipAndShare from '@/components/article/ClipAndShare'
 import ArticleAudioPlayer from '@/components/article/ArticleAudioPlayer'
-import SahyogEpic from '@/components/article/SahyogEpic'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 
@@ -340,11 +339,6 @@ export default async function ArticlePage({
             </div>
           </ClipAndShare>
         </article>
-
-        {/* ── Support Ask (Epic) ── */}
-        <div className="max-w-3xl mx-auto px-4 md:px-6">
-          <SahyogEpic />
-        </div>
 
         {/* ── Author Box ── */}
         {data.author && (

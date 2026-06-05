@@ -8,19 +8,13 @@ export default function OrganizationSection() {
           <div className="flex flex-col items-center text-center lg:sticky lg:top-24">
             <div className="relative w-56 h-56 md:w-72 md:h-72">
               <Image
-                src="/images/logos/logo-hindi.png"
-                alt="News Potli logo"
+                src="/images/logos/logo-english.png"
+                alt="News Potli"
                 fill
                 className="object-contain"
                 sizes="(max-width: 768px) 224px, 288px"
               />
             </div>
-            <h2 className="font-noto text-2xl font-bold text-charcoal mt-6">
-              न्यूज़ पोटली
-            </h2>
-            <p className="font-source text-sm text-charcoal/50 uppercase tracking-wide mt-1">
-              Independent Media House
-            </p>
           </div>
 
           <div className="space-y-5 font-source text-base text-charcoal/80 leading-relaxed">
