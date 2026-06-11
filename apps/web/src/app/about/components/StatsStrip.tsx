@@ -36,11 +36,11 @@ const FacebookIcon = () => (
 )
 
 const STATS = [
-  { icon: <YouTubeIcon />, value: '3L+', label: 'Subscribers', href: 'https://youtube.com/@newspotli' },
-  { icon: <InstagramIcon />, value: '2.7L+', label: 'Followers', href: 'https://instagram.com/newspotli' },
-  { icon: <TwitterIcon />, value: '6K+', label: 'Followers', href: 'https://twitter.com/newspotli' },
-  { icon: <LinkedInIcon />, value: '5,000+', label: 'Followers', href: 'https://linkedin.com/company/newspotli' },
-  { icon: <FacebookIcon />, value: '3.2L+', label: 'Followers', href: 'https://facebook.com/newspotli' },
+  { icon: <YouTubeIcon />, value: '3L+', label: 'Subscribers', href: 'https://www.youtube.com/@PotliNews' },
+  { icon: <InstagramIcon />, value: '2.7L+', label: 'Followers', href: 'https://www.instagram.com/newspotli/' },
+  { icon: <TwitterIcon />, value: '6K+', label: 'Followers', href: 'https://x.com/PotliNews' },
+  { icon: <LinkedInIcon />, value: '5,000+', label: 'Followers', href: 'https://in.linkedin.com/company/newspotli' },
+  { icon: <FacebookIcon />, value: '3.2L+', label: 'Followers', href: 'https://www.facebook.com/Potlinews/' },
 ]
 
 export default function StatsStrip() {

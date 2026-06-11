@@ -93,11 +93,11 @@ export default function Footer() {
             </p>
             <div className="flex gap-4">
               {[
-                { icon: <YouTubeIcon />, href: 'https://youtube.com/@newspotli', label: 'YouTube' },
-                { icon: <InstagramIcon />, href: 'https://instagram.com/newspotli', label: 'Instagram' },
-                { icon: <XIcon />, href: 'https://twitter.com/newspotli', label: 'X' },
-                { icon: <FacebookIcon />, href: 'https://facebook.com/newspotli', label: 'Facebook' },
-                { icon: <LinkedInIcon />, href: 'https://linkedin.com/company/newspotli', label: 'LinkedIn' },
+                { icon: <YouTubeIcon />, href: 'https://www.youtube.com/@PotliNews', label: 'YouTube' },
+                { icon: <InstagramIcon />, href: 'https://www.instagram.com/newspotli/', label: 'Instagram' },
+                { icon: <XIcon />, href: 'https://x.com/PotliNews', label: 'X' },
+                { icon: <FacebookIcon />, href: 'https://www.facebook.com/Potlinews/', label: 'Facebook' },
+                { icon: <LinkedInIcon />, href: 'https://in.linkedin.com/company/newspotli', label: 'LinkedIn' },
               ].map((s) => (
                 <a
                   key={s.label}

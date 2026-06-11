@@ -5,7 +5,6 @@ import AboutHero from './components/AboutHero'
 import OrganizationSection from './components/OrganizationSection'
 import FounderSection from './components/FounderSection'
 import StatsStrip from './components/StatsStrip'
-import AboutCTA from './components/AboutCTA'
 
 export const metadata: Metadata = {
   title: 'हमारे बारे में — News Potli',
@@ -27,7 +26,6 @@ export default function AboutPage() {
         <OrganizationSection />
         <FounderSection />
         <StatsStrip />
-        <AboutCTA />
       </main>
       <Footer />
     </>

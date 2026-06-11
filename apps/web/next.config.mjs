@@ -10,15 +10,6 @@ const nextConfig = {
       { protocol: 'https', hostname: 'placehold.co' },
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: '/partners',
-        destination: '/sahyog',
-        permanent: true,
-      },
-    ]
-  },
 };
 
 export default nextConfig;

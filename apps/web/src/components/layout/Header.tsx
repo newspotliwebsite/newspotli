@@ -100,13 +100,6 @@ export default function Header() {
                 <SearchBar />
               </div>
 
-              <Link
-                href="/sahyog"
-                className="hidden md:inline-flex items-center bg-maroon text-white px-4 py-2 rounded-full font-source font-semibold text-sm hover:bg-maroon-dark transition-colors"
-              >
-                सहयोग करें
-              </Link>
-
               <button
                 className="lg:hidden p-2 text-charcoal hover:text-maroon transition-colors"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -162,15 +155,6 @@ export default function Header() {
             ))}
           </ul>
 
-          <div className="px-5 mt-4">
-            <Link
-              href="/sahyog"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center justify-center gap-2 bg-maroon text-white font-bold py-3.5 rounded-full text-base w-full hover:bg-maroon-dark transition-all"
-            >
-              सहयोग करें
-            </Link>
-          </div>
         </div>
       </header>
     </>

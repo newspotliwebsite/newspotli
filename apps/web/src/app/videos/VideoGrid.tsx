@@ -183,7 +183,7 @@ function EmptyState() {
         कृपया हमारे YouTube चैनल पर जाएँ।
       </p>
       <a
-        href="https://youtube.com/@newspotli"
+        href="https://www.youtube.com/@PotliNews"
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center gap-2 mt-6 bg-maroon hover:bg-maroon-dark text-white font-source font-bold px-6 py-3 rounded-xl transition-colors"
@@ -230,7 +230,7 @@ export default function VideoGrid({ videos }: { videos: YouTubeVideo[] }) {
 
           {/* YouTube Subscriber Badge */}
           <motion.a
-            href="https://youtube.com/@newspotli"
+            href="https://www.youtube.com/@PotliNews"
             target="_blank"
             rel="noopener noreferrer"
             initial="hidden"
@@ -273,7 +273,7 @@ export default function VideoGrid({ videos }: { videos: YouTubeVideo[] }) {
               वीडियो
             </p>
             <a
-              href="https://youtube.com/@newspotli"
+              href="https://www.youtube.com/@PotliNews"
               target="_blank"
               rel="noopener noreferrer"
               className="hidden md:flex items-center gap-2 font-source text-xs font-bold text-maroon hover:text-gold transition-colors"
@@ -312,7 +312,7 @@ export default function VideoGrid({ videos }: { videos: YouTubeVideo[] }) {
               className="text-center mt-10"
             >
               <Link
-                href="https://youtube.com/@newspotli"
+                href="https://www.youtube.com/@PotliNews"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-maroon hover:bg-maroon-dark text-white font-source font-black px-8 py-3.5 rounded-xl transition-all hover:-translate-y-0.5"
