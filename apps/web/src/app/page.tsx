@@ -44,7 +44,6 @@ export default async function HomePage() {
   let latestArticles: any[] = []
   let deepStories: any[] = []
   let leftSide: any[] = []
-  let rightSide: any[] = []
   let moreHeadlines: any[] = []
   let webStories: any[] = []
 
@@ -87,11 +86,10 @@ export default async function HomePage() {
       featuredArticles = latestArticles.slice(0, 4)
     }
 
-    // Split latest into left/right sidebar columns (skip featured ids)
+    // Latest articles for the hero left sidebar (skip featured ids)
     const featuredIds = new Set(featuredArticles.map((a: any) => a._id))
     const remaining = latestArticles.filter((a: any) => !featuredIds.has(a._id))
     leftSide = remaining.slice(0, 5)
-    rightSide = remaining.slice(5, 10)
   } catch (error: any) {
     console.error('Failed to fetch Sanity data:', error.message || error)
   }
@@ -113,7 +111,7 @@ export default async function HomePage() {
       'https://www.instagram.com/newspotli/',
       'https://x.com/PotliNews',
       'https://www.facebook.com/Potlinews/',
-      'https://in.linkedin.com/company/newspotli',
+      'https://www.linkedin.com/in/potlinews/',
     ],
     founder: { '@type': 'Person', name: 'Arvind Shukla' },
     foundingDate: '2008',
@@ -134,14 +132,13 @@ export default async function HomePage() {
           <HeroSection
             featuredArticles={featuredArticles}
             leftArticles={leftSide}
-            rightArticles={rightSide}
           />
         </div>
-        <LatestNewsGrid articles={filteredLatest} />
-        <SeriesSection />
         <FeaturedVideos />
-        <DeepStories stories={deepStories} />
+        <SeriesSection />
+        <LatestNewsGrid articles={filteredLatest} />
         <WebStories stories={webStories} />
+        <DeepStories stories={deepStories} />
         <MoreHeadlines articles={moreHeadlines} />
         <TrustedBy />
       </main>

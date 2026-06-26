@@ -221,7 +221,7 @@ export default function VideoGrid({ videos }: { videos: YouTubeVideo[] }) {
               Video Library
             </span>
             <h1 className="font-noto text-5xl md:text-6xl font-black text-white leading-tight">
-              वीडियो<span className="text-gold">.</span>
+              वीडियो
             </h1>
             <p className="font-noto text-white/55 mt-2 text-base">
               ग्रामीण भारत की सच्ची कहानियाँ -- वीडियो में।

@@ -1,0 +1,119 @@
+'use client'
+
+import Link from 'next/link'
+import Image from 'next/image'
+import { useState, useCallback } from 'react'
+import { client } from '@/lib/sanity'
+import { getArticleImage, timeAgo } from '@/lib/utils'
+import { LATEST_PAGE_QUERY } from './query'
+
+interface LatestArticle {
+  _id: string
+  title: string
+  slug: { current: string }
+  heroImage?: { alt?: string; asset?: { _ref: string } }
+  publishedAt: string
+  readTime?: number
+  category?: { title: string; color?: string; slug?: { current: string } }
+  author?: { name: string }
+}
+
+interface LatestClientProps {
+  initialArticles: LatestArticle[]
+  pageSize: number
+}
+
+export default function LatestClient({ initialArticles, pageSize }: LatestClientProps) {
+  const [articles, setArticles] = useState<LatestArticle[]>(initialArticles)
+  const [loading, setLoading] = useState(false)
+  const [hasMore, setHasMore] = useState(initialArticles.length >= pageSize)
+
+  const loadMore = useCallback(async () => {
+    setLoading(true)
+    try {
+      const start = articles.length
+      const next: LatestArticle[] = await client.fetch(LATEST_PAGE_QUERY, {
+        start,
+        end: start + pageSize,
+      })
+      setArticles((prev) => [...prev, ...(next || [])])
+      if (!next || next.length < pageSize) setHasMore(false)
+    } catch (error) {
+      console.error('Failed to load more articles:', error)
+      setHasMore(false)
+    } finally {
+      setLoading(false)
+    }
+  }, [articles.length, pageSize])
+
+  if (!articles || articles.length === 0) {
+    return (
+      <section className="py-16 px-5 text-center">
+        <p className="font-noto text-charcoal/40 text-lg">अभी कोई खबर उपलब्ध नहीं है।</p>
+      </section>
+    )
+  }
+
+  return (
+    <section className="bg-white py-10 md:py-14 px-5">
+      <div className="max-w-site mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {articles
+            .filter((a) => a?.slug?.current)
+            .map((article) => {
+              const imageUrl = getArticleImage(article, { width: 800, height: 450, quality: 85 })
+              const catColor = article.category?.color || '#8B1A1A'
+              return (
+                <Link
+                  key={article._id}
+                  href={`/article/${article.slug.current}`}
+                  className="group block transition-all duration-300 hover:-translate-y-0.5"
+                >
+                  <div className="relative aspect-video rounded-lg overflow-hidden bg-cream-dark mb-4">
+                    <Image
+                      src={imageUrl}
+                      alt={article.heroImage?.alt || article.title}
+                      fill
+                      className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                  </div>
+
+                  {article.category && (
+                    <span
+                      className="inline-block rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white mb-3"
+                      style={{ backgroundColor: catColor }}
+                    >
+                      {article.category.title}
+                    </span>
+                  )}
+
+                  <h3 className="font-noto text-base md:text-[17px] font-bold leading-snug text-charcoal line-clamp-3 group-hover:text-maroon transition-colors">
+                    {article.title}
+                  </h3>
+
+                  <p className="mt-2 font-source text-xs text-charcoal/60">
+                    {article.author?.name || 'News Potli'}
+                    <span className="mx-1.5">•</span>
+                    {timeAgo(article.publishedAt)}
+                  </p>
+                </Link>
+              )
+            })}
+        </div>
+
+        {hasMore && (
+          <div className="text-center mt-12">
+            <button
+              onClick={loadMore}
+              disabled={loading}
+              className="inline-flex items-center gap-2 px-8 py-3 border border-maroon text-maroon font-source font-bold text-sm rounded-full hover:bg-maroon hover:text-white transition-all duration-200 disabled:opacity-60"
+            >
+              {loading ? 'लोड हो रहा है...' : 'और पढ़ें'}
+            </button>
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}

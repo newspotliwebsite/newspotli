@@ -14,7 +14,7 @@ export default function TrustedBy() {
   return (
     <section className="bg-cream py-12 border-y border-border-warm overflow-hidden">
       <p className="text-center font-source text-xs uppercase tracking-[2px] text-charcoal/40 mb-8">
-        OUR PARTNERS
+        OUR COLLABORATIONS
       </p>
 
       {/* Marquee container */}

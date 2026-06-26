@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect, useCallback } from 'react'
 import { getArticleImage, timeAgo } from '@/lib/utils'
+import TwitterFeed from '@/components/home/TwitterFeed'
 
 interface Article {
   _id: string
@@ -20,7 +21,6 @@ interface Article {
 interface HeroSectionProps {
   featuredArticles: Article[]
   leftArticles: Article[]
-  rightArticles: Article[]
 }
 
 function SideList({ heading, articles }: { heading: string; articles: Article[] }) {
@@ -30,7 +30,7 @@ function SideList({ heading, articles }: { heading: string; articles: Article[] 
         <span className="w-1.5 h-1.5 rounded-full bg-maroon" />
         <h2
           id={`side-${heading}`}
-          className="font-source text-xs font-bold uppercase tracking-[0.15em] text-maroon"
+          className="font-noto text-lg font-bold text-maroon leading-tight"
         >
           {heading}
         </h2>
@@ -89,7 +89,6 @@ const ChevronRightIcon = () => (
 export default function HeroSection({
   featuredArticles,
   leftArticles,
-  rightArticles,
 }: HeroSectionProps) {
   const slides = (featuredArticles || []).filter((a) => a?.slug?.current).slice(0, 4)
   const [current, setCurrent] = useState(0)
@@ -122,6 +121,9 @@ export default function HeroSection({
 
           {/* CENTER — Carousel */}
           <div className="order-1 lg:order-2">
+            <p className="font-source text-sm uppercase tracking-widest text-charcoal/40 mb-4">
+              मुख्य खबरें
+            </p>
             <div className="relative">
               <div className="relative aspect-[16/9] rounded-lg overflow-hidden bg-cream-dark">
                 <div
@@ -206,9 +208,17 @@ export default function HeroSection({
             </div>
           </div>
 
-          {/* RIGHT — More ताज़ा खबरें */}
+          {/* RIGHT — Latest from X / Twitter */}
           <div className="hidden lg:block order-3">
-            <SideList heading="ताज़ा खबरें" articles={rightArticles.slice(0, 5)} />
+            <div className="flex items-center gap-2 mb-5 border-b border-[#e8e0d0] pb-3">
+              <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-charcoal/50" aria-hidden="true">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+              <h2 className="font-source text-sm text-charcoal/40">X / Twitter</h2>
+            </div>
+            <div className="max-h-[560px] overflow-hidden">
+              <TwitterFeed />
+            </div>
           </div>
         </div>
       </div>

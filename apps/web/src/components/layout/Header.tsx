@@ -51,17 +51,10 @@ export default function Header() {
 
   return (
     <>
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-gold focus:text-white focus:px-4 focus:py-2 focus:rounded-sm focus:font-bold focus:text-sm"
-      >
-        Skip to content
-      </a>
-
       <header className="w-full sticky top-0 z-50 bg-white border-b border-[#e8e0d0]">
         <div className="max-w-site mx-auto px-5">
           <div className="flex items-center justify-between gap-6 py-4">
-            {/* Logo */}
+            {/* Logo + text branding */}
             <Link href="/" className="flex items-center flex-shrink-0">
               <Image
                 src="/images/logos/logo-hindi.png"
@@ -71,6 +64,14 @@ export default function Header() {
                 className="h-11 md:h-12 w-auto"
                 priority
               />
+              <div className="flex flex-col ml-3">
+                <span className="font-noto text-lg md:text-xl font-bold text-charcoal leading-tight">
+                  न्यूज़ पोटली
+                </span>
+                <span className="hidden md:block font-noto text-[10px] text-charcoal/50 tracking-wide">
+                  भारत के किसानों और गाँवों की आवाज़
+                </span>
+              </div>
             </Link>
 
             {/* Desktop nav (center-right) */}

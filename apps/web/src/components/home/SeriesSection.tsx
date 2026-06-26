@@ -11,7 +11,7 @@ const SERIES = [
 
 export default function SeriesSection() {
   return (
-    <section className="bg-cream py-20 text-center">
+    <section className="bg-cream py-10 md:py-14 text-center">
       <div className="max-w-site mx-auto px-5">
         <h2 className="font-noto text-2xl md:text-[28px] font-bold text-charcoal">
           हमारी सीरीज़
@@ -20,21 +20,21 @@ export default function SeriesSection() {
           Our Series
         </p>
 
-        <div className="flex justify-center gap-12 lg:gap-16 mt-14 flex-wrap md:flex-nowrap overflow-x-auto scrollbar-none pb-4">
+        <div className="flex justify-center gap-6 lg:gap-10 mt-8 flex-wrap md:flex-nowrap overflow-x-auto scrollbar-none pb-4">
           {SERIES.map((series) => (
             <Link
               key={series.slug}
               href={`/category/${series.slug}`}
-              className="group flex-shrink-0 w-[170px] transition-all duration-300 hover:-translate-y-0.5"
+              className="group flex-shrink-0 w-[130px] transition-all duration-300 hover:-translate-y-0.5"
             >
-              <div className="w-[160px] h-[160px] rounded-full mx-auto mb-5 overflow-hidden bg-cream-dark flex items-center justify-center shadow-card group-hover:shadow-card-hover transition-shadow duration-300">
+              <div className="w-[120px] h-[120px] rounded-full mx-auto mb-4 overflow-hidden bg-cream-dark flex items-center justify-center shadow-card group-hover:shadow-card-hover transition-shadow duration-300">
                 <Image
                   src={series.image}
                   alt={series.name}
-                  width={160}
-                  height={160}
+                  width={120}
+                  height={120}
                   className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-500"
-                  sizes="160px"
+                  sizes="120px"
                 />
               </div>
               <p className="font-noto text-base font-bold text-charcoal group-hover:text-maroon transition-colors">

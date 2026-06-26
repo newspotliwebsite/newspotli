@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 export default function AboutHero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-[#5C0F0F] to-[#8B1A1A] py-24 md:py-32 px-4 md:px-12 lg:px-24">
+    <section className="relative overflow-hidden bg-gradient-to-br from-[#5C0F0F] to-[#8B1A1A] py-12 md:py-16 px-4 md:px-12 lg:px-24">
       <Image
         src="/images/illustrations/about-journalism-field.png"
         alt=""

@@ -124,7 +124,7 @@ export default function WebStories({ stories }: { stories: WebStory[] }) {
   const active = openIdx !== null ? stories[openIdx] : null
 
   return (
-    <section className="bg-white py-16 md:py-20 px-5">
+    <section className="bg-white py-10 md:py-12 px-5">
       <div className="max-w-site mx-auto">
         <div className="mb-8 flex items-end justify-between gap-4">
           <h2 className="font-noto text-2xl md:text-[28px] font-bold text-charcoal leading-tight">

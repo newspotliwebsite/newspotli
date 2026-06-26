@@ -100,7 +100,7 @@ function SearchContent() {
             Search
           </span>
           <h1 className="font-noto text-3xl md:text-4xl font-black text-charcoal mb-6">
-            खोज परिणाम<span className="text-gold">.</span>
+            खोज परिणाम
           </h1>
 
           {/* Search Form */}

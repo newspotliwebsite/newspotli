@@ -298,15 +298,15 @@ export default async function ArticlePage({
         </header>
 
         {/* ── Hero Image ── */}
-        <div className="max-w-5xl mx-auto px-4 md:px-6 mb-12">
-          <div className="relative w-full aspect-video rounded-sm overflow-hidden shadow-xl">
+        <div className="max-w-4xl mx-auto px-4 md:px-6 mb-12">
+          <div className="relative w-full aspect-video max-h-[500px] rounded-lg overflow-hidden shadow-xl">
             <Image
               src={heroUrl}
               alt={data.heroImage?.alt || data.title}
               fill
               priority
               className="object-cover"
-              sizes="(max-width: 768px) 100vw, 1100px"
+              sizes="(max-width: 768px) 100vw, 900px"
             />
           </div>
           {data.heroImage?.alt && (
@@ -401,7 +401,7 @@ export default async function ArticlePage({
                 Related Coverage
               </span>
               <h2 className="font-noto text-2xl md:text-3xl font-black text-charcoal">
-                और पढ़ें<span className="text-maroon">.</span>
+                और पढ़ें
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

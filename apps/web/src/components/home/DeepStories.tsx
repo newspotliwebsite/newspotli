@@ -19,7 +19,7 @@ export default function DeepStories({ stories }: { stories: DeepStory[] }) {
   const displayStories = stories.filter((s) => s?.slug?.current).slice(0, 3)
 
   return (
-    <section className="bg-cream py-20 px-5">
+    <section className="bg-cream py-10 md:py-14 px-5">
       <div className="max-w-site mx-auto">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
           <div>

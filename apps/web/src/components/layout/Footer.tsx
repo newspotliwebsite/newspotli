@@ -97,7 +97,7 @@ export default function Footer() {
                 { icon: <InstagramIcon />, href: 'https://www.instagram.com/newspotli/', label: 'Instagram' },
                 { icon: <XIcon />, href: 'https://x.com/PotliNews', label: 'X' },
                 { icon: <FacebookIcon />, href: 'https://www.facebook.com/Potlinews/', label: 'Facebook' },
-                { icon: <LinkedInIcon />, href: 'https://in.linkedin.com/company/newspotli', label: 'LinkedIn' },
+                { icon: <LinkedInIcon />, href: 'https://www.linkedin.com/in/potlinews/', label: 'LinkedIn' },
               ].map((s) => (
                 <a
                   key={s.label}
@@ -180,6 +180,9 @@ export default function Footer() {
               >
                 {status === 'loading' ? '...' : status === 'success' ? 'भेज दिया!' : 'भेजें'}
               </button>
+              {status === 'success' && (
+                <p className="text-emerald-400 text-sm font-source font-bold">धन्यवाद! हम जल्द संपर्क करेंगे।</p>
+              )}
               {status === 'error' && (
                 <p className="text-red-400 text-xs font-source">कुछ गड़बड़ हुई, फिर कोशिश करें।</p>
               )}

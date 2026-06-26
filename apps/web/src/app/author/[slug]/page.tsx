@@ -9,6 +9,7 @@ import {
   ARTICLES_BY_AUTHOR_QUERY,
 } from '@/lib/queries'
 import { getArticleImage, timeAgo } from '@/lib/utils'
+import { getTeamMemberBySlug } from '@/lib/team'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 
@@ -22,21 +23,23 @@ export async function generateMetadata({
 }: {
   params: { slug: string }
 }): Promise<Metadata> {
-  const author = await fetchAuthor(params.slug)
-  if (!author) return { title: 'लेखक नहीं मिला — News Potli' }
+  const sanityAuthor = await fetchAuthor(params.slug)
+  const teamMember = getTeamMemberBySlug(params.slug)
+  if (!sanityAuthor && !teamMember) return { title: 'लेखक नहीं मिला — News Potli' }
 
-  const description = author.bio
-    ? author.bio.slice(0, 155)
-    : `${author.name} — ${author.role || 'पत्रकार'} | News Potli`
-  const photoUrl = author.photo?.asset
-    ? urlFor(author.photo).width(400).height(400).quality(80).url()
-    : undefined
+  const name = sanityAuthor?.name || teamMember?.name || ''
+  const role = sanityAuthor?.role || teamMember?.role || 'पत्रकार'
+  const bio = sanityAuthor?.bio || teamMember?.bio || ''
+  const description = bio ? bio.slice(0, 155) : `${name} — ${role} | News Potli`
+  const photoUrl = sanityAuthor?.photo?.asset
+    ? urlFor(sanityAuthor.photo).width(400).height(400).quality(80).url()
+    : teamMember?.photo || undefined
 
   return {
-    title: `${author.name} — News Potli`,
+    title: `${name} — News Potli`,
     description,
     openGraph: {
-      title: `${author.name} — News Potli`,
+      title: `${name} — News Potli`,
       description,
       type: 'profile',
       images: photoUrl ? [{ url: photoUrl, width: 400, height: 400 }] : [],
@@ -44,7 +47,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary',
-      title: `${author.name} — News Potli`,
+      title: `${name} — News Potli`,
       description,
       images: photoUrl ? [photoUrl] : [],
     },
@@ -132,19 +135,33 @@ export default async function AuthorPage({
 }: {
   params: { slug: string }
 }) {
-  const [author, articles] = await Promise.all([
+  const [sanityAuthor, articles] = await Promise.all([
     fetchAuthor(params.slug),
     fetchAuthorArticles(params.slug),
   ])
 
-  if (!author) {
+  const teamMember = getTeamMemberBySlug(params.slug)
+
+  if (!sanityAuthor && !teamMember) {
     const { notFound } = await import('next/navigation')
     notFound()
   }
 
-  const photoUrl = author.photo?.asset
-    ? urlFor(author.photo).width(320).height(320).quality(90).url()
-    : null
+  // Merge Sanity author with the team directory as a fallback so team-page
+  // links always resolve, and team photos fill in when Sanity has none.
+  const author = {
+    name: sanityAuthor?.name || teamMember?.name || '',
+    role: sanityAuthor?.role || teamMember?.role || '',
+    bio: sanityAuthor?.bio || teamMember?.bio || '',
+    email: sanityAuthor?.email,
+    categories: sanityAuthor?.categories,
+    articleCount: sanityAuthor?.articleCount,
+  }
+
+  // Sanity photo wins; otherwise fall back to the local team photo.
+  const photoUrl = sanityAuthor?.photo?.asset
+    ? urlFor(sanityAuthor.photo).width(320).height(320).quality(90).url()
+    : teamMember?.photo || null
 
   const uniqueCategories = getUniqueCategories(author.categories)
   const articleCount = author.articleCount || articles.length
@@ -306,7 +323,7 @@ export default async function AuthorPage({
               All Stories
             </span>
             <h2 className="font-noto text-2xl md:text-3xl font-black text-charcoal">
-              सभी लेख<span className="text-maroon">.</span>
+              सभी लेख
             </h2>
           </div>
 

@@ -130,7 +130,7 @@ export default async function CategoryPage({
           </div>
           <div className="absolute inset-0 bg-black/20" />
 
-          <div className="relative max-w-7xl mx-auto px-4 md:px-10 lg:px-20 py-14 md:py-20">
+          <div className="relative max-w-7xl mx-auto px-4 md:px-10 lg:px-20 py-8 md:py-12">
             {/* Breadcrumb */}
             <nav className="flex items-center gap-2 text-white/60 text-xs font-source mb-6">
               <Link href="/" className="hover:text-white transition-colors">Home</Link>
@@ -142,7 +142,7 @@ export default async function CategoryPage({
               <span className="text-6xl md:text-7xl select-none hidden sm:block" role="img">{icon}</span>
               <div className="flex-1">
                 <h1 className="font-noto text-3xl sm:text-4xl md:text-5xl font-black leading-tight mb-3">
-                  {cat.title}<span className="text-gold">.</span>
+                  {cat.title}
                 </h1>
                 {cat.description && (
                   <p className="font-noto text-white/80 text-base md:text-lg leading-relaxed max-w-2xl mb-4">

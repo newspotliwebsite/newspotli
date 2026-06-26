@@ -25,7 +25,7 @@ export default function MissionStatement() {
             Our Mission
           </span>
           <h2 className="font-noto text-3xl md:text-4xl lg:text-5xl font-bold text-charcoal leading-tight">
-            हम क्या करते हैं<span className="text-gold">.</span>
+            हम क्या करते हैं
           </h2>
           <p className="font-noto text-charcoal/55 text-base md:text-lg max-w-2xl mx-auto mt-5 leading-relaxed">
             तीन सिद्धांत जिन पर News Potli खड़ा है — ज़मीन से, लोगों के लिए, और सच्चाई के साथ।

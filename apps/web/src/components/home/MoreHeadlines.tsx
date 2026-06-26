@@ -16,7 +16,7 @@ export default function MoreHeadlines({ articles }: { articles: HeadlineArticle[
   if (!articles || articles.length === 0) return null
 
   return (
-    <section className="bg-white py-20 px-5">
+    <section className="bg-white py-10 md:py-14 px-5">
       <div className="max-w-site mx-auto">
         <div className="mb-10">
           <h2 className="font-noto text-2xl md:text-[28px] font-bold text-charcoal leading-tight">

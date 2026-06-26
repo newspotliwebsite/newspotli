@@ -50,7 +50,7 @@ export default function LatestNewsGrid({ articles }: { articles: ArticleType[] }
   const displayed = articles.slice(0, 8)
 
   return (
-    <section className="bg-white py-20 px-5">
+    <section className="bg-white py-10 md:py-14 px-5">
       <div className="max-w-site mx-auto">
         <div className="flex justify-between items-end mb-10 flex-wrap gap-4">
           <div>

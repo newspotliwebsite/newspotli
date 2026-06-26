@@ -34,7 +34,7 @@ export default function JourneyTimeline() {
               Our Journey
             </span>
             <h2 className="font-noto text-4xl md:text-5xl font-bold text-charcoal">
-              2006 – 2026<span className="text-gold">.</span>
+              2006 – 2026
             </h2>
           </div>
           <p className="font-noto text-charcoal/50 text-sm max-w-xs leading-relaxed">

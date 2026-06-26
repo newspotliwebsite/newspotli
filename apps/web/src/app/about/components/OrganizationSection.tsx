@@ -7,6 +7,7 @@ export default function OrganizationSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           <div className="flex flex-col items-center text-center lg:sticky lg:top-24">
             <div className="relative w-56 h-56 md:w-72 md:h-72">
+              {/* REPLACE: Change src to /images/about/team-collage.jpg when provided */}
               <Image
                 src="/images/logos/logo-english.png"
                 alt="News Potli"

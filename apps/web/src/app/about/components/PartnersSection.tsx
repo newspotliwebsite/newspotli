@@ -31,7 +31,7 @@ export default function PartnersSection() {
             Partners &amp; Collaborations
           </span>
           <h2 className="font-noto text-3xl md:text-4xl lg:text-5xl font-bold text-charcoal">
-            जिनके साथ काम किया<span className="text-gold">.</span>
+            जिनके साथ काम किया
           </h2>
           <p className="font-source text-base md:text-lg text-charcoal/50 mt-4">
             Partners &amp; Collaborations
