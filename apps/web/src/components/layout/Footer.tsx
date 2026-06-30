@@ -94,7 +94,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-4">
               {[
-                { icon: <YouTubeIcon />, href: 'https://www.youtube.com/@PotliNews', label: 'YouTube' },
+                { icon: <YouTubeIcon />, href: 'https://www.youtube.com/@newspotli', label: 'YouTube' },
                 { icon: <InstagramIcon />, href: 'https://www.instagram.com/newspotli/', label: 'Instagram' },
                 { icon: <XIcon />, href: 'https://x.com/PotliNews', label: 'X' },
                 { icon: <FacebookIcon />, href: 'https://www.facebook.com/Potlinews/', label: 'Facebook' },

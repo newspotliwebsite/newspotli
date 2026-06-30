@@ -107,7 +107,7 @@ export default async function HomePage() {
     url: 'https://newspotli.com',
     logo: { '@type': 'ImageObject', url: 'https://newspotli.com/logo.png' },
     sameAs: [
-      'https://www.youtube.com/@PotliNews',
+      'https://www.youtube.com/@newspotli',
       'https://www.instagram.com/newspotli/',
       'https://x.com/PotliNews',
       'https://www.facebook.com/Potlinews/',

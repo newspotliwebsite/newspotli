@@ -36,7 +36,7 @@ const FacebookIcon = () => (
 )
 
 const STATS = [
-  { icon: <YouTubeIcon />, value: '3L+', label: 'Subscribers', href: 'https://www.youtube.com/@PotliNews' },
+  { icon: <YouTubeIcon />, value: '3L+', label: 'Subscribers', href: 'https://www.youtube.com/@newspotli' },
   { icon: <InstagramIcon />, value: '2.7L+', label: 'Followers', href: 'https://www.instagram.com/newspotli/' },
   { icon: <TwitterIcon />, value: '6K+', label: 'Followers', href: 'https://x.com/PotliNews' },
   { icon: <LinkedInIcon />, value: '5,000+', label: 'Followers', href: 'https://www.linkedin.com/in/potlinews/' },

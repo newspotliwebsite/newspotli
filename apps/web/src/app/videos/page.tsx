@@ -25,7 +25,7 @@ export default async function VideosPage() {
       '@type': 'Organization',
       name: 'News Potli',
       url: SITE_URL,
-      sameAs: ['https://www.youtube.com/@PotliNews'],
+      sameAs: ['https://www.youtube.com/@newspotli'],
     },
     mainEntity: {
       '@type': 'ItemList',
@@ -68,7 +68,7 @@ export default async function VideosPage() {
       {/* Mobile Sticky YouTube CTA Bar */}
       <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-red-600 border-t border-red-700 shadow-2xl">
         <a
-          href="https://www.youtube.com/@PotliNews"
+          href="https://www.youtube.com/@newspotli"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-3 py-4 text-white"
