@@ -17,21 +17,27 @@ const PinIcon = () => (
 )
 
 export default function ContactUsPage() {
-  const [form, setForm] = useState({ name: '', email: '', number: '', question: '' })
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setStatus('loading')
+    setStatus('sending')
+    const formEl = e.currentTarget
+    const formData = new FormData(formEl)
+    formData.append('access_key', '2ffed434-a555-4b06-b5c9-184f4f2150f2')
     try {
-      const res = await fetch('/api/contact', {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, subject: 'Contact Us Page' }),
+        body: formData,
       })
-      if (!res.ok) throw new Error('Failed')
-      setStatus('success')
-      setForm({ name: '', email: '', number: '', question: '' })
+      const data = await res.json()
+      if (data.success) {
+        setStatus('success')
+        formEl.reset()
+        setTimeout(() => setStatus('idle'), 4000)
+      } else {
+        setStatus('error')
+      }
     } catch {
       setStatus('error')
     }
@@ -100,50 +106,49 @@ export default function ContactUsPage() {
             {/* Right — Form */}
             <div className="bg-white border border-[#e8e0d0] rounded-xl shadow-sm p-6 md:p-8">
               <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+                <input type="hidden" name="access_key" value="2ffed434-a555-4b06-b5c9-184f4f2150f2" />
+                <input type="hidden" name="subject" value="News Potli — Contact Us Page" />
+                <input type="hidden" name="from_name" value="News Potli Website" />
                 <input
                   type="text"
+                  name="name"
                   placeholder="नाम / Name"
-                  value={form.name}
-                  onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
                   className={inputClass}
                   required
                 />
                 <input
                   type="email"
+                  name="email"
                   placeholder="ईमेल / Email"
-                  value={form.email}
-                  onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
                   className={inputClass}
                   required
                 />
                 <input
                   type="tel"
+                  name="phone"
                   placeholder="फ़ोन / Phone"
-                  value={form.number}
-                  onChange={(e) => setForm((p) => ({ ...p, number: e.target.value }))}
                   className={inputClass}
                 />
                 <textarea
+                  name="message"
                   placeholder="आपका संदेश / Message"
-                  value={form.question}
-                  onChange={(e) => setForm((p) => ({ ...p, question: e.target.value }))}
                   rows={5}
                   className={`${inputClass} resize-none min-h-[120px]`}
                   required
                 />
                 <button
                   type="submit"
-                  disabled={status === 'loading' || status === 'success'}
+                  disabled={status === 'sending'}
                   className={`w-full rounded-lg py-3 font-source font-bold text-sm transition-all
                     ${status === 'success'
                       ? 'bg-emerald-500 text-white'
                       : 'bg-maroon text-white hover:bg-maroon-dark'}
                   `}
                 >
-                  {status === 'loading' ? '...' : status === 'success' ? 'भेज दिया!' : 'भेजें / Send'}
+                  {status === 'sending' ? 'भेज रहे हैं...' : status === 'success' ? 'भेज दिया!' : 'भेजें / Send'}
                 </button>
                 {status === 'success' && (
-                  <p className="text-emerald-600 text-sm font-source font-bold">धन्यवाद! हम जल्द संपर्क करेंगे।</p>
+                  <p className="text-emerald-600 text-sm font-source font-bold">✓ धन्यवाद! हम जल्द संपर्क करेंगे।</p>
                 )}
                 {status === 'error' && (
                   <p className="text-red-500 text-xs font-source">कुछ गड़बड़ हुई, फिर कोशिश करें।</p>
