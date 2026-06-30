@@ -80,6 +80,20 @@ export function timeAgo(dateString: string): string {
 }
 
 /**
+ * Format a date as "28 Feb 2026" (day Mon year).
+ */
+export function formatArticleDate(dateString: string): string {
+  if (!dateString) return ''
+  const date = new Date(dateString)
+  if (isNaN(date.getTime())) return ''
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  const day = date.getDate().toString().padStart(2, '0')
+  const month = months[date.getMonth()]
+  const year = date.getFullYear()
+  return `${day} ${month} ${year}`
+}
+
+/**
  * Format number in Indian style: 266000 → "2,66,000"
  */
 export function formatHindiNumber(n: number): string {

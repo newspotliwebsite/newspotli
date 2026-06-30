@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { urlFor } from '@/lib/sanity'
+import { formatArticleDate } from '@/lib/utils'
 
 interface ArticleCardProps {
   article: {
@@ -29,9 +30,7 @@ export default function ArticleCard({ article, featured = false }: ArticleCardPr
     ? urlFor(article.heroImage).width(featured ? 1200 : 700).height(featured ? 700 : 450).quality(85).url()
     : `https://placehold.co/${featured ? '1200x700' : '700x450'}/1a0505/FFFFFF/webp?text=News+Potli`
 
-  const date = article.publishedAt
-    ? new Date(article.publishedAt).toLocaleDateString('hi-IN', { day: 'numeric', month: 'short', year: 'numeric' })
-    : ''
+  const date = formatArticleDate(article.publishedAt)
 
   if (featured) {
     return (

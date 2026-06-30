@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { PortableText } from '@portabletext/react'
 
 import { client, urlFor } from '@/lib/sanity'
+import { formatArticleDate } from '@/lib/utils'
 import {
   ARTICLE_BY_SLUG_QUERY,
   RELATED_ARTICLES_BY_CATEGORY_QUERY,
@@ -92,14 +93,6 @@ async function fetchRelated(catId: string, currentId: string) {
   }
 }
 
-// ── Helpers ──
-function formatDate(dateStr: string) {
-  if (!dateStr) return ''
-  const d = new Date(dateStr)
-  if (isNaN(d.getTime())) return ''
-  return d.toLocaleDateString('hi-IN', { day: 'numeric', month: 'long', year: 'numeric' })
-}
-
 // SVG icons
 const ClockIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 flex-shrink-0">
@@ -148,8 +141,11 @@ export default async function ArticlePage({
     : null
 
   const catColor = data.category?.color || '#8B1A1A'
-  const date = formatDate(data.publishedAt)
+  const date = formatArticleDate(data.publishedAt)
   const articleUrl = `/article/${slug}`
+
+  const authorName = data.author?.name || 'News Potli'
+  const authorHref = `/author/${data.author?.slug?.current || authorName.toLowerCase().replace(/\s+/g, '-')}`
 
   // JSON-LD
   const jsonLd = {
@@ -243,12 +239,15 @@ export default async function ArticlePage({
 
           {/* Author Row */}
           <div className="flex flex-wrap items-center gap-4 border-y border-charcoal/10 py-4">
-            {/* Avatar */}
-            <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border-2 border-gold/30 bg-gradient-to-br from-maroon to-maroon-dark">
+            {/* Avatar (clickable) */}
+            <Link
+              href={authorHref}
+              className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border-2 border-gold/30 bg-gradient-to-br from-maroon to-maroon-dark hover:border-gold transition-colors"
+            >
               {authorPhotoUrl ? (
                 <Image
                   src={authorPhotoUrl}
-                  alt={data.author?.name || ''}
+                  alt={authorName}
                   width={48} height={48}
                   className="object-cover w-full h-full"
                 />
@@ -257,17 +256,28 @@ export default async function ArticlePage({
                   NP
                 </span>
               )}
-            </div>
+            </Link>
 
             <div className="flex-1 min-w-0">
-              <p className="font-source font-bold text-charcoal text-sm">
-                {data.author?.name || 'News Potli'}
+              <p className="font-source text-xs text-charcoal/60 flex flex-wrap items-center gap-x-2 gap-y-1">
+                <Link
+                  href={authorHref}
+                  className="font-bold text-charcoal text-sm hover:text-maroon hover:underline transition-colors"
+                >
+                  {authorName}
+                </Link>
                 {data.author?.role && (
-                  <span className="font-normal text-charcoal/50 ml-2">· {data.author.role}</span>
+                  <>
+                    <span className="text-charcoal/20">·</span>
+                    <span className="text-charcoal/50">{data.author.role}</span>
+                  </>
                 )}
-              </p>
-              <p className="font-source text-xs text-charcoal/50 flex items-center gap-2 mt-0.5">
-                <span>{date}</span>
+                {date && (
+                  <>
+                    <span className="text-charcoal/20">·</span>
+                    <span>{date}</span>
+                  </>
+                )}
                 {data.readTime && (
                   <>
                     <span className="text-charcoal/20">·</span>
@@ -276,17 +286,6 @@ export default async function ArticlePage({
                 )}
               </p>
             </div>
-
-            {/* Tags */}
-            {data.tags && data.tags.length > 0 && (
-              <div className="hidden md:flex gap-2">
-                {data.tags.slice(0, 3).map((tag: string) => (
-                  <span key={tag} className="bg-charcoal/5 text-charcoal/60 text-[10px] font-bold tracking-wider uppercase px-3 py-1 font-source">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
           </div>
 
           {/* Listen button */}
@@ -338,6 +337,20 @@ export default async function ArticlePage({
               )}
             </div>
           </ClipAndShare>
+
+          {/* Tags */}
+          {data.tags && data.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-8 pt-6 border-t border-[#e8e0d0]">
+              {data.tags.map((tag: string) => (
+                <span
+                  key={tag}
+                  className="px-3 py-1 bg-cream-dark text-charcoal/60 text-sm rounded-full font-source"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
         </article>
 
         {/* ── Author Box ── */}

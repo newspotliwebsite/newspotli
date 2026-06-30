@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { getArticleImage, timeAgo } from '@/lib/utils'
+import { getArticleImage, formatArticleDate } from '@/lib/utils'
 
 interface DeepStory {
   _id: string
@@ -28,7 +28,7 @@ export default function DeepStories({ stories }: { stories: DeepStory[] }) {
             </h2>
           </div>
           <Link
-            href="/latest"
+            href="/category/mausam-bemaum"
             className="font-source text-sm font-bold text-maroon hover:text-gold transition-colors"
           >
             सभी देखें →
@@ -60,7 +60,7 @@ export default function DeepStories({ stories }: { stories: DeepStory[] }) {
                   <p className="mt-2 font-source text-xs text-charcoal/60">
                     {story.author?.name || 'News Potli'}
                     <span className="mx-1.5">•</span>
-                    {timeAgo(story.publishedAt)}
+                    {formatArticleDate(story.publishedAt)}
                   </p>
                 </div>
               </Link>

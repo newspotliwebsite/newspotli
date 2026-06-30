@@ -210,15 +210,7 @@ export default function HeroSection({
 
           {/* RIGHT — Latest from X / Twitter */}
           <div className="hidden lg:block order-3">
-            <div className="flex items-center gap-2 mb-5 border-b border-[#e8e0d0] pb-3">
-              <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-charcoal/50" aria-hidden="true">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-              </svg>
-              <h2 className="font-source text-sm text-charcoal/40">X / Twitter</h2>
-            </div>
-            <div className="max-h-[560px] overflow-hidden">
-              <TwitterFeed />
-            </div>
+            <TwitterFeed articles={leftArticles} />
           </div>
         </div>
       </div>

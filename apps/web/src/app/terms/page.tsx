@@ -50,7 +50,7 @@ export default function TermsPage() {
             </h2>
             <p className="text-base leading-relaxed">
               इन शर्तों के बारे में किसी भी प्रश्न के लिए{' '}
-              <Link href="/contact" className="text-maroon font-bold hover:text-gold transition-colors">
+              <Link href="/contact-us" className="text-maroon font-bold hover:text-gold transition-colors">
                 संपर्क करें
               </Link>।
             </p>

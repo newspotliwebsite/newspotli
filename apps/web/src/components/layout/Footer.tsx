@@ -8,6 +8,7 @@ const PLATFORM_LINKS = [
   { title: 'About Us', href: '/about' },
   { title: 'Our Team', href: '/team' },
   { title: 'Pitch Your Story', href: '/contact' },
+  { title: 'Contact Us', href: '/contact-us' },
   { title: 'Privacy Policy', href: '/privacy' },
   { title: 'Terms of Service', href: '/terms' },
 ]

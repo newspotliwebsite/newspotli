@@ -14,6 +14,7 @@ const ARTICLES_WITH_DATES_QUERY = groq`
 const STATIC_PAGES: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[0]['changeFrequency'] }[] = [
   { path: '/about', priority: 0.7, changeFrequency: 'monthly' },
   { path: '/contact', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/contact-us', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/team', priority: 0.5, changeFrequency: 'monthly' },
   { path: '/videos', priority: 0.7, changeFrequency: 'weekly' },
   { path: '/privacy', priority: 0.2, changeFrequency: 'yearly' },

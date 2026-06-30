@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { getArticleImage, timeAgo } from '@/lib/utils'
+import { getArticleImage, formatArticleDate } from '@/lib/utils'
 
 interface HeadlineArticle {
   _id: string
@@ -60,7 +60,7 @@ export default function MoreHeadlines({ articles }: { articles: HeadlineArticle[
                 <p className="mt-2 font-source text-xs text-charcoal/60">
                   {article.author?.name || 'News Potli'}
                   <span className="mx-1.5">•</span>
-                  {timeAgo(article.publishedAt)}
+                  {formatArticleDate(article.publishedAt)}
                 </p>
               </Link>
             )

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { getArticleImage, timeAgo } from '@/lib/utils'
+import { getArticleImage, formatArticleDate } from '@/lib/utils'
 
 interface ArticleType {
   _id: string
@@ -38,7 +38,7 @@ function ArticleCard({ article }: { article: ArticleType }) {
         <p className="mt-2 font-source text-xs text-charcoal/60">
           {article.author?.name || 'News Potli'}
           <span className="mx-1.5">•</span>
-          {timeAgo(article.publishedAt)}
+          {formatArticleDate(article.publishedAt)}
         </p>
       </div>
     </Link>
@@ -62,7 +62,7 @@ export default function LatestNewsGrid({ articles }: { articles: ArticleType[] }
             </p>
           </div>
           <Link
-            href="/latest"
+            href="/category/ground-reports"
             className="font-source text-sm font-bold text-maroon hover:text-gold transition-colors"
           >
             सभी देखें →

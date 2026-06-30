@@ -8,7 +8,7 @@ import {
   AUTHOR_BY_SLUG_QUERY,
   ARTICLES_BY_AUTHOR_QUERY,
 } from '@/lib/queries'
-import { getArticleImage, timeAgo } from '@/lib/utils'
+import { getArticleImage, formatArticleDate } from '@/lib/utils'
 import { getTeamMemberBySlug } from '@/lib/team'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
@@ -113,10 +113,7 @@ const MailIcon = () => (
 
 // ── Helpers ──
 function formatDate(dateStr: string) {
-  if (!dateStr) return ''
-  const d = new Date(dateStr)
-  if (isNaN(d.getTime())) return ''
-  return d.toLocaleDateString('hi-IN', { day: 'numeric', month: 'long', year: 'numeric' })
+  return formatArticleDate(dateStr)
 }
 
 function getUniqueCategories(categories: any[]): any[] {
@@ -391,7 +388,7 @@ export default async function AuthorPage({
                         {article.publishedAt && (
                           <>
                             <span className="text-charcoal/20">·</span>
-                            <span>{timeAgo(article.publishedAt)}</span>
+                            <span>{formatArticleDate(article.publishedAt)}</span>
                           </>
                         )}
                       </div>

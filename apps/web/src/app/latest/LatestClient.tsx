@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useCallback } from 'react'
 import { client } from '@/lib/sanity'
-import { getArticleImage, timeAgo } from '@/lib/utils'
+import { getArticleImage, formatArticleDate } from '@/lib/utils'
 import { LATEST_PAGE_QUERY } from './query'
 
 interface LatestArticle {
@@ -95,7 +95,7 @@ export default function LatestClient({ initialArticles, pageSize }: LatestClient
                   <p className="mt-2 font-source text-xs text-charcoal/60">
                     {article.author?.name || 'News Potli'}
                     <span className="mx-1.5">•</span>
-                    {timeAgo(article.publishedAt)}
+                    {formatArticleDate(article.publishedAt)}
                   </p>
                 </Link>
               )

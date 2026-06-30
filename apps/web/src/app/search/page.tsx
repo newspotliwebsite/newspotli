@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { liteClient as algoliasearch } from 'algoliasearch/lite'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import { formatArticleDate } from '@/lib/utils'
 
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID || ''
 const searchKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_KEY || ''
@@ -43,10 +44,7 @@ const ArrowIcon = () => (
 )
 
 function formatDate(dateStr: string) {
-  if (!dateStr) return ''
-  const d = new Date(dateStr)
-  if (isNaN(d.getTime())) return ''
-  return d.toLocaleDateString('hi-IN', { day: 'numeric', month: 'long', year: 'numeric' })
+  return formatArticleDate(dateStr)
 }
 
 function SearchContent() {
