@@ -53,21 +53,28 @@ export default function Footer() {
     setStatus('sending')
     const formEl = e.currentTarget
     const formData = new FormData(formEl)
-    formData.append('access_key', '2ffed434-a555-4b06-b5c9-184f4f2150f2')
+    const data: Record<string, string> = {}
+    formData.forEach((value, key) => {
+      data[key] = value.toString()
+    })
+
     try {
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        body: formData,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
       })
-      const data = await res.json()
-      if (data.success) {
+      const result = await res.json()
+      if (result.success) {
         setStatus('success')
         formEl.reset()
         setTimeout(() => setStatus('idle'), 4000)
       } else {
+        console.error('Web3Forms error:', result)
         setStatus('error')
       }
-    } catch {
+    } catch (err) {
+      console.error('Fetch error:', err)
       setStatus('error')
     }
   }
