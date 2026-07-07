@@ -248,11 +248,6 @@
     animation: slideInRight 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 
-  .animate-ticker {
-    animation: ticker 60s linear infinite;
-    white-space: nowrap;
-  }
-
   .animate-marquee {
     animation: ticker 35s linear infinite;
     white-space: nowrap;

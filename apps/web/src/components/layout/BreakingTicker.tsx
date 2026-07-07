@@ -8,16 +8,6 @@ interface BreakingNewsItem {
   slug: { current: string };
 }
 
-// SVG live radio wave icon
-const LiveRadioIcon = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
-    <circle cx="12" cy="12" r="3"/>
-    <path fillRule="evenodd" clipRule="evenodd" d="M12 2C10.34 4.06 9 7.86 9 12c0 4.14 1.34 7.94 3 10 1.66-2.06 3-5.86 3-10S13.66 4.06 12 2z" opacity="0.4"/>
-    <path d="M6.34 6.34A8 8 0 0 0 4 12a8 8 0 0 0 2.34 5.66" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round"/>
-    <path d="M17.66 6.34A8 8 0 0 1 20 12a8 8 0 0 1-2.34 5.66" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round"/>
-  </svg>
-)
-
 async function getTickerHeadlines(): Promise<BreakingNewsItem[]> {
   try {
     return (await client.fetch(
@@ -32,40 +22,83 @@ async function getTickerHeadlines(): Promise<BreakingNewsItem[]> {
   }
 }
 
+// All styles are inline and the keyframes ship as a <style> tag in this
+// component's own HTML output, so the scroll animation starts the instant
+// the browser parses this markup — it never waits on globals.css to load.
 export default async function BreakingTicker() {
   const breakingNews = await getTickerHeadlines()
 
   if (!breakingNews || breakingNews.length === 0) return null
 
   return (
-    <div className="w-full bg-[#1a0505] border-b border-maroon/30 overflow-hidden flex items-stretch h-10 relative">
-      <div className="flex-shrink-0 bg-maroon text-white font-bold px-4 flex items-center z-10 relative gap-2 shadow-[6px_0_16px_rgba(0,0,0,0.3)]">
-        <span className="relative flex items-center justify-center w-4 h-4">
-          <span className="absolute inline-flex h-3 w-3 rounded-full bg-red-500 animate-ping opacity-60"></span>
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-red-400"></span>
+    <div
+      style={{
+        width: '100%',
+        backgroundColor: '#1a0505',
+        borderBottom: '1px solid rgba(139,26,26,0.3)',
+        height: '40px',
+        display: 'flex',
+        alignItems: 'stretch',
+        overflow: 'hidden',
+        position: 'relative',
+      }}
+    >
+      <div
+        style={{
+          flexShrink: 0,
+          backgroundColor: '#8B1A1A',
+          color: 'white',
+          fontWeight: 'bold',
+          padding: '0 16px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          zIndex: 10,
+          position: 'relative',
+          boxShadow: '6px 0 16px rgba(0,0,0,0.3)',
+        }}
+      >
+        <span style={{ fontSize: '12px' }}>🔴</span>
+        <span style={{ fontSize: '12px', fontWeight: 'bold', letterSpacing: '0.05em', whiteSpace: 'nowrap' }}>
+          ताज़ा खबर
         </span>
-        <LiveRadioIcon />
-        <span className="font-noto text-xs font-bold tracking-wider whitespace-nowrap">ताज़ा खबर</span>
-        <div
-          className="absolute -right-3 top-0 h-full w-3 bg-maroon z-10"
-          style={{ clipPath: 'polygon(0 0, 0 100%, 100% 50%)' }}
-        />
       </div>
-      <div className="flex-1 overflow-hidden relative flex items-center">
-        <div className="absolute whitespace-nowrap animate-ticker flex items-center h-full">
+
+      <div style={{ flex: 1, overflow: 'hidden', position: 'relative', display: 'flex', alignItems: 'center' }}>
+        <div
+          style={{
+            position: 'absolute',
+            whiteSpace: 'nowrap',
+            display: 'flex',
+            alignItems: 'center',
+            height: '100%',
+            animation: 'newspotli-ticker-scroll 60s linear infinite',
+          }}
+        >
           {[...breakingNews, ...breakingNews].map((news, index) => (
-            <span key={`${news._id}-${index}`} className="inline-flex items-center">
+            <span key={`${news._id}-${index}`} style={{ display: 'inline-flex', alignItems: 'center' }}>
               <Link
                 href={`/article/${news.slug?.current || ''}`}
-                className="text-cream/90 hover:text-gold transition-colors font-noto text-sm px-6 inline-block"
+                style={{ color: 'rgba(250,246,238,0.9)', fontSize: '14px', padding: '0 24px', display: 'inline-block' }}
               >
                 {news.title}
               </Link>
-              <span className="text-gold/40 text-xs">›</span>
+              <span style={{ color: 'rgba(200,134,10,0.4)', fontSize: '12px' }}>›</span>
             </span>
           ))}
         </div>
       </div>
+
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            @keyframes newspotli-ticker-scroll {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+          `,
+        }}
+      />
     </div>
   )
 }
