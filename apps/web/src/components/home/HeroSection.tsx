@@ -153,7 +153,7 @@ export default function HeroSection({
                               {article.category.title}
                             </span>
                           )}
-                          <h3 className="font-noto text-2xl md:text-3xl lg:text-[28px] font-bold leading-[1.25]">
+                          <h3 className="font-noto text-2xl md:text-3xl lg:text-[28px] font-bold leading-[1.4]">
                             {article.title}
                           </h3>
                         </div>

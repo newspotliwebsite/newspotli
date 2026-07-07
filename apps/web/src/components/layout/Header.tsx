@@ -11,7 +11,7 @@ const CATEGORIES = [
   { title: 'एग्री बुलेटिन', slug: 'agri-bulletin' },
   { title: 'मौसम बेमौसम', slug: 'mausam-bemausam' },
   { title: 'पशुपालन', slug: 'pashu-palan' },
-  { title: 'साक्षात्कार', slug: 'sakshatkaar' },
+  { title: 'इंटरव्यू', slug: 'sakshatkaar' },
   { title: 'बाज़ार', slug: 'bazaar' },
   { title: 'ग्राउन्ड रिपोर्ट्स', slug: 'ground-reports' },
   { title: 'कमाई वाली बात', slug: 'kamai-ki-baat' },
@@ -61,14 +61,14 @@ export default function Header() {
                 alt="News Potli"
                 width={120}
                 height={120}
-                className="h-11 md:h-12 w-auto"
+                className="h-12 md:h-14 w-auto"
                 priority
               />
               <div className="flex flex-col ml-3">
-                <span className="font-noto text-lg md:text-xl font-bold text-charcoal leading-tight">
+                <span className="font-noto text-2xl md:text-3xl font-bold text-charcoal leading-tight">
                   न्यूज़ पोटली
                 </span>
-                <span className="hidden md:block font-noto text-[10px] text-charcoal/50 tracking-wide">
+                <span className="hidden md:block font-noto text-xs md:text-sm text-charcoal/50 tracking-wide">
                   भारत के किसानों और गाँवों की आवाज़
                 </span>
               </div>
