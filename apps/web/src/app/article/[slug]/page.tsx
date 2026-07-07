@@ -148,6 +148,7 @@ export default async function ArticlePage({
   const authorHref = `/author/${data.author?.slug?.current || authorName.toLowerCase().replace(/\s+/g, '-')}`
 
   // JSON-LD
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://newspotli.com'
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'NewsArticle',
@@ -155,16 +156,19 @@ export default async function ArticlePage({
     description: data.excerpt || '',
     image: heroUrl,
     datePublished: data.publishedAt,
+    dateModified: data._updatedAt || data.publishedAt,
     author: {
       '@type': 'Person',
       name: data.author?.name || 'News Potli',
+      url: `${siteUrl}${authorHref}`,
     },
     publisher: {
       '@type': 'Organization',
       name: 'News Potli',
-      logo: { '@type': 'ImageObject', url: '/logo.png' },
+      logo: { '@type': 'ImageObject', url: `${siteUrl}/images/logos/logo-hindi.png` },
     },
-    mainEntityOfPage: { '@type': 'WebPage', '@id': articleUrl },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `${siteUrl}${articleUrl}` },
+    inLanguage: 'hi',
   }
 
   return (

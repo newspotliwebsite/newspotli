@@ -90,6 +90,7 @@ export const ARTICLE_BY_SLUG_QUERY = groq`
     author-> { _id, name, slug, bio, role, photo { asset } },
     tags,
     publishedAt,
+    _updatedAt,
     readTime,
     seoTitle,
     seoDescription,

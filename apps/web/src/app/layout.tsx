@@ -30,6 +30,62 @@ export const metadata: Metadata = {
   },
 };
 
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsMediaOrganization',
+  name: 'News Potli',
+  alternateName: 'न्यूज़ पोटली',
+  url: 'https://newspotli.com',
+  logo: {
+    '@type': 'ImageObject',
+    url: 'https://newspotli.com/images/logos/logo-hindi.png',
+    width: 200,
+    height: 200,
+  },
+  description:
+    'भारत के किसानों और गाँवों की आवाज़ — India\'s fastest-growing multi-digital platform focused on rural India, agriculture, climate change, and grassroots journalism.',
+  foundingDate: '2018',
+  founder: {
+    '@type': 'Person',
+    name: 'Arvind Shukla',
+    jobTitle: 'Founder & Editor-in-Chief',
+  },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Lucknow',
+    addressRegion: 'Uttar Pradesh',
+    addressCountry: 'IN',
+  },
+  sameAs: [
+    'https://www.youtube.com/@newspotli',
+    'https://www.instagram.com/newspotli/',
+    'https://x.com/PotliNews',
+    'https://www.facebook.com/Potlinews/',
+    'https://www.linkedin.com/in/potlinews/',
+  ],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: 'newspotlioffice@gmail.com',
+    contactType: 'editorial',
+  },
+}
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'News Potli',
+  alternateName: 'न्यूज़ पोटली',
+  url: 'https://newspotli.com',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: 'https://newspotli.com/search?q={search_term_string}',
+    },
+    'query-input': 'required name=search_term_string',
+  },
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -37,6 +93,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="hi">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
       {gaId && (
         <>
           <Script

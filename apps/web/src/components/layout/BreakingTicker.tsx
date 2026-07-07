@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import Link from 'next/link'
 import { client } from '@/lib/sanity'
 import { BREAKING_NEWS_QUERY } from '@/lib/queries'
@@ -19,77 +18,53 @@ const LiveRadioIcon = () => (
   </svg>
 )
 
-// Always-visible shell so the maroon bar + "ताज़ा खबर" label render instantly,
-// with the scrolling news area filling in via Suspense as soon as Sanity returns.
-const TickerLabel = () => (
-  <div className="flex-shrink-0 bg-maroon text-white font-bold px-4 flex items-center z-10 relative gap-2 shadow-[6px_0_16px_rgba(0,0,0,0.3)]">
-    <span className="relative flex items-center justify-center w-4 h-4">
-      <span className="absolute inline-flex h-3 w-3 rounded-full bg-red-500 animate-ping opacity-60"></span>
-      <span className="relative inline-flex rounded-full h-2 w-2 bg-red-400"></span>
-    </span>
-    <LiveRadioIcon />
-    <span className="font-noto text-xs font-bold tracking-wider whitespace-nowrap">ताज़ा खबर</span>
-    <div
-      className="absolute -right-3 top-0 h-full w-3 bg-maroon z-10"
-      style={{ clipPath: 'polygon(0 0, 0 100%, 100% 50%)' }}
-    />
-  </div>
-)
-
-const TickerFallback = () => (
-  <div className="absolute whitespace-nowrap animate-ticker flex items-center h-full">
-    {Array.from({ length: 6 }).map((_, i) => (
-      <span key={`loading-${i}`} className="inline-flex items-center">
-        <span className="text-cream/70 font-noto text-sm px-6 inline-block">
-          लोड हो रहा है...
-        </span>
-        <span className="text-gold/40 text-xs">›</span>
-      </span>
-    ))}
-  </div>
-)
-
-async function TickerContent() {
-  let breakingNews: BreakingNewsItem[] = []
-
+async function getTickerHeadlines(): Promise<BreakingNewsItem[]> {
   try {
-    breakingNews = await client.fetch(
+    return (await client.fetch(
       BREAKING_NEWS_QUERY,
       {},
-      { next: { revalidate: 60 } }
-    ) || []
+      { next: { revalidate: 300 } }
+    )) || []
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error)
     console.error('Failed to fetch breaking news:', errorMessage)
+    return []
   }
-
-  if (!breakingNews || breakingNews.length === 0) return <TickerFallback />
-
-  return (
-    <div className="absolute whitespace-nowrap animate-ticker flex items-center h-full">
-      {[...breakingNews, ...breakingNews].map((news, index) => (
-        <span key={`${news._id}-${index}`} className="inline-flex items-center">
-          <Link
-            href={`/article/${news.slug?.current || ''}`}
-            className="text-cream/90 hover:text-gold transition-colors font-noto text-sm px-6 inline-block"
-          >
-            {news.title}
-          </Link>
-          <span className="text-gold/40 text-xs">›</span>
-        </span>
-      ))}
-    </div>
-  )
 }
 
-export default function BreakingTicker() {
+export default async function BreakingTicker() {
+  const breakingNews = await getTickerHeadlines()
+
+  if (!breakingNews || breakingNews.length === 0) return null
+
   return (
     <div className="w-full bg-[#1a0505] border-b border-maroon/30 overflow-hidden flex items-stretch h-10 relative">
-      <TickerLabel />
+      <div className="flex-shrink-0 bg-maroon text-white font-bold px-4 flex items-center z-10 relative gap-2 shadow-[6px_0_16px_rgba(0,0,0,0.3)]">
+        <span className="relative flex items-center justify-center w-4 h-4">
+          <span className="absolute inline-flex h-3 w-3 rounded-full bg-red-500 animate-ping opacity-60"></span>
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-red-400"></span>
+        </span>
+        <LiveRadioIcon />
+        <span className="font-noto text-xs font-bold tracking-wider whitespace-nowrap">ताज़ा खबर</span>
+        <div
+          className="absolute -right-3 top-0 h-full w-3 bg-maroon z-10"
+          style={{ clipPath: 'polygon(0 0, 0 100%, 100% 50%)' }}
+        />
+      </div>
       <div className="flex-1 overflow-hidden relative flex items-center">
-        <Suspense fallback={<TickerFallback />}>
-          <TickerContent />
-        </Suspense>
+        <div className="absolute whitespace-nowrap animate-ticker flex items-center h-full">
+          {[...breakingNews, ...breakingNews].map((news, index) => (
+            <span key={`${news._id}-${index}`} className="inline-flex items-center">
+              <Link
+                href={`/article/${news.slug?.current || ''}`}
+                className="text-cream/90 hover:text-gold transition-colors font-noto text-sm px-6 inline-block"
+              >
+                {news.title}
+              </Link>
+              <span className="text-gold/40 text-xs">›</span>
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   )
