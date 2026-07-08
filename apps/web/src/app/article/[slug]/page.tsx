@@ -52,12 +52,15 @@ export async function generateMetadata({
     ? urlFor(article.heroImage).width(1200).height(630).quality(80).url()
     : `/og?title=${encodeURIComponent(article.title)}&category=${encodeURIComponent(category)}&author=${encodeURIComponent(author)}`
 
+  const canonicalUrl = `/article/${encodeURIComponent(slug)}`
+
   return {
     title: `${title} — News Potli`,
     description,
     openGraph: {
       title,
       description,
+      url: canonicalUrl,
       type: 'article',
       publishedTime: article.publishedAt,
       authors: article.author?.name ? [article.author.name] : undefined,
@@ -71,7 +74,7 @@ export async function generateMetadata({
       images: [ogImage],
     },
     alternates: {
-      canonical: `/article/${slug}`,
+      canonical: canonicalUrl,
     },
   }
 }
@@ -142,7 +145,7 @@ export default async function ArticlePage({
 
   const catColor = data.category?.color || '#8B1A1A'
   const date = formatArticleDate(data.publishedAt)
-  const articleUrl = `/article/${slug}`
+  const articleUrl = `/article/${encodeURIComponent(slug)}`
 
   const authorName = data.author?.name || 'News Potli'
   const authorHref = `/author/${data.author?.slug?.current || authorName.toLowerCase().replace(/\s+/g, '-')}`

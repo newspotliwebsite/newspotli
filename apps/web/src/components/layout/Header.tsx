@@ -9,10 +9,10 @@ import SearchBar from '@/components/ui/SearchBar'
 const CATEGORIES = [
   { title: 'खेती किसानी', slug: 'kheti-kisani' },
   { title: 'एग्री बुलेटिन', slug: 'agri-bulletin' },
-  { title: 'मौसम बेमौसम', slug: 'mausam-bemausam' },
+  { title: 'मौसम बेमौसम', slug: 'mausam-bemaum' },
   { title: 'पशुपालन', slug: 'pashu-palan' },
-  { title: 'इंटरव्यू', slug: 'sakshatkaar' },
-  { title: 'बाज़ार', slug: 'bazaar' },
+  { title: 'इंटरव्यू', slug: 'sakshatkar' },
+  { title: 'बाज़ार', slug: 'bazar' },
   { title: 'ग्राउन्ड रिपोर्ट्स', slug: 'ground-reports' },
   { title: 'कमाई वाली बात', slug: 'kamai-ki-baat' },
 ]

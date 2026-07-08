@@ -74,7 +74,7 @@ export default function ClipAndShare({ children, articleTitle, articleUrl }: Cli
   const cardRef = useRef<HTMLDivElement>(null)
 
   const fullUrl = typeof window !== 'undefined'
-    ? `${window.location.origin}${articleUrl}`
+    ? window.location.href
     : `https://newspotli.com${articleUrl}`
 
   // ── Selection handler ──

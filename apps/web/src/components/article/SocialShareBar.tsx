@@ -44,7 +44,7 @@ export default function SocialShareBar({ title, url }: SocialShareBarProps) {
   const [fullUrl, setFullUrl] = useState(url)
 
   useEffect(() => {
-    setFullUrl(window.location.origin + url)
+    setFullUrl(window.location.href)
   }, [url])
 
   const whatsappText = encodeURIComponent(`📰 ${title}\n\n👉 पूरी खबर पढ़ें: ${fullUrl}\n\n— News Potli`)

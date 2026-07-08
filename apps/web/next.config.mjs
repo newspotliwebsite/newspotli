@@ -18,9 +18,12 @@ const nextConfig = {
         destination: '/',
         permanent: true,
       },
-      // Old WordPress category pages → homepage (excludes current live category slugs)
+      // Old WordPress category pages (English slugs) → homepage.
+      // Explicit allowlist instead of excluding current slugs — safer as
+      // categories are renamed/added since a negative-lookahead exclusion
+      // silently breaks new/renamed live category slugs.
       {
-        source: '/category/:slug((?!kheti-kisani|pashu-palan|mausam-bemaum|sarkari-yojana|kamai-ki-baat|taknik-se-tarakki|gaon-ki-kahaniyan|bazar).+)',
+        source: '/category/:slug(agriculture|farming|climate-change|rural-india|technology|government-schemes|weather|livestock|market|interviews|uncategorized)',
         destination: '/',
         permanent: true,
       },
