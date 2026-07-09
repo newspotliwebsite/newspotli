@@ -11,12 +11,14 @@ const tiro = Tiro_Devanagari_Hindi({
   variable: "--font-noto",
   weight: ["400"],
   style: ["normal"],
+  display: "swap",
 });
 
 const source = Source_Sans_3({
   subsets: ["latin"],
   variable: "--font-source",
   weight: ["400", "600", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {

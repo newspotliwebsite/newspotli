@@ -7,6 +7,7 @@ export default function AboutHero() {
         src="/images/illustrations/about-journalism-field.png"
         alt=""
         fill
+        sizes="100vw"
         className="object-cover opacity-[0.10] pointer-events-none mix-blend-soft-light"
         aria-hidden="true"
       />

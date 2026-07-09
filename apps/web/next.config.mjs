@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    unoptimized: true,
     remotePatterns: [
       { protocol: 'https', hostname: 'cdn.sanity.io' },
       { protocol: 'https', hostname: 'res.cloudinary.com' },
@@ -10,6 +9,9 @@ const nextConfig = {
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'placehold.co' },
     ],
+    // Use Sanity's CDN for optimization instead of Vercel's image optimizer
+    loader: 'custom',
+    loaderFile: './src/lib/image-loader.ts',
   },
   async redirects() {
     return [
