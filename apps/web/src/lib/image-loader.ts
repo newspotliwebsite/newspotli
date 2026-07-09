@@ -9,9 +9,12 @@ interface SanityImageLoaderParams {
 // images and paying for both would be redundant.
 export default function sanityImageLoader({ src, width, quality }: SanityImageLoaderParams) {
   if (src.includes('cdn.sanity.io')) {
+    // No layout on this site renders an image wider than 1200px — cap it so a
+    // wide/high-DPR viewport doesn't push Next's deviceSizes up to 3840.
+    const cappedWidth = Math.min(width, 1200)
     const url = new URL(src)
-    url.searchParams.set('w', width.toString())
-    url.searchParams.set('q', (quality || 75).toString())
+    url.searchParams.set('w', cappedWidth.toString())
+    url.searchParams.set('q', (quality || 65).toString())
     url.searchParams.set('fit', 'max')
     url.searchParams.set('auto', 'format')
     return url.toString()
