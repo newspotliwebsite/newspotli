@@ -43,12 +43,13 @@ export default async function HomePage() {
   let featuredArticles: any[] = []
   let latestArticles: any[] = []
   let deepStories: any[] = []
+  let groundReports: any[] = []
   let leftSide: any[] = []
   let moreHeadlines: any[] = []
   let webStories: any[] = []
 
   try {
-    const [featured, latest, deep, headlines, stories] = await Promise.all([
+    const [featured, latest, mausam, ground, headlines, stories] = await Promise.all([
       client.fetch(groq`*[_type=="article" && featured==true] | order(publishedAt desc)[0..3]{
         _id, title, slug, excerpt, heroImage, publishedAt, readTime, breakingNews,
         "category": category->{ title, slug, color, icon },
@@ -59,9 +60,16 @@ export default async function HomePage() {
         "category": category->{ title, slug, color, icon },
         "author": author->{ name }
       }`, {}, { next: { revalidate: 60 } }),
-      client.fetch(groq`*[_type=="article"] | order(publishedAt desc)[0..4]{
+      // DeepStories section ("मौसम-बेमौसम") — filter to the mausam-bemaum category only
+      client.fetch(groq`*[_type=="article" && category->slug.current == "mausam-bemaum"] | order(publishedAt desc)[0..5]{
         _id, title, slug, excerpt, heroImage, publishedAt, readTime,
         "category": category->{ title, slug, color },
+        "author": author->{ name }
+      }`, {}, { next: { revalidate: 60 } }),
+      // LatestNewsGrid section ("ग्राउंड रिपोर्ट्स") — filter to the ground-reports category only
+      client.fetch(groq`*[_type=="article" && category->slug.current == "ground-reports"] | order(publishedAt desc)[0..7]{
+        _id, title, slug, excerpt, heroImage, publishedAt, readTime,
+        "category": category->{ title, slug, color, icon },
         "author": author->{ name }
       }`, {}, { next: { revalidate: 60 } }),
       client.fetch(groq`*[_type=="article"] | order(publishedAt desc)[0..8]{
@@ -77,7 +85,8 @@ export default async function HomePage() {
 
     featuredArticles = featured || []
     latestArticles = latest || []
-    deepStories = deep || []
+    deepStories = mausam || []
+    groundReports = ground || []
     moreHeadlines = headlines || []
     webStories = stories || []
 
@@ -94,9 +103,13 @@ export default async function HomePage() {
     console.error('Failed to fetch Sanity data:', error.message || error)
   }
 
-  // For LatestNewsGrid: exclude what's already in hero carousel
+  // For LatestNewsGrid ("ग्राउंड रिपोर्ट्स"): show ground-reports articles, excluding
+  // anything already in the hero carousel. Fall back to latest only if the
+  // category has no articles yet, so the section never disappears.
   const usedInHero = new Set(featuredArticles.map((a: any) => a._id))
-  const filteredLatest = latestArticles.filter((a: any) => !usedInHero.has(a._id))
+  const groundFiltered = groundReports.filter((a: any) => !usedInHero.has(a._id))
+  const latestFallback = latestArticles.filter((a: any) => !usedInHero.has(a._id))
+  const specialReports = groundFiltered.length > 0 ? groundFiltered : latestFallback
 
   // Organization JSON-LD
   const orgJsonLd = {
@@ -136,7 +149,7 @@ export default async function HomePage() {
         </div>
         <FeaturedVideos />
         <SeriesSection />
-        <LatestNewsGrid articles={filteredLatest} />
+        <LatestNewsGrid articles={specialReports} />
         <WebStories stories={webStories} />
         <DeepStories stories={deepStories} />
         <MoreHeadlines articles={moreHeadlines} />

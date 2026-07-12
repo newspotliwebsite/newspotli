@@ -13,7 +13,7 @@ async function getTickerHeadlines(): Promise<BreakingNewsItem[]> {
     return (await client.fetch(
       BREAKING_NEWS_QUERY,
       {},
-      { next: { revalidate: 300 } }
+      { next: { revalidate: 60 } }
     )) || []
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error)

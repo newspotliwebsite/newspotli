@@ -3,28 +3,53 @@ import Image from 'next/image'
 import { urlFor } from '@/lib/sanity'
 import type { PortableTextComponents } from '@portabletext/react'
 
+// Extract an 11-char YouTube video ID from any common URL format.
+function youtubeId(url: string): string | null {
+  const match = url.match(
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/
+  )
+  return match ? match[1] : null
+}
+
 export const articleComponents: PortableTextComponents = {
   types: {
     image: ({ value }: { value: any }) => {
       if (!value?.asset) return null
       const url = urlFor(value).width(1200).quality(85).url()
+      const caption = value.caption || value.alt
       return (
         <figure className="my-10">
           <div className="relative w-full aspect-video rounded-sm overflow-hidden shadow-lg">
             <Image
               src={url}
-              alt={value.alt || ''}
+              alt={value.alt || value.caption || ''}
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 720px"
             />
           </div>
-          {value.alt && (
+          {caption && (
             <figcaption className="mt-3 text-center font-source text-sm text-charcoal/50 italic">
-              {value.alt}
+              {caption}
             </figcaption>
           )}
         </figure>
+      )
+    },
+    youtube: ({ value }: { value: { url?: string } }) => {
+      if (!value?.url) return null
+      const id = youtubeId(value.url)
+      if (!id) return null
+      return (
+        <div className="my-10 aspect-video rounded-sm overflow-hidden shadow-lg">
+          <iframe
+            src={`https://www.youtube.com/embed/${id}`}
+            title="YouTube video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full border-0"
+          />
+        </div>
       )
     },
   },
@@ -67,16 +92,30 @@ export const articleComponents: PortableTextComponents = {
     em: ({ children }) => (
       <em className="italic text-maroon/80">{children}</em>
     ),
-    link: ({ children, value }: { children: any; value?: { href?: string } }) => (
-      <a
-        href={value?.href || '#'}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-maroon underline decoration-gold/40 underline-offset-2 hover:decoration-gold hover:text-gold transition-colors"
-      >
-        {children}
-      </a>
+    underline: ({ children }) => (
+      <span className="underline underline-offset-2">{children}</span>
     ),
+    'strike-through': ({ children }) => (
+      <span className="line-through">{children}</span>
+    ),
+    code: ({ children }) => (
+      <code className="font-mono text-[0.9em] bg-charcoal/5 text-maroon px-1.5 py-0.5 rounded">
+        {children}
+      </code>
+    ),
+    link: ({ children, value }: { children: any; value?: { href?: string; blank?: boolean } }) => {
+      const openNewTab = value?.blank !== false
+      return (
+        <a
+          href={value?.href || '#'}
+          target={openNewTab ? '_blank' : undefined}
+          rel={openNewTab ? 'noopener noreferrer' : undefined}
+          className="text-maroon underline decoration-gold/40 underline-offset-2 hover:decoration-gold hover:text-gold transition-colors"
+        >
+          {children}
+        </a>
+      )
+    },
   },
 
   list: {
