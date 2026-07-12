@@ -91,7 +91,7 @@ export default function Footer() {
             {/* Logo + Brand row: logo and Hindi title vertically aligned */}
             <Link href="/" className="flex items-center gap-4 mb-3 group">
               <Image
-                src="/images/logos/logo-hindi.png"
+                src="/images/logos/logo-hindi.webp"
                 alt="News Potli"
                 width={80}
                 height={80}

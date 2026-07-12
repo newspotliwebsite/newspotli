@@ -2,11 +2,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 const SERIES = [
-  { name: 'तकनीक से तरक्की', slug: 'taknik-se-tarakki', image: '/images/series/series-tech-tarakki.png' },
-  { name: 'एग्रो हीरो', slug: 'agro-hero', image: '/images/series/series-agro-hero.png' },
-  { name: 'सोशल हीरोज', slug: 'social-heroes', image: '/images/series/series-social-heroes.png' },
-  { name: 'सोलर से समृद्धि', slug: 'solar-samriddhi', image: '/images/series/series-solar-samriddhi.png' },
-  { name: 'एग्रो पाठशाला', slug: 'agro-pathshala', image: '/images/series/series-agro-pathshala.png' },
+  { name: 'तकनीक से तरक्की', slug: 'taknik-se-tarakki', image: '/images/series/series-tech-tarakki.webp' },
+  { name: 'एग्रो हीरो', slug: 'agro-hero', image: '/images/series/series-agro-hero.webp' },
+  { name: 'सोशल हीरोज', slug: 'social-heroes', image: '/images/series/series-social-heroes.webp' },
+  { name: 'सोलर से समृद्धि', slug: 'solar-samriddhi', image: '/images/series/series-solar-samriddhi.webp' },
+  { name: 'एग्रो पाठशाला', slug: 'agro-pathshala', image: '/images/series/series-agro-pathshala.webp' },
 ]
 
 export default function SeriesSection() {

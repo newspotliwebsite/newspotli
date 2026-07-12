@@ -57,7 +57,7 @@ export default function Header() {
             {/* Logo + text branding */}
             <Link href="/" className="flex items-center flex-shrink-0">
               <Image
-                src="/images/logos/logo-hindi.png"
+                src="/images/logos/logo-hindi.webp"
                 alt="News Potli"
                 width={120}
                 height={120}
@@ -119,7 +119,7 @@ export default function Header() {
             ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
         >
           <div className="flex items-center justify-between px-5 py-4 border-b border-[#e8e0d0]">
-            <Image src="/images/logos/logo-hindi.png" alt="News Potli" width={80} height={80} className="h-9 w-auto" />
+            <Image src="/images/logos/logo-hindi.webp" alt="News Potli" width={80} height={80} className="h-9 w-auto" />
             <button
               onClick={() => setIsMobileMenuOpen(false)}
               className="p-2 text-charcoal hover:text-maroon transition-colors"

@@ -16,7 +16,7 @@ export default function Preloader() {
     >
       <div className="flex flex-col items-center gap-5">
         <Image
-          src="/images/logos/logo-hindi.png"
+          src="/images/logos/logo-hindi.webp"
           alt=""
           width={80}
           height={80}
