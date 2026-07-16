@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 // Official brand marks, as paths rather than emoji: "▶" and "📷" render as
 // whatever glyph the device font happens to have, which on a low-end Android
@@ -33,20 +34,18 @@ const LinkedInIcon = () => (
   </svg>
 )
 
+// The real brand mark rather than "NP" set in Playfair: the text version relied
+// on the webfont having loaded, so it flashed as a fallback serif on 3G.
+// alt="" because each Link already carries aria-label="News Potli" — labelling
+// the image too would make a screen reader announce the name twice.
 const NewsPotliIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-full w-full">
-    <text
-      x="12"
-      y="16"
-      textAnchor="middle"
-      fill="currentColor"
-      fontSize="9"
-      fontWeight="bold"
-      fontFamily="Playfair Display, serif"
-    >
-      NP
-    </text>
-  </svg>
+  <Image
+    src="/images/logos/logo-hindi.webp"
+    alt=""
+    width={40}
+    height={40}
+    className="h-full w-full object-contain"
+  />
 )
 
 // One face per platform. `face` carries the 3D transform that positions it on
@@ -99,10 +98,12 @@ const FACES = [
     face: '[transform:rotateX(90deg)_translateZ(60px)]',
   },
   {
+    // White face, unlike the other five: the logo is a maroon roundel on white,
+    // so a coloured face would box it in.
     name: 'News Potli',
     Icon: NewsPotliIcon,
     url: 'https://newspotli.com',
-    bg: 'bg-[#5C0F0F]',
+    bg: 'bg-white',
     text: 'text-maroon',
     hover: 'hover:bg-cream',
     face: '[transform:rotateX(-90deg)_translateZ(60px)]',
