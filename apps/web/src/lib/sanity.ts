@@ -10,6 +10,8 @@ export const client = createClient({
   dataset,
   apiVersion,
   useCdn: true,
+  // Explicit so drafts can never surface here even if a token is ever added.
+  perspective: 'published',
 })
 
 export const writeClient = createClient({
@@ -17,6 +19,18 @@ export const writeClient = createClient({
   dataset,
   apiVersion,
   useCdn: false,
+  token: process.env.SANITY_API_TOKEN,
+})
+
+// Draft Mode only. `previewDrafts` overlays draft documents on top of published
+// ones, so an unpublished edit resolves to the draft. Requires a read token and
+// must bypass the CDN, which is why this is separate from `client`.
+export const previewClient = createClient({
+  projectId,
+  dataset,
+  apiVersion,
+  useCdn: false,
+  perspective: 'previewDrafts',
   token: process.env.SANITY_API_TOKEN,
 })
 

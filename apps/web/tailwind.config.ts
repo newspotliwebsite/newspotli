@@ -37,10 +37,20 @@ const config: Config = {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-50%)' },
         },
+        // Social cube: dwells on each face, then turns to the next.
+        cubeRotate: {
+          '0%, 15%': { transform: 'rotateY(0deg) rotateX(0deg)' },
+          '20%, 35%': { transform: 'rotateY(90deg) rotateX(0deg)' },
+          '40%, 55%': { transform: 'rotateY(180deg) rotateX(0deg)' },
+          '60%, 75%': { transform: 'rotateY(270deg) rotateX(0deg)' },
+          '80%, 90%': { transform: 'rotateY(360deg) rotateX(90deg)' },
+          '95%, 100%': { transform: 'rotateY(360deg) rotateX(0deg)' },
+        },
       },
       animation: {
         shimmer: 'shimmer 1.6s ease-in-out infinite',
         'marquee-trusted': 'marquee-trusted 20s linear infinite',
+        cubeRotate: 'cubeRotate 12s ease-in-out infinite',
       },
     },
   },

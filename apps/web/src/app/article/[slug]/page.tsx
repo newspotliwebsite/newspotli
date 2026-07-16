@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Metadata } from 'next'
+import { draftMode } from 'next/headers'
 import Image from 'next/image'
 import Link from 'next/link'
 import { PortableText } from '@portabletext/react'
 
-import { client, urlFor } from '@/lib/sanity'
+import { client, previewClient, urlFor } from '@/lib/sanity'
 import { formatArticleDate } from '@/lib/utils'
 import {
   ARTICLE_BY_SLUG_QUERY,
@@ -41,7 +42,7 @@ export async function generateMetadata({
   params: { slug: string }
 }): Promise<Metadata> {
   const slug = decodeSlug(params.slug)
-  const article = await fetchArticle(slug)
+  const article = await fetchArticle(slug, draftMode().isEnabled)
   if (!article) return { title: 'Article Not Found — News Potli' }
 
   const title = article.seoTitle || article.title
@@ -80,9 +81,11 @@ export async function generateMetadata({
 }
 
 // ── Data Fetching ──
-async function fetchArticle(slug: string) {
+// In Draft Mode, read through previewClient so unpublished edits resolve.
+async function fetchArticle(slug: string, isDraft = false) {
   try {
-    return await client.fetch(ARTICLE_BY_SLUG_QUERY, { slug })
+    const sanityClient = isDraft ? previewClient : client
+    return await sanityClient.fetch(ARTICLE_BY_SLUG_QUERY, { slug })
   } catch {
     return null
   }
@@ -122,7 +125,8 @@ export default async function ArticlePage({
   params: { slug: string }
 }) {
   const slug = decodeSlug(params.slug)
-  const article = await fetchArticle(slug)
+  const { isEnabled: isDraft } = draftMode()
+  const article = await fetchArticle(slug, isDraft)
 
   if (!article) {
     const { notFound } = await import('next/navigation')
@@ -176,6 +180,16 @@ export default async function ArticlePage({
 
   return (
     <>
+      {/* Not sticky: Header already owns `sticky top-0 z-50`, and two competing
+          sticky bars overlap. Preview is an author-only affordance anyway. */}
+      {isDraft && (
+        <div className="bg-yellow-400 text-black text-center py-2 text-sm font-bold font-source">
+          PREVIEW MODE — यह ड्राफ्ट है{' '}
+          <a href="/api/exit-preview" className="underline hover:text-maroon">
+            Exit Preview
+          </a>
+        </div>
+      )}
       <ProgressBar />
       <Header />
 

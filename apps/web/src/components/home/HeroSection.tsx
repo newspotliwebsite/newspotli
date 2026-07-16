@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect, useCallback } from 'react'
 import { getArticleImage, timeAgo } from '@/lib/utils'
-import TwitterFeed from '@/components/home/TwitterFeed'
+import SocialCube from '@/components/home/SocialCube'
 
 interface Article {
   _id: string
@@ -208,9 +208,21 @@ export default function HeroSection({
             </div>
           </div>
 
-          {/* RIGHT — Latest from X / Twitter */}
+          {/* RIGHT — Weather (placeholder) + social cube */}
           <div className="hidden lg:block order-3">
-            <TwitterFeed articles={leftArticles} />
+            <div className="space-y-4">
+              <div className="bg-gradient-to-br from-sky-50 to-blue-50 rounded-xl p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-2xl" aria-hidden="true">🌤️</span>
+                  <span className="font-noto text-sm font-bold text-charcoal">मौसम</span>
+                </div>
+                <p className="font-noto text-xs text-charcoal/50">
+                  Coming soon — आपके क्षेत्र का मौसम
+                </p>
+              </div>
+
+              <SocialCube />
+            </div>
           </div>
         </div>
       </div>

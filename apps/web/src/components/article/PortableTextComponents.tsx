@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import { urlFor } from '@/lib/sanity'
 import type { PortableTextComponents } from '@portabletext/react'
+import TweetEmbed from '@/components/article/TweetEmbed'
 
 // Extract an 11-char YouTube video ID from any common URL format.
 function youtubeId(url: string): string | null {
@@ -9,6 +10,16 @@ function youtubeId(url: string): string | null {
     /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/
   )
   return match ? match[1] : null
+}
+
+// Instagram's /embed/ endpoint needs the post URL with its trailing slash.
+// Without this, ".../p/ABC123" + "embed/" would yield ".../p/ABC123embed/".
+function instagramEmbedUrl(url: string): string | null {
+  const base = url.split('?')[0].replace(/\/+$/, '')
+  if (!/^https:\/\/(www\.)?instagram\.com\/(p|reel|tv)\/[A-Za-z0-9_-]+$/.test(base)) {
+    return null
+  }
+  return `${base}/embed/`
 }
 
 export const articleComponents: PortableTextComponents = {
@@ -48,6 +59,51 @@ export const articleComponents: PortableTextComponents = {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             className="w-full h-full border-0"
+          />
+        </div>
+      )
+    },
+    twitterEmbed: ({ value }: { value: { url?: string } }) => {
+      if (!value?.url) return null
+      // widgets.js resolves the tweet from the blockquote link, but bail early
+      // on URLs that clearly aren't tweets so we don't render a dead embed.
+      if (!/\/status\/\d+/.test(value.url)) return null
+      return <TweetEmbed url={value.url} />
+    },
+    facebookEmbed: ({ value }: { value: { url?: string } }) => {
+      if (!value?.url) return null
+      const src = `https://www.facebook.com/plugins/post.php?href=${encodeURIComponent(
+        value.url
+      )}&show_text=true&width=500`
+      return (
+        <div className="my-8 flex justify-center">
+          <iframe
+            src={src}
+            title="Facebook post"
+            width={500}
+            height={400}
+            loading="lazy"
+            allowFullScreen
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            className="w-full max-w-[500px] border-0 overflow-hidden"
+          />
+        </div>
+      )
+    },
+    instagramEmbed: ({ value }: { value: { url?: string } }) => {
+      if (!value?.url) return null
+      const src = instagramEmbedUrl(value.url)
+      if (!src) return null
+      return (
+        <div className="my-8 flex justify-center">
+          <iframe
+            src={src}
+            title="Instagram post"
+            width={400}
+            height={500}
+            loading="lazy"
+            allowFullScreen
+            className="w-full max-w-[400px] border-0"
           />
         </div>
       )

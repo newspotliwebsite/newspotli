@@ -1,5 +1,69 @@
 import { groq } from 'next-sanity'
 
+// ── Homepage ──
+// Every homepage section orders by `publishedAt desc` so new articles surface
+// automatically. The hero no longer depends on the `featured` flag: editors
+// were leaving it unset, which pinned the carousel to stale stories.
+
+// Hero carousel ("मुख्य खबरें") — latest 4 that actually have a hero image,
+// since the carousel is image-led and a missing image looks broken.
+export const HOMEPAGE_HERO_QUERY = groq`
+  *[_type == "article"
+    && defined(publishedAt)
+    && defined(slug.current)
+    && defined(heroImage.asset)]
+    | order(publishedAt desc) [0..3] {
+    _id, title, slug, excerpt, heroImage, publishedAt, readTime, breakingNews,
+    "category": category->{ title, slug, color, icon },
+    "author": author->{ name, photo }
+  }
+`
+
+// Hero sidebar ("ताज़ा खबरें") — latest across all categories. Over-fetches so
+// the page can drop anything already showing in the carousel and still fill 5.
+export const HOMEPAGE_LATEST_QUERY = groq`
+  *[_type == "article" && defined(publishedAt) && defined(slug.current)]
+    | order(publishedAt desc) [0..19] {
+    _id, title, slug, excerpt, heroImage, publishedAt, readTime,
+    "category": category->{ title, slug, color, icon },
+    "author": author->{ name }
+  }
+`
+
+// Section queries filter by their own category slug. Slugs verified against the
+// production dataset — see CLAUDE.md "CONTENT CATEGORIES".
+export const HOMEPAGE_SECTION_BY_CATEGORY_QUERY = groq`
+  *[_type == "article"
+    && defined(publishedAt)
+    && defined(slug.current)
+    && category->slug.current == $categorySlug]
+    | order(publishedAt desc) [0..$limit] {
+    _id, title, slug, excerpt, heroImage, publishedAt, readTime,
+    "category": category->{ title, slug, color, icon },
+    "author": author->{ name }
+  }
+`
+
+export const HOMEPAGE_MORE_HEADLINES_QUERY = groq`
+  *[_type == "article" && defined(publishedAt) && defined(slug.current)]
+    | order(publishedAt desc) [0..8] {
+    _id, title, slug, publishedAt, heroImage,
+    "category": category->{ title, slug, color },
+    "author": author->{ name }
+  }
+`
+
+export const HOMEPAGE_WEB_STORIES_QUERY = groq`
+  *[_type == "article"
+    && defined(publishedAt)
+    && defined(slug.current)
+    && defined(heroImage.asset)]
+    | order(publishedAt desc) [0..9] {
+    _id, title, slug, heroImage, publishedAt,
+    "author": author->{ name }
+  }
+`
+
 export const LATEST_ARTICLES_QUERY = groq`
   *[_type == "article"] | order(publishedAt desc) [0..9] {
     _id,
@@ -50,8 +114,16 @@ export const SIDEBAR_ARTICLES_QUERY = groq`
   }
 `
 
+// Ticker ("ताज़ा खबर") — the latest 10 across every category.
+// Previously filtered on `breakingNews == true`, which left the ticker empty
+// whenever nobody remembered to tick the box.
 export const BREAKING_NEWS_QUERY = groq`
-  *[_type == "article" && breakingNews == true] | order(publishedAt desc) [0..4]
+  *[_type == "article" && defined(publishedAt) && defined(slug.current)]
+    | order(publishedAt desc) [0..9] {
+    _id,
+    title,
+    slug
+  }
 `
 
 export const RELATED_ARTICLES_QUERY = groq`
@@ -78,6 +150,10 @@ export const HOMEPAGE_CATEGORIES_QUERY = groq`
 export const CATEGORY_LIST_QUERY = HOMEPAGE_CATEGORIES_QUERY
 
 // ── Article Detail Page ──
+// Published reads go through `client`, which uses the default `published`
+// perspective, so drafts are already excluded. Draft Mode swaps in
+// `previewClient` (perspective: previewDrafts) and reuses this same query —
+// the perspective, not the filter, decides which documents resolve.
 export const ARTICLE_BY_SLUG_QUERY = groq`
   *[_type == "article" && slug.current == $slug][0] {
     _id,

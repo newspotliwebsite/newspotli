@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity'
+import { defineField, defineType, type Rule } from 'sanity'
 
 export default defineType({
   name: 'article',
@@ -87,6 +87,70 @@ export default defineType({
             },
           },
         },
+        {
+          name: 'twitterEmbed',
+          type: 'object',
+          title: 'Twitter/X Post',
+          icon: () => '𝕏',
+          fields: [
+            {
+              name: 'url',
+              type: 'url',
+              title: 'Tweet URL',
+              description:
+                'Paste the full tweet URL (e.g., https://x.com/PotliNews/status/...)',
+              validation: (Rule: Rule) => Rule.required(),
+            },
+          ],
+          preview: {
+            select: { url: 'url' },
+            prepare({ url }: { url?: string }) {
+              return { title: 'Twitter/X Post', subtitle: url || 'No URL set' }
+            },
+          },
+        },
+        {
+          name: 'facebookEmbed',
+          type: 'object',
+          title: 'Facebook Post',
+          icon: () => 'f',
+          fields: [
+            {
+              name: 'url',
+              type: 'url',
+              title: 'Facebook Post URL',
+              description: 'Paste the full Facebook post URL',
+              validation: (Rule: Rule) => Rule.required(),
+            },
+          ],
+          preview: {
+            select: { url: 'url' },
+            prepare({ url }: { url?: string }) {
+              return { title: 'Facebook Post', subtitle: url || 'No URL set' }
+            },
+          },
+        },
+        {
+          name: 'instagramEmbed',
+          type: 'object',
+          title: 'Instagram Post',
+          icon: () => '📷',
+          fields: [
+            {
+              name: 'url',
+              type: 'url',
+              title: 'Instagram Post URL',
+              description: 'Paste the full Instagram post URL',
+              validation: (Rule: Rule) => Rule.required(),
+            },
+          ],
+          preview: {
+            select: { url: 'url' },
+            prepare({ url }: { url?: string }) {
+              return { title: 'Instagram Post', subtitle: url || 'No URL set' }
+            },
+          },
+        },
       ],
     }),
     defineField({
@@ -124,6 +188,17 @@ export default defineType({
       name: 'publishedAt',
       title: 'Published At',
       type: 'datetime',
+      // Defaults to "now" at document creation so the field is never blank —
+      // homepage ordering and the sitemap both depend on it. Authors can still
+      // override it (e.g. backdating an import).
+      initialValue: () => new Date().toISOString(),
+      options: {
+        dateFormat: 'DD MMM YYYY',
+        timeFormat: 'HH:mm',
+        timeStep: 15,
+      },
+      description:
+        'Automatically set to the current date/time. You can change it if needed.',
     }),
     defineField({
       name: 'featured',

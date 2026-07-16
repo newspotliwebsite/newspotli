@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Metadata } from 'next'
 import { client } from '@/lib/sanity'
-import { groq } from 'next-sanity'
+import {
+  HOMEPAGE_HERO_QUERY,
+  HOMEPAGE_LATEST_QUERY,
+  HOMEPAGE_SECTION_BY_CATEGORY_QUERY,
+  HOMEPAGE_MORE_HEADLINES_QUERY,
+  HOMEPAGE_WEB_STORIES_QUERY,
+} from '@/lib/queries'
 
 // ── SEO Metadata ──
 export const metadata: Metadata = {
@@ -40,7 +46,7 @@ import TrustedBy from '@/components/home/TrustedBy'
 export const revalidate = 60
 
 export default async function HomePage() {
-  let featuredArticles: any[] = []
+  let heroArticles: any[] = []
   let latestArticles: any[] = []
   let deepStories: any[] = []
   let groundReports: any[] = []
@@ -49,56 +55,42 @@ export default async function HomePage() {
   let webStories: any[] = []
 
   try {
-    const [featured, latest, mausam, ground, headlines, stories] = await Promise.all([
-      client.fetch(groq`*[_type=="article" && featured==true] | order(publishedAt desc)[0..3]{
-        _id, title, slug, excerpt, heroImage, publishedAt, readTime, breakingNews,
-        "category": category->{ title, slug, color, icon },
-        "author": author->{ name, photo }
-      }`, {}, { next: { revalidate: 60 } }),
-      client.fetch(groq`*[_type=="article"] | order(publishedAt desc)[0..19]{
-        _id, title, slug, excerpt, heroImage, publishedAt, readTime,
-        "category": category->{ title, slug, color, icon },
-        "author": author->{ name }
-      }`, {}, { next: { revalidate: 60 } }),
-      // DeepStories section ("मौसम-बेमौसम") — filter to the mausam-bemaum category only
-      client.fetch(groq`*[_type=="article" && category->slug.current == "mausam-bemaum"] | order(publishedAt desc)[0..5]{
-        _id, title, slug, excerpt, heroImage, publishedAt, readTime,
-        "category": category->{ title, slug, color },
-        "author": author->{ name }
-      }`, {}, { next: { revalidate: 60 } }),
-      // LatestNewsGrid section ("ग्राउंड रिपोर्ट्स") — filter to the ground-reports category only
-      client.fetch(groq`*[_type=="article" && category->slug.current == "ground-reports"] | order(publishedAt desc)[0..7]{
-        _id, title, slug, excerpt, heroImage, publishedAt, readTime,
-        "category": category->{ title, slug, color, icon },
-        "author": author->{ name }
-      }`, {}, { next: { revalidate: 60 } }),
-      client.fetch(groq`*[_type=="article"] | order(publishedAt desc)[0..8]{
-        _id, title, slug, publishedAt, heroImage,
-        "category": category->{ title, slug, color },
-        "author": author->{ name }
-      }`, {}, { next: { revalidate: 60 } }),
-      client.fetch(groq`*[_type == "article" && defined(heroImage)] | order(publishedAt desc)[0..9]{
-        _id, title, slug, heroImage, publishedAt,
-        "author": author->{ name }
-      }`, {}, { next: { revalidate: 60 } }),
+    const [hero, latest, mausam, ground, headlines, stories] = await Promise.all([
+      client.fetch(HOMEPAGE_HERO_QUERY, {}, { next: { revalidate: 60 } }),
+      client.fetch(HOMEPAGE_LATEST_QUERY, {}, { next: { revalidate: 60 } }),
+      // DeepStories section ("मौसम-बेमौसम")
+      client.fetch(
+        HOMEPAGE_SECTION_BY_CATEGORY_QUERY,
+        { categorySlug: 'mausam-bemaum', limit: 5 },
+        { next: { revalidate: 60 } }
+      ),
+      // LatestNewsGrid section ("ग्राउंड रिपोर्ट्स")
+      client.fetch(
+        HOMEPAGE_SECTION_BY_CATEGORY_QUERY,
+        { categorySlug: 'ground-reports', limit: 7 },
+        { next: { revalidate: 60 } }
+      ),
+      client.fetch(HOMEPAGE_MORE_HEADLINES_QUERY, {}, { next: { revalidate: 60 } }),
+      client.fetch(HOMEPAGE_WEB_STORIES_QUERY, {}, { next: { revalidate: 60 } }),
     ])
 
-    featuredArticles = featured || []
+    heroArticles = hero || []
     latestArticles = latest || []
     deepStories = mausam || []
     groundReports = ground || []
     moreHeadlines = headlines || []
     webStories = stories || []
 
-    // Fallback: use latest if no featured
-    if (featuredArticles.length === 0 && latestArticles.length > 0) {
-      featuredArticles = latestArticles.slice(0, 4)
+    // If no article has a hero image yet, fall back to plain latest so the
+    // carousel still renders rather than vanishing.
+    if (heroArticles.length === 0 && latestArticles.length > 0) {
+      heroArticles = latestArticles.slice(0, 4)
     }
 
-    // Latest articles for the hero left sidebar (skip featured ids)
-    const featuredIds = new Set(featuredArticles.map((a: any) => a._id))
-    const remaining = latestArticles.filter((a: any) => !featuredIds.has(a._id))
-    leftSide = remaining.slice(0, 5)
+    // Sidebar shows the newest articles that aren't already in the carousel —
+    // running the same 4 stories twice side by side reads as a bug.
+    const heroIds = new Set(heroArticles.map((a: any) => a._id))
+    leftSide = latestArticles.filter((a: any) => !heroIds.has(a._id)).slice(0, 5)
   } catch (error: any) {
     console.error('Failed to fetch Sanity data:', error.message || error)
   }
@@ -106,7 +98,7 @@ export default async function HomePage() {
   // For LatestNewsGrid ("ग्राउंड रिपोर्ट्स"): show ground-reports articles, excluding
   // anything already in the hero carousel. Fall back to latest only if the
   // category has no articles yet, so the section never disappears.
-  const usedInHero = new Set(featuredArticles.map((a: any) => a._id))
+  const usedInHero = new Set(heroArticles.map((a: any) => a._id))
   const groundFiltered = groundReports.filter((a: any) => !usedInHero.has(a._id))
   const latestFallback = latestArticles.filter((a: any) => !usedInHero.has(a._id))
   const specialReports = groundFiltered.length > 0 ? groundFiltered : latestFallback
@@ -143,7 +135,7 @@ export default async function HomePage() {
         <BreakingTicker />
         <div id="latest">
           <HeroSection
-            featuredArticles={featuredArticles}
+            featuredArticles={heroArticles}
             leftArticles={leftSide}
           />
         </div>
