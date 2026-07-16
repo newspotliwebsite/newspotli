@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { getLatestVideos, YouTubeVideo } from '@/lib/youtube'
 import { formatArticleDate } from '@/lib/utils'
+import LiteYouTube from '@/components/home/LiteYouTube'
 
 // YouTube API titles can carry HTML entities (&#39;, &amp;, ...) — DOMParser
 // isn't available server-side, so decode the handful of entities that
@@ -41,12 +42,10 @@ export default async function FeaturedVideos() {
         {/* Featured video */}
         <div className="mb-8">
           <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg bg-cream-dark">
-            <iframe
-              src={`https://www.youtube.com/embed/${mainVideo.id}`}
+            <LiteYouTube
+              videoId={mainVideo.id}
               title={decodeHtml(mainVideo.title)}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="absolute inset-0 w-full h-full border-0"
+              thumbnailUrl={mainVideo.thumbnailHqUrl}
             />
           </div>
           <h3 className="font-noto text-lg font-bold text-charcoal leading-snug mt-4">
