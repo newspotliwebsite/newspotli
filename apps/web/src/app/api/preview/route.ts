@@ -8,7 +8,11 @@ export async function GET(request: Request) {
   const slug = url.searchParams.get('slug')
   const secret = url.searchParams.get('secret')
 
-  const expected = process.env.SANITY_REVALIDATE_SECRET
+  // Deliberately NOT SANITY_REVALIDATE_SECRET. The Studio bundle is public, so
+  // whatever secret the preview link carries is readable by anyone. Keeping
+  // this distinct means a leak exposes drafts but cannot force cache
+  // invalidation via /api/revalidate.
+  const expected = process.env.SANITY_PREVIEW_SECRET
   // Without this check an unset env var would make `undefined === undefined`
   // pass and open draft mode to anyone.
   if (!expected) {

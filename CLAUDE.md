@@ -162,8 +162,13 @@ public/images/
 ## ═══ ENVIRONMENT VARIABLES ═══
 NEXT_PUBLIC_SANITY_PROJECT_ID = a86sthtc
 NEXT_PUBLIC_SANITY_DATASET = production
-SANITY_API_TOKEN = [in .env.local — use for writeClient]
+SANITY_API_TOKEN = [in .env.local — use for writeClient AND previewClient]
 SANITY_REVALIDATE_SECRET = [in .env.local — validate in /api/revalidate]
+SANITY_PREVIEW_SECRET = [in .env.local — validate in /api/preview]
+  ↳ Must equal SANITY_STUDIO_PREVIEW_SECRET in apps/studio/.env.
+  ↳ Kept separate from SANITY_REVALIDATE_SECRET on purpose: the Studio bundle is
+    public, so this value is readable by anyone. A leak must not also grant
+    cache invalidation. Never merge the two.
 NEXT_PUBLIC_ALGOLIA_APP_ID = HRU4MZSZBK
 NEXT_PUBLIC_ALGOLIA_SEARCH_KEY = [in .env.local]
 ALGOLIA_ADMIN_KEY = [in .env.local — server only, never NEXT_PUBLIC_]
