@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useState, useEffect, useCallback } from 'react'
 import { getArticleImage, timeAgo } from '@/lib/utils'
 import SocialCube from '@/components/home/SocialCube'
+import HeroWeatherCard from '@/components/home/HeroWeatherCard'
 
 interface Article {
   _id: string
@@ -208,19 +209,10 @@ export default function HeroSection({
             </div>
           </div>
 
-          {/* RIGHT — Weather (placeholder) + social cube */}
+          {/* RIGHT — Weather + social cube */}
           <div className="hidden lg:block order-3">
             <div className="space-y-4">
-              <div className="bg-gradient-to-br from-sky-50 to-blue-50 rounded-xl p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-2xl" aria-hidden="true">🌤️</span>
-                  <span className="font-noto text-sm font-bold text-charcoal">मौसम</span>
-                </div>
-                <p className="font-noto text-xs text-charcoal/50">
-                  Coming soon — आपके क्षेत्र का मौसम
-                </p>
-              </div>
-
+              <HeroWeatherCard />
               <SocialCube />
             </div>
           </div>

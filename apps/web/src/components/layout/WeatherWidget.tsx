@@ -3,35 +3,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { DURATION_FAST, EASE_OUT } from '@/lib/motion'
-import { getCurrentWeather, getForecast } from '@/lib/weather'
+import { getWeather, getWeatherEmoji } from '@/lib/weather'
 import type { WeatherData, ForecastDay } from '@/lib/weather'
-
-// ── Weather icon mapping ──
-
-const WEATHER_ICONS: Record<string, string> = {
-  '01d': '\u2600\uFE0F', // sun
-  '01n': '\uD83C\uDF19', // crescent moon
-  '02d': '\u26C5',       // sun behind cloud
-  '02n': '\u2601\uFE0F', // cloud
-  '03d': '\u2601\uFE0F',
-  '03n': '\u2601\uFE0F',
-  '04d': '\u2601\uFE0F',
-  '04n': '\u2601\uFE0F',
-  '09d': '\uD83C\uDF27\uFE0F', // cloud with rain
-  '09n': '\uD83C\uDF27\uFE0F',
-  '10d': '\uD83C\uDF27\uFE0F',
-  '10n': '\uD83C\uDF27\uFE0F',
-  '11d': '\u26C8\uFE0F', // thunder
-  '11n': '\u26C8\uFE0F',
-  '13d': '\u2744\uFE0F', // snowflake
-  '13n': '\u2744\uFE0F',
-  '50d': '\uD83C\uDF2B\uFE0F', // fog
-  '50n': '\uD83C\uDF2B\uFE0F',
-}
-
-function getWeatherEmoji(icon: string): string {
-  return WEATHER_ICONS[icon] ?? '\u2601\uFE0F'
-}
 
 // ── Refresh interval ──
 const REFRESH_MS = 30 * 60 * 1000 // 30 minutes
@@ -60,15 +33,13 @@ export default function WeatherWidget() {
   const [isLoading, setIsLoading] = useState(true)
   const widgetRef = useRef<HTMLDivElement>(null)
 
-  // Fetch weather data
+  // Header weather is always Lucknow (HQ) — no coords, so no geolocation
+  // prompt on every page load. The hero card is the one that localises.
   const fetchData = useCallback(async () => {
     try {
-      const [currentData, forecastData] = await Promise.all([
-        getCurrentWeather(),
-        getForecast(),
-      ])
-      setWeather(currentData)
-      setForecast(forecastData)
+      const { current, forecast: days } = await getWeather()
+      setWeather(current)
+      setForecast(days)
     } finally {
       setIsLoading(false)
     }

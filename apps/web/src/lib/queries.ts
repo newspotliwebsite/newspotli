@@ -218,8 +218,13 @@ export const CATEGORY_BY_SLUG_QUERY = groq`
   }
 `
 
+// Undated drafts sort to the bottom rather than mixing into the timeline:
+// `defined(publishedAt) desc` puts true (dated) first, then publishedAt orders
+// within each group. Relying on GROQ's implicit null placement is not worth
+// the ambiguity here.
 export const CATEGORY_ARTICLES_QUERY = groq`
-  *[_type == "article" && category->slug.current == $slug] | order(publishedAt desc) [$start..$end] {
+  *[_type == "article" && category->slug.current == $slug]
+    | order(defined(publishedAt) desc, publishedAt desc) [$start..$end] {
     _id,
     title,
     slug,
